@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% load static %}
+
+<link
+ rel="stylesheet"
+ type="text/css"
+ href="{% static 'Estilo/css/bootstrap.css' %}"
+/>
+<link
+ rel="stylesheet"
+ type="text/css"
+ href="{% static 'Estilo/css/style.css' %}"
+/>
+<html>
+<head>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <h3>Ingresar Datos de Registro</h3>
+          </a>
+        </div>
+      </nav>
+    
+    <main class="main-section p-4 text-center">
+        <div class="modal-dialog text-center">
+
+           <div class="modal-dialog text-center">
+               <div class="col-sm-8">
+                   <div class="modal-content">
+                       <div class="col-12 user-img">
+                           <img src= "{% static 'img/LogoRestorant.png' %}"/>
+                       </div>
+ <form action="" method="POST">
+        {% csrf_token %}
+<<<<<<< HEAD
+        <div class="form-floating mb-3" id="user-group">            
+            <input type="text" name="username" class="form-control" id="floatingUsuario" placeholder="Usuario">
+            <label for="floatingUsuario">Nombre Usuario</label>
+        </div>
+
+        <!-- 
+         <div>            
+            <select class="form-select" aria-label="Disabled select example" >
+                <option selected>Seleccionar </option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </br>
+        </div>
+        -->
+        <div class="form-floating mb-3" id="user-group">            
+            <input type="email" name="email" class="form-control" placeholder="EXAMPLE@GMAIL.COM">
+            <label for="floatingUsuario">Email</label>
+        </div>
+        <div class="form-floating mb-3" id="user-group">            
+            <input type="text" name="first_name" class="form-control" placeholder="Nombre">
+            <label for="floatingUsuario">Nombre</label>
+        </div>
+        <div class="form-floating mb-3" id="user-group" >
+            <input type="text" name="last_name " class="form-control" placeholder="Apellido">
+            <label for="floatingUsuario">Apellido</label>
+        </div>
+        <div class="form-floating mb-3" id="user-group" >            
+            <input type="text" name="password1" class="form-control" placeholder="Contraseña">
+            <label for="floatingUsuario">Contraseña</label>
+        </div>
+        <div class="form-floating mb-3" id="user-group">            
+            <input type="text" name="password2" class="form-control" placeholder="Confirmar Contraseña">
+            <label for="floatingUsuario">Confirmar Contraseña</label>
+=======
+        <div>
+            <label>Usuario</label>
+            <input type="text" name="username">
+        </div>
+        <!--<div>
+            <label>Grupo</label>
+            <select name="groups" id="groups">
+                <option value="">Seleccionar</option>
+                {% for c in grupos %}
+                    <option value="{{ c.0 }}">{{c.1}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        -->
+
+
+        
+        
+        <div>
+            <label>Email</label>
+            <input type="email" name="email">
+        </div>
+        <div>
+            <label>Nombre</label>
+            <input type="text" name="first_name">
+        </div>
+        <div>
+            <label>Apellido</label>
+            <input type="text" name="last_name">
+        </div>
+        <div>
+            <label>Contraseña</label>
+            <input type="password" name="password1">
+        </div>
+        <div>
+            <label>Confirmar Contraseña</label>
+            <input type="password" name="password2">
+<<<<<<< HEAD
+>>>>>>> 8adc9dd31af0c6e1706c508de4c5b7c9182fba31
+=======
+>>>>>>> origin
+        </div>
+        
+
+        <input type="submit" value="Registrar" class="btn btn-success">
+    </form>
+
+
+
+                    
+                   </div>
+               </div>
+
+           </div>
+         </div>
+
+       </div>
+
+    </main>
+</body>
+
+
+</html>

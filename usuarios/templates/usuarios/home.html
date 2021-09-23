@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+
+<link
+ rel="stylesheet"
+ type="text/css"
+ href="{% static 'Estilo/css/bootstrap.css' %}"
+/>
+<link
+ rel="stylesheet"
+ type="text/css"
+ href="{% static 'Estilo/css/style.css' %}"
+/>
+<html>
+<head>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <h3>Pagina Principal</h3>
+          </a>
+        </div>
+      </nav>
+    
+    <main class="main-section p-4 text-center">
+        <div class="modal-dialog text-center">
+
+           <div class="modal-dialog text-center">
+               <div class="col-sm-8">
+                   <div class="modal-content">
+                       <div class="col-12 user-img">
+                           <img src= "{% static 'img/LogoRestorant.png' %}"/>
+                       </div>
+ 
+
+     {% if user.is_authenticated %}
+    <a href="{% url 'logout' %}">Cerrar sesion</a>
+    {% else %}
+    <a href="{% url 'login' %}">Iniciar sesion</a>
+    <a href="{% url 'registro' %}">Registrarse</a>
+    {% endif %}
+
+
+
+                    
+                   </div>
+               </div>
+
+           </div>
+         </div>
+
+       </div>
+
+    </main>
+</body>
+
+
+</html>
