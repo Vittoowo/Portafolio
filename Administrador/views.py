@@ -18,3 +18,4 @@ def listar_estados():
         lista.append(fila)
     return lista
 
+#aqui voy a hacer el registro by:Yesni
