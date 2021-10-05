@@ -12,16 +12,21 @@ def home(request):
     return render(request,'usuarios/home.html')
 
 def RegistroUsuario(request):
-    #data={
-    #    'grupos':listar_grupos()
-    #}
+    data={
+       'grupos':listar_grupos()
+    }
     if request.method =='POST':
-        formulario= CustomUserForm(request.POST)
-        if formulario.is_valid():
-            
-            formulario.save()
-            return redirect (to='home')
-    return render(request,'registration/registro.html')#,data)
+        #formulario= CustomUserForm(request.POST)
+        user = User.objects.create_user("usuario3","portafolio","usuario3@vfarias.cl")
+        #if formulario.is_valid():
+        print(request.POST.get("username"))
+        print(request.POST.get("groups"))
+        #formulario.save()
+        return redirect (to='home')
+        
+        #else:
+        #    print("error")    
+    return render(request,'registration/registro.html',data)
 
 def listar_grupos():
     django_cursor = connection.cursor()
