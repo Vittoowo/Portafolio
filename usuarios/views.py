@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import Group, User
 from django.shortcuts import render
 from django.db import connection
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth import authenticate
 
 # Create your views here.
@@ -19,11 +19,18 @@ def log(request):
         us=request.POST.get("username")
         pas=request.POST.get("password1")
         user = authenticate(username=us, password=pas)
+        login(request,user)
         if user is None:
             print("no hay usuario")
         else:
-           print("si hay usuario")
+            if user.groups.filter(name='Administrador').exists():
+                return redirect (to='mesas')
+            else:
+                return redirect (to='home')
     return render(request,'registration/login.html') 
+def logout_def(request):
+    logout(request)
+    return redirect (to='home')
 
 def RegistroUsuario(request):
     data={
@@ -48,10 +55,7 @@ def RegistroUsuario(request):
             group=Group.objects.get(id=id_grupo)
             user.groups.add(group)
             login(request,user)
-            if user.groups.filter(name='Administrador').exists():
-                return redirect (to='mesas')
-            else:
-                return redirect (to='home')
+            
         except Exception as e:
             data['message']=e.__str__()
 
