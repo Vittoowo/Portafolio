@@ -1,15 +1,29 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.contrib.auth.models import Group, User,GroupManager
-from usuarios.forms import CustomUserForm
+from django.contrib.auth.models import Group, User
 from django.shortcuts import render
 from django.db import connection
-
+from django.contrib.auth import login
+from django.contrib.auth import authenticate
 
 # Create your views here.
 
 def home(request):
     return render(request,'usuarios/home.html')
+
+def log(request):
+
+    
+    if request.method =='POST':
+
+        us=request.POST.get("username")
+        pas=request.POST.get("password1")
+        user = authenticate(username=us, password=pas)
+        if user is None:
+            print("no hay usuario")
+        else:
+           print("si hay usuario")
+    return render(request,'registration/login.html') 
 
 def RegistroUsuario(request):
     data={
@@ -33,7 +47,11 @@ def RegistroUsuario(request):
             user = User.objects.create_user(username,email,password)
             group=Group.objects.get(id=id_grupo)
             user.groups.add(group)
-            return redirect (to='home')
+            login(request,user)
+            if user.groups.filter(name='Administrador').exists():
+                return redirect (to='mesas')
+            else:
+                return redirect (to='home')
         except Exception as e:
             data['message']=e.__str__()
 

@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 {% load static %}
 
-<link
- rel="stylesheet"
- type="text/css"
- href="{% static 'Estilo/css/bootstrap.css' %}"
-/>
-<link
- rel="stylesheet"
- type="text/css"
- href="{% static 'Estilo/css/style.css' %}"
-/>
+<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/bootstrap.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}" />
 <html>
+
 <head>
 </head>
+
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <h3>Ingresa tus credenciales</h3>
-          </a>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <h3>Ingresa tus credenciales</h3>
+      </a>
+    </div>
+  </nav>
+
+  <main class="main-section p-4 text-center">
+    <div class="modal-dialog text-center">
+
+      <div class="modal-dialog text-center">
+        <div class="col-sm-8">
+          <div class="modal-content">
+            <div class="col-12 user-img">
+              <img src="{% static 'img/LogoRestorant.png' %}" />
+            </div>
+            <form action="" method="POST">
+              {% csrf_token %}
+
+              <div class="form-floating mb-3" id="user-group">
+                <input type="text" name="username" class="form-control" id="floatingUsuario" placeholder="Usuario">
+                <label for="floatingUsuario">Nombre Usuario</label>
+              </div>
+
+              <div class="form-floating mb-3" id="user-group">
+                <input type="text" name="password1" class="form-control" placeholder="Contraseña">
+                <label for="floatingUsuario">Contraseña</label>
+              </div>
+
+              <input type="submit" value="ingresar" class="btn btn-success">
+
+            </form>
+          </div>
         </div>
-      </nav>
-    
-    <main class="main-section p-4 text-center">
-        <div class="modal-dialog text-center">
 
-           <div class="modal-dialog text-center">
-               <div class="col-sm-8">
-                   <div class="modal-content">
-                       <div class="col-12 user-img">
-                           <img src= "{% static 'img/LogoRestorant.png' %}"/>
-                       </div>
-                       <form action="" method="POST">
-                        {% csrf_token %}
-                        {{ form }}
-                    
-                        <input type="submit" value="ingresar" class="btn btn-success">
-                        
-                    </form>                       
-                   </div>
-               </div>
+      </div>
+    </div>
 
-           </div>
-         </div>
+    </div>
 
-       </div>
-
-    </main>
+  </main>
 </body>
 
 
