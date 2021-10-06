@@ -21,7 +21,8 @@ def RegistroUsuario(request):
         try:
             
             username=request.POST.get("username")
-            password=request.POST.get("password")
+            password=request.POST.get("password1")
+            print(password)
             email=request.POST.get("email")
             id_grupo=int(request.POST.get('groups'))
             #print(f'{username}, {password} , {email} , {id_grupo}')
@@ -32,6 +33,7 @@ def RegistroUsuario(request):
             user = User.objects.create_user(username,email,password)
             group=Group.objects.get(id=id_grupo)
             user.groups.add(group)
+            return redirect (to='home')
         except Exception as e:
             data['message']=e.__str__()
 
