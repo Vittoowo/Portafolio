@@ -3,8 +3,47 @@
 //GRANT CONNECT , RESOURCE TO c##Administrador;
 //ALTER USER c##Administrador quota unlimited on USERS; 
 
+DROP TABLE boleta CASCADE CONSTRAINTS;
 
+DROP TABLE estado_mesa CASCADE CONSTRAINTS;
 
+DROP TABLE estado_orden CASCADE CONSTRAINTS;
+
+DROP TABLE estado_reserva CASCADE CONSTRAINTS;
+
+DROP TABLE informe_rendimiento CASCADE CONSTRAINTS;
+
+DROP TABLE marca_producto CASCADE CONSTRAINTS;
+
+DROP TABLE mesas CASCADE CONSTRAINTS;
+
+DROP TABLE mesasporreserva CASCADE CONSTRAINTS;
+
+DROP TABLE orden CASCADE CONSTRAINTS;
+
+DROP TABLE pedido_producto CASCADE CONSTRAINTS;
+
+DROP TABLE pedido_proveedor CASCADE CONSTRAINTS;
+
+DROP TABLE plato CASCADE CONSTRAINTS;
+
+DROP TABLE platos_orden CASCADE CONSTRAINTS;
+
+DROP TABLE productos CASCADE CONSTRAINTS;
+
+DROP TABLE productos_receta CASCADE CONSTRAINTS;
+
+DROP TABLE proveedor CASCADE CONSTRAINTS;
+
+DROP TABLE receta CASCADE CONSTRAINTS;
+
+DROP TABLE reserva CASCADE CONSTRAINTS;
+
+DROP TABLE unidad_medida CASCADE CONSTRAINTS;
+
+DROP TABLE utilidad_diarias CASCADE CONSTRAINTS;
+
+DROP TABLE utilidad_mensual CASCADE CONSTRAINTS;
 
 CREATE TABLE boleta (
     id_boleta       NUMBER(10) NOT NULL,
@@ -55,6 +94,14 @@ CREATE TABLE mesas (
 );
 
 ALTER TABLE mesas ADD CONSTRAINT mesas_pk PRIMARY KEY ( id_mesa );
+
+CREATE TABLE mesasporreserva (
+    mesas_id_mesa        NUMBER(3) NOT NULL,
+    reserva_id_reserva   NUMBER(10) NOT NULL
+);
+
+ALTER TABLE mesasporreserva ADD CONSTRAINT mesasporreserva_pk PRIMARY KEY ( mesas_id_mesa,
+                                                                            reserva_id_reserva );
 
 CREATE TABLE orden (
     id_orden                  NUMBER(10) NOT NULL,
@@ -148,16 +195,14 @@ CREATE UNIQUE INDEX receta__idx ON
 
 ALTER TABLE receta ADD CONSTRAINT receta_pk PRIMARY KEY ( id_receta );
 
-CREATE OR REPLACE TABLE reserva (
+CREATE TABLE reserva (
     id_reserva                      NUMBER(10) NOT NULL,
-    mesas_id_mesa                   NUMBER(3) NOT NULL,
     estado_reserva_id_est_reserva   NUMBER(1) NOT NULL,
     rut_reserva                     NVARCHAR2(12) NOT NULL,
-    nombre_reserva                  NVARCHAR(50) NOT NULL,
-    fecha_reserva                   DATETIME NOT NULL,
-    email_reserva                   NVARCHAR(50),
-    telefono_reserva                NVARCHAR(12),
-    cantidad_p                      NUMBER(2) NOT NULL
+    fecha_reserva                   DATE NOT NULL,
+    email                           VARCHAR2(50),
+    telefono_reserva                VARCHAR2(12) NOT NULL,
+    cantidad_personas_reserva       NUMBER(2) NOT NULL
 );
 
 ALTER TABLE reserva ADD CONSTRAINT reserva_pk PRIMARY KEY ( id_reserva );
@@ -186,6 +231,14 @@ ALTER TABLE boleta
 ALTER TABLE mesas
     ADD CONSTRAINT mesas_estado_mesa_fk FOREIGN KEY ( estado_mesa_id_est_mesa )
         REFERENCES estado_mesa ( id_est_mesa );
+
+ALTER TABLE mesasporreserva
+    ADD CONSTRAINT mesasporreserva_mesas_fk FOREIGN KEY ( mesas_id_mesa )
+        REFERENCES mesas ( id_mesa );
+
+ALTER TABLE mesasporreserva
+    ADD CONSTRAINT mesasporreserva_reserva_fk FOREIGN KEY ( reserva_id_reserva )
+        REFERENCES reserva ( id_reserva );
 
 ALTER TABLE orden
     ADD CONSTRAINT orden_boleta_fk FOREIGN KEY ( boleta_id_boleta )
@@ -248,18 +301,7 @@ ALTER TABLE reserva
     ADD CONSTRAINT reserva_estado_reserva_fk FOREIGN KEY ( estado_reserva_id_est_reserva )
         REFERENCES estado_reserva ( id_est_reserva );
 
-ALTER TABLE reserva
-    ADD CONSTRAINT reserva_mesas_fk FOREIGN KEY ( mesas_id_mesa )
-        REFERENCES mesas ( id_mesa );
-
-
-
 COMMIT;
-
-INSERT INTO ESTADO_MESA VALUES(1,'Disponible');
-INSERT INTO ESTADO_MESA VALUES(2,'En Uso');
-INSERT INTO ESTADO_MESA VALUES(3,'Por Limpiar');
-INSERT INTO ESTADO_MESA VALUES(4,'Reservada');
 
 
 CREATE OR REPLACE PROCEDURE SP_CREATE_MESAS(v_id_mesa in NUMBER
@@ -299,3 +341,9 @@ INSERT INTO AUTH_GROUP VALUES(3,'Cocina');
 INSERT INTO AUTH_GROUP VALUES(4,'Finanzas');
 INSERT INTO AUTH_GROUP VALUES(5,'Cliente');
 INSERT INTO AUTH_GROUP VALUES(6,'Recepcion');
+
+
+INSERT INTO ESTADO_MESA VALUES(1,'Disponible');
+INSERT INTO ESTADO_MESA VALUES(2,'En Uso');
+INSERT INTO ESTADO_MESA VALUES(3,'Por Limpiar');
+INSERT INTO ESTADO_MESA VALUES(4,'Reservada');
