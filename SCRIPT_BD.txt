@@ -5,6 +5,7 @@
 
 
 
+
 CREATE TABLE boleta (
     id_boleta       NUMBER(10) NOT NULL,
     mesas_id_mesa   NUMBER(3) NOT NULL,
@@ -147,12 +148,16 @@ CREATE UNIQUE INDEX receta__idx ON
 
 ALTER TABLE receta ADD CONSTRAINT receta_pk PRIMARY KEY ( id_receta );
 
-CREATE TABLE reserva (
+CREATE OR REPLACE TABLE reserva (
     id_reserva                      NUMBER(10) NOT NULL,
     mesas_id_mesa                   NUMBER(3) NOT NULL,
     estado_reserva_id_est_reserva   NUMBER(1) NOT NULL,
     rut_reserva                     NVARCHAR2(12) NOT NULL,
-    fecha_reserva                   DATE NOT NULL
+    nombre_reserva                  NVARCHAR(50) NOT NULL,
+    fecha_reserva                   DATE NOT NULL,
+    email_reserva                   NVARCHAR(50),
+    telefono_reserva                NVARCHAR(12),
+    cantidad_p                      NUMBER(2) NOT NULL
 );
 
 ALTER TABLE reserva ADD CONSTRAINT reserva_pk PRIMARY KEY ( id_reserva );
