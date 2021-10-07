@@ -154,7 +154,7 @@ CREATE OR REPLACE TABLE reserva (
     estado_reserva_id_est_reserva   NUMBER(1) NOT NULL,
     rut_reserva                     NVARCHAR2(12) NOT NULL,
     nombre_reserva                  NVARCHAR(50) NOT NULL,
-    fecha_reserva                   DATE NOT NULL,
+    fecha_reserva                   DATETIME NOT NULL,
     email_reserva                   NVARCHAR(50),
     telefono_reserva                NVARCHAR(12),
     cantidad_p                      NUMBER(2) NOT NULL
