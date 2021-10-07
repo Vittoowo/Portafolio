@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+
+<link
+ rel="stylesheet"
+ type="text/css"
+ href="{% static 'Estilo/css/bootstrap.css' %}"
+/>
+<link
+ rel="stylesheet"
+ type="text/css"
+ href="{% static 'Estilo/css/style.css' %}"
+/>
+<html>
+<head>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <h3>Mesas</h3>
+          </a>
+        </div>
+      </nav>
+    
+    <main class="main-section p-4 text-center">
+        <div class="modal-dialog text-center">
+
+           <div class="modal-dialog text-center">
+               <div class="col-sm-8">
+                   <div class="modal-content">
+                       <div class="col-12 user-img">
+                           <img src= "{% static 'img/LogoRestorant.png' %}"/>
+                       </div>
+ 
+    <select name="estados" id="estados">
+        <option value="">Seleccionar</option>
+        {% for c in estados %}
+            <option value="{{ c.0 }}">{{c.1}}</option>
+        {% endfor %}
+    </select>
+    
+
+                    
+                   </div>
+               </div>
+
+           </div>
+         </div>
+
+       </div>
+
+    </main>
+</body>
+
+
+</html>
