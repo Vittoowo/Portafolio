@@ -335,13 +335,34 @@ BEGIN
     DELETE FROM MESAS WHERE id_mesa = id_mes;
 END;
 
-INSERT INTO AUTH_GROUP VALUES (1,'Administrador');
-INSERT INTO AUTH_GROUP VALUES(2,'Bodega');
-INSERT INTO AUTH_GROUP VALUES(3,'Cocina');
-INSERT INTO AUTH_GROUP VALUES(4,'Finanzas');
-INSERT INTO AUTH_GROUP VALUES(5,'Cliente');
-INSERT INTO AUTH_GROUP VALUES(6,'Recepcion');
 
+----- Cristiancito -----
+create or replace PROCEDURE SP_LISTAR_RESERVAS(reservas out SYS_REFCURSOR)
+IS
+BEGIN
+    OPEN RESERVAS FOR SELECT * FROM RESERVA;
+END;
+
+create or replace PROCEDURE SP_AGREGAR_RESERVA(
+    v_ID_Reserva number,
+    v_ID_Mesa number,
+    v_ID_Estado_Mesa number,
+    v_Rut_Reserva NVARCHAR2,
+    v_Fecha_Reserva date,
+    v_salida out number)
+IS
+BEGIN
+    INSERT INTO RESERVA (ID_RESERVA, mesas_id_mesa, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva)
+    VALUES(v_ID_Reserva, v_ID_Mesa, v_ID_Estado_Mesa, v_Rut_Reserva, v_Fecha_Reserva);
+    commit;
+    v_salida:=1;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+----- Fin de Cristiancito ------
 
 INSERT INTO ESTADO_MESA VALUES(1,'Disponible');
 INSERT INTO ESTADO_MESA VALUES(2,'En Uso');
