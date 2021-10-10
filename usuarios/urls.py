@@ -1,6 +1,5 @@
 from django.urls import path
 from .views import home, RegistroUsuario,log,logout_def
-from Administrador import views as av
 from mesas import views as mv
 from reservas import views as rv
 
