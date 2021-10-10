@@ -18,3 +18,8 @@ def listar_estados():
     for fila in out_cur:
         lista.append(fila)
     return lista
+
+
+#lo del video
+def mesas(request):
+    return render(request, 'mesas/Mesas.html')
