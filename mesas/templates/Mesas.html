@@ -1,68 +1,86 @@
 <!DOCTYPE html>
 {% load static %}
 
-<link
- rel="stylesheet"
- type="text/css"
- href="{% static 'Estilo/css/bootstrap.css' %}"
-/>
-<link
- rel="stylesheet"
- type="text/css"
- href="{% static 'Estilo/css/style.css' %}"
-/>
+<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/bootstrap.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}" />
 <html>
+
 <head>
 </head>
+
 <body>
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <h3>Gestion de Mesas ♥</h3>
-          </a>
+            <a class="navbar-brand" href="#">
+                <h3>♥Gestion de Mesas♥</h3>
+            </a>
         </div>
-      </nav>
-    
-     
+    </nav>
+
     <main class="main-section p-4 text-center">
         <div class="modal-dialog text-center">
 
-           <div class="modal-dialog text-center">
-               <div class="col-sm-8">
-                   <div class="modal-content">
-                       <div class="col-12 user-img">
-                           <img src= "{% static 'img/LogoRestorant.png' %}"/>
-                       </div>
- 
+            <div class="modal-dialog text-center">
+                <div class="col-sm-8">
+                    <div class="modal-content">
+                        <div class="col-12 user-img">
+                            <img src="{% static 'img/LogoRestorant.png' %}" />
+                        </div>
+                        <form action="" method="POST">
+                            {% csrf_token %}
 
-    <h2>Agregar Mesa</h2>
-       <from action = "" method ="POST">
-         {% csrf_token %}
-         <label for="">Numero de Mesa</label>
-         <input type="number" name="idmesa" id="idmesa">
-         <br> 
-         <label for = "">Capacidad personas </label>
-         <input type="number" name="capacidad" id="capacidad">
-         <br>
-         <label for="">Estado de la Mesa</label>
-         <select name="estado" id= "estado">
-           <option value=""> Seleccionar</option>
-           {% for e in lista_estado %}
-           <option value="{{ e.0 }}">{{e.1}}</option>
-           {% endfor %}
-         </select>
-         <br>
-         <input type="submit" value="Guardar"> 
-       </from>
-                    
-                   </div>
-               </div>
+                            <div class="form-floating mb-3" id="user-group">
+                                <input type="number" name="idmesa" class="form-control" id="idmesa"
+                                    placeholder="numeromesa">
+                                <label for="floatingUsuario">Número de Mesa🤡</label>
+                            </div>
 
-           </div>
-         </div>
+                            <!-- 
+         <div>            
+            <select class="form-select" aria-label="Disabled select example" >
+                <option selected>Seleccionar </option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </br>
+        </div>
+        -->
+                            <div class="form-floating mb-3" id="user-group">
+                                <input type="number" name="capacidad" class="form-control"  placeholder="capacidadper">
+                                <label for="floatingUsuario">Capacidad de Personas🤑</label>
+                            </div>
 
-       </div>
+                            <div>
+                                <label>Estado de la Mesa💀</label>
+                                <select name="estado" id="estado">
+                                    <option value="">Seleccionar</option>
+                                    {% for e in lista_estado %}
+                                    <option value="{{ e.0 }}">{{e.1}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
 
+                            <div class="form-floating mb-3">
+                                <input type="submit" value="Guardar" class="btn btn-success">
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        </div>
+        {% if mensaje %}
+        <script>
+            
+            alert('{{ mensaje }}');
+            
+        </script>
+        {%endif%}
+        
     </main>
 </body>
 

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.db import connection
 # Create your views here.
 from django.contrib.auth.decorators import login_required
+import cx_Oracle
 
 
 @login_required
@@ -11,15 +12,18 @@ def Mesas(request):
         'mensaje': ""
         
     }
-    if request.method == 'POST':
-        numeromesa = request.POST.get('id_mesa')
-        cantidadpersonas=request.POST.get('capacidad')
-        estadomesa=request.POST.get('estado')
-        salida = agregar_mesa(numeromesa,cantidadpersonas, estadomesa)
-        if salida==1:
-            data['mensaje'] = 'mesa agregada correctamente'
-        else:
-            data['mensaje'] = 'mesa no se pudo agregar'
+    try:
+        if request.method == 'POST':
+            #numeromesa = request.POST.get('id_mesa')
+            #cantidadpersonas=request.POST.get('capacidad')
+            #estadomesa=request.POST.get('estado')
+            salida = agregar_mesa(2,1,1)
+            if salida=="1":
+                data['mensaje'] = 'Mesa agregada correctamente'
+            else:
+                data['mensaje'] = f'el mensaje de error es: {salida}'
+    except Exception as e:
+        data['mensaje']= e.__str__()
 
     return render(request,'Mesas.html',data)
 
@@ -40,11 +44,14 @@ def listar_estados():
     return lista
 
 def agregar_mesa(numeromesa,cantidadpersonas,estadomesa):
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor()
-    salida= 0;
-    cursor.callproc ('SP_CREATE_MESAS',[numeromesa,cantidadpersonas,estadomesa,salida])
-    return salida
+    try:
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        salida= cursor.var(cx_Oracle.STRING)
+        cursor.callproc ('SP_CREATE_MESAS',[numeromesa,cantidadpersonas,estadomesa,salida])
+        return salida
+    except Exception as e:
+        return e.__str__()
 
 
 
