@@ -7,8 +7,20 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def Mesas(request):
     data ={
-        'estado':listar_estados()
+        'estado':listar_estados(),
+        'mensaje': ""
+        
     }
+    if request.method == 'POST':
+        numeromesa = request.POST.get('id_mesa')
+        cantidadpersonas=request.POST.get('capacidad')
+        estadomesa=request.POST.get('estado')
+        salida = agregar_mesa(numeromesa,cantidadpersonas, estadomesa)
+        if salida==1:
+            data['mensaje'] = 'mesa agregada correctamente'
+        else:
+            data['mensaje'] = 'mesa no se pudo agregar'
+
     return render(request,'Mesas.html',data)
 
 def listar_estados():
@@ -27,24 +39,13 @@ def listar_estados():
         lista.append(fila)
     return lista
 
-"""
-def CreateMesas(request):
-
+def agregar_mesa(numeromesa,cantidadpersonas,estadomesa):
     django_cursor = connection.cursor()
-
     cursor = django_cursor.connection.cursor()
+    salida= 0;
+    cursor.callproc ('SP_CREATE_MESAS',[numeromesa,cantidadpersonas,estadomesa,salida])
+    return salida
 
-    out_cur = 0;
-
-    cursor.callproc("SP_CREATE_MESAS",[request. ,2,1,    out_cur])
-
-    if out_cur == 1:
-        return render(request, 'mesas/Mesas.html')
-    else:
-        return render(request,'Mesas.html')
-
-
-"""
 
 
 #lo del video
