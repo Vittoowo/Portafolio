@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def Mesas(request):
     data ={
-        'estado':listar_estados(),
+        'lista_estado':listar_estados(),
         'mensaje': ""
         
     }

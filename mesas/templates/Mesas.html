@@ -18,11 +18,12 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <h3>Gestion de Mesas</h3>
+            <h3>Gestion de Mesas ♥</h3>
           </a>
         </div>
       </nav>
     
+     
     <main class="main-section p-4 text-center">
         <div class="modal-dialog text-center">
 
@@ -33,12 +34,26 @@
                            <img src= "{% static 'img/LogoRestorant.png' %}"/>
                        </div>
  
-    <select name="estados" id="estados">
-        <option value="">Seleccionar</option>
-        {% for c in estados %}
-            <option value="{{ c.0 }}">{{c.1}}</option>
-        {% endfor %}
-    </select>
+
+    <h2>Agregar Mesa</h2>
+       <from action = "" method ="POST">
+         {% csrf_token %}
+         <label for="">Numero de Mesa</label>
+         <input type="number" name="idmesa" id="idmesa">
+         <br> 
+         <label for = "">Capacidad personas </label>
+         <input type="number" name="capacidad" id="capacidad">
+         <br>
+         <label for="">Estado de la Mesa</label>
+         <select name="estado" id= "estado">
+           <option value=""> Seleccionar</option>
+           {% for e in lista_estado %}
+           <option value="{{ e.0 }}">{{e.1}}</option>
+           {% endfor %}
+         </select>
+         <br>
+         <input type="submit" value="Guardar"> 
+       </from>
                     
                    </div>
                </div>
