@@ -304,12 +304,26 @@ ALTER TABLE reserva
 COMMIT;
 
 
-CREATE OR REPLACE PROCEDURE SP_CREATE_MESAS(v_id_mesa in NUMBER
-,v_capacidad in NUMBER, v_estado_mesa NUMBER)
+
+CREATE OR REPLACE PROCEDURE SP_CREATE_MESAS
+(
+    v_id_mesa in NUMBER,
+    v_capacidad in NUMBER, 
+    v_estado_mesa in NUMBER,
+    v_salida out NUMBER
+)
 AS
 BEGIN
   INSERT INTO MESAS VALUES(v_id_mesa,v_capacidad,v_estado_mesa);
+  v_salida:=1;
+  
+
+EXCEPTION WHEN OTHERS THEN
+
+    v_salida:=0;
+
 END;
+
 
 
 CREATE OR REPLACE PROCEDURE SP_R_ESTADO_MESA(estado out SYS_REFCURSOR)
@@ -318,17 +332,21 @@ BEGIN
     open estado for select*from estado_mesa;
 END;
 
+
 CREATE OR REPLACE PROCEDURE SP_READ_MESAS(prc out sys_refcursor)
 AS
 BEGIN
     OPEN prc for SELECT * FROM MESAS;
 END;
 
+
 CREATE OR REPLACE PROCEDURE SP_UPDATE_MESAS(id_mes in NUMBER,estado in NUMBER)
 AS
 BEGIN
     UPDATE MESAS SET ESTADO_MESA_ID_EST_MESA=estado WHERE id_mesa = id_mes;
 END;
+
+
 CREATE OR REPLACE PROCEDURE SP_DELETE_MESAS(id_mes in NUMBER)
 AS
 BEGIN
