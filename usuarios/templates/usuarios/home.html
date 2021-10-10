@@ -52,7 +52,16 @@
 
        </div>
 
+        {% if message %}
+        <script>
+            
+            alert('{{ message }}');
+            
+        </script>
+        {%endif%}
+        
     </main>
+        
 </body>
 
 

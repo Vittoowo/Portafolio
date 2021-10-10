@@ -10,6 +10,8 @@ urlpatterns = [
     path('Administrador/',av.Mesas,name="mesas"),
     path('login/',log,name='login'),
     path('logout/',logout_def,name='logout'),
+    #Agregar Reservas
+    #Agregar Mesas
 
 
 ]

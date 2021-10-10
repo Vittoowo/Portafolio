@@ -61,11 +61,17 @@ def RegistroUsuario(request):
             #Agregamos al usuario a un grupo
             user.groups.add(group)
             #Lo redirigimos al login
-            return redirect(to='login')
+            data['message']='Usuario creado exitosamente'
+            return render(request,'registration/login.html',data)    
+            #return redirect(to='login')
             
         except Exception as e:
-            data['message']=e.__str__()   
-    return render(request,'registration/registro.html',data)
+            data['message']=e.__str__
+            return render(request,'registration/registro.html',data)
+    return render(request,'registration/registro.html',data)     
+    
+
+
 #Metodo que devuelve la lista de los grupos
 def listar_grupos():
     #Creamos una lista vacia que devolveremos

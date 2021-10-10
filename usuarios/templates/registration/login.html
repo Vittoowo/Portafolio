@@ -38,20 +38,21 @@
                 <input type="text" name="password1" class="form-control" placeholder="Contraseña">
                 <label for="floatingUsuario">Contraseña</label>
               </div>
-
               <input type="submit" value="Ingresar" class="btn btn-success">
-
             </form>
           </div>
         </div>
-
       </div>
     </div>
-
-    </div>
-
+</div>
+{% if message %}
+  <script>
+    alert('{{ message }}');
+            
+  </script>
+{%endif%}
+        
   </main>
+  
 </body>
-
-
 </html>
