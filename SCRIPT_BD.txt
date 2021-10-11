@@ -354,12 +354,15 @@ BEGIN
 END;
 
 
------ Cristiancito -----
+---------- Aqui comienza Cristiancito ----------
 create or replace PROCEDURE SP_LISTAR_RESERVAS(reservas out SYS_REFCURSOR)
 IS
 BEGIN
     OPEN RESERVAS FOR SELECT * FROM RESERVA;
 END;
+
+
+
 
 create or replace PROCEDURE SP_AGREGAR_RESERVA(
     v_ID_Reserva number,
@@ -380,7 +383,52 @@ BEGIN
     v_salida:=0;
 END;
 
------ Fin de Cristiancito ------
+
+
+CREATE OR REPLACE PROCEDURE SP_ELIMINAR_RESERVA(
+    v_ID_Reserva number,
+    v_salida out number)
+IS
+BEGIN
+    DELETE FROM RESERVA
+    WHERE ID_RESERVA = v_ID_RESERVA;
+    commit;
+    v_salida:=1;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+
+
+create or replace PROCEDURE SP_MODIFICAR_RESERVA(
+    v_ID_Reserva number,
+    v_ID_Estado_Mesa number,
+    v_Rut_Reserva NVARCHAR2,
+    v_Fecha_Reserva date,
+    v_email VARCHAR2,
+    v_telefono_reserva varchar2,
+    v_cantidad_personas_reserva number,
+    v_salida out number)
+IS
+BEGIN
+    UPDATE RESERVA SET ESTADO_RESERVA_ID_EST_RESERVA = v_ID_Estado_Mesa,
+                       RUT_RESERVA = v_Rut_Reserva,
+                       FECHA_RESERVA = v_Fecha_Reserva,
+                       EMAIL = v_Email,
+                       TELEFONO_RESERVA = v_Telefono_Reserva,
+                       CANTIDAD_PERSONAS_RESERVA = v_cantidad_personas_reserva
+    WHERE id_reserva = v_ID_Reserva;
+    commit;
+    v_salida:=1;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+---------- Fin de Cristiancito -----------
 
 INSERT INTO ESTADO_MESA VALUES(1,'Disponible');
 INSERT INTO ESTADO_MESA VALUES(2,'En Uso');

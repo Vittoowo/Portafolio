@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+
+<link
+ rel="stylesheet"
+ type="text/css"
+ href="{% static 'Estilo/css/bootstrap.css' %}"
+/>
+<link
+ rel="stylesheet"
+ type="text/css"
+ href="{% static 'Estilo/css/style.css' %}"
+/>
+<html>
+<head>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <h3>Reservas</h3>
+          </a>
+        </div>
+      </nav>
+    
+    <main class="main-section p-4 text-center">
+        <div class="modal-dialog text-center">
+
+           <div class="modal-dialog text-center">
+               <div class="col-sm-18">
+                   <div class="modal-content">
+                       <div class="col-12 user-img">
+                           <img src= "{% static 'img/LogoRestorant.png' %}"/>
+                       </div>
+                       <h2>Listado de Reservas</h2>
+                       <table>
+                         <tr>
+                           <th>ID Reserva</th> 
+                           <th>Estado de Reserva</th>
+                           <th>Rut Reserva</th>
+                           <th>Fecha Reserva</th>
+                           <th>Email</th>
+                           <th>Telefono</th>
+                           <th>Cantidad de Personas</th>
+                         </tr>
+                         {% for r in Reserva %}
+                            <tr>
+                              <td>{{ r.0 }}</td>
+                              <td>{{ r.1 }}</td>
+                              <td>{{ r.2 }}</td>
+                              <td>{{ r.3 }}</td>
+                              <td>{{ r.4 }}</td>
+                              <td>{{ r.5 }}</td>
+                              <td>{{ r.6 }}</td>
+                            </tr>
+                         {% endfor %}
+                       </table>
+    
+    
+
+                    
+                   </div>
+               </div>
+
+           </div>
+           <div class="modal-dialog text-center">
+            <div class="col-sm-18">
+                <div class="modal-content">
+                    <div class="col-12 user-img">
+                        <img src= "{% static 'img/LogoRestorant.png' %}"/>
+                    </div>
+                    <h2>Reservar</h2>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+
+                        <label for="">Id Reserva</label>
+                        <input type="number" name="IDReserva">
+                        <br>
+                        <label for="">Estado Reserva</label>
+                        <input type="number" name="EstadoReserva">
+                        <br>
+                        <label for="">Rut Reserva</label>
+                        <input type="number" name="RutReserva">
+                        <br>
+                        <label for="">Fecha Reserva</label>
+                        <input type="date" name="FechaReserva">
+                        <br>
+                        <label for="">Email</label>
+                        <input type="email" name="Email">
+                        <br>
+                        <label for="">Telefono</label>
+                        <input type="text" name="Telefono">
+                        <br>
+                        <label for="">Cantidad de Personas</label>
+                        <input type="number" name="CantidadPersonas">
+                        <br>
+                        <br>
+                        <input type="submit" name='Guardar' value="Guardar Reserva">
+                        <input type="submit" name='Eliminar' value="Eliminar Reserva">
+                        <input type="submit" name='Modificar' value="Modificar Reserva">
+                        <br>
+                        <br>
+
+                    </form>
+
+                    {{Mensaje}}
+                    <br>
+                    <br>
+                </div>
+            </div>
+
+        </div>
+         </div>
+
+       </div>
+
+    </main>
+</body>
+
+
+</html>
