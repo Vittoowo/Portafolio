@@ -3,11 +3,6 @@ from django.db import connection
 import cx_Oracle
 # Create your views here.
 
-def Mesas(request):
-    data ={
-        'estado':listar_estados()
-    }
-    return render(request,'Mesas.html',data)
 
 def listar_estados():
     django_cursor = connection.cursor()
