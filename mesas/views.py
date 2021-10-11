@@ -10,20 +10,19 @@ def Mesas(request):
     data ={
         'lista_estado':listar_estados(),
         'mensaje': ""
-        
     }
     try:
         if request.method == 'POST':
-            #numeromesa = request.POST.get('id_mesa')
-            #cantidadpersonas=request.POST.get('capacidad')
-            #estadomesa=request.POST.get('estado')
-            salida = agregar_mesa(2,1,1)
-            if salida=="1":
+            numeromesa = int(request.POST.get('idmesa'))
+            cantidadpersonas=int(request.POST.get('capacidad'))
+            estadomesa=int(request.POST.get('estado'))
+            salida = agregar_mesa(numeromesa,cantidadpersonas,estadomesa)
+            if salida==1:
                 data['mensaje'] = 'Mesa agregada correctamente'
             else:
-                data['mensaje'] = f'el mensaje de error es: {salida}'
+                data['mensaje'] = f'No se pudo agregar la mesa :('
     except Exception as e:
-        data['mensaje']= e.__str__()
+        data['mensaje']= f'Error al agregar mesa: {e.__str__()}'
 
     return render(request,'Mesas.html',data)
 
@@ -47,11 +46,11 @@ def agregar_mesa(numeromesa,cantidadpersonas,estadomesa):
     try:
         django_cursor = connection.cursor()
         cursor = django_cursor.connection.cursor()
-        salida= cursor.var(cx_Oracle.STRING)
+        salida= cursor.var(cx_Oracle.NUMBER)
         cursor.callproc ('SP_CREATE_MESAS',[numeromesa,cantidadpersonas,estadomesa,salida])
-        return salida
+        return salida.getvalue()
     except Exception as e:
-        return e.__str__()
+        raise e.__str__()
 
 
 
