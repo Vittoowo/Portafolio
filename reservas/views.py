@@ -9,7 +9,6 @@ def Mesas(request):
     }
     return render(request,'Mesas.html',data)
 
-
 def listar_estados():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -19,7 +18,6 @@ def listar_estados():
     for fila in out_cur:
         lista.append(fila)
     return lista
-
 
 def Reservas(request):
     data ={
@@ -70,6 +68,28 @@ def Reservas(request):
     return render(request, 'Reservas.html', data)
     
 
+"""def Reservas(request):
+    data ={
+        'Reserva':listado_reservas()
+    }
+    
+    if request.method == 'POST':
+        ID_RESERVA = request.POST.get('IDReserva')
+        ESTADO_RESERVA_ID_EST_RESERVA = request.POST.get('EstadoReserva')
+        RUT_RESERVA = request.POST.get('RutReserva')
+        FECHA_RESERVA = request.POST.get('FechaReserva')
+        EMAIL = request.POST.get('Email')
+        TELEFONO_RESERVA = request.POST.get('Telefono')
+        CANTIDAD_PERSONAS_RESERVA = request.POST.get('CantidadPersonas')
+        salida = agregar_reserva(ID_RESERVA, ESTADO_RESERVA_ID_EST_RESERVA, RUT_RESERVA, FECHA_RESERVA, EMAIL, TELEFONO_RESERVA, CANTIDAD_PERSONAS_RESERVA)
+        if salida == 1:
+            data['Mensaje'] = 'Agregado'
+            data['Reserva'] = listado_reservas()
+        else:
+            data['Mensaje'] = 'No se ha podido guardar'
+
+    return render(request, 'Reservas.html', data)"""
+
 def listado_reservas():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -99,7 +119,6 @@ def eliminar_reserva(ID_RESERVA):
     salida = cursor.var(cx_Oracle.NUMBER)
     cursor.callproc('SP_ELIMINAR_RESERVA',[ID_RESERVA, salida])
     return salida.getvalue()
-
 
 def modificar_reserva(ID_RESERVA, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva):
     django_cursor = connection.cursor()
