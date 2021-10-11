@@ -52,8 +52,3 @@ def agregar_mesa(numeromesa,cantidadpersonas,estadomesa):
     except Exception as e:
         raise e.__str__()
 
-
-
-#lo del video
-def mesas(request):
-    return render(request, 'mesas/Mesas.html')
