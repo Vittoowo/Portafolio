@@ -365,14 +365,23 @@ END;
 
 
 ---------- Aqui comienza Cristiancito ----------
+
 create or replace PROCEDURE SP_LISTAR_RESERVAS(reservas out SYS_REFCURSOR)
 IS
 BEGIN
-    OPEN RESERVAS FOR SELECT * FROM RESERVA;
+    open reservas for
+    SELECT r.id_reserva,
+    e.DESC_ESTD_RESERVA,
+    r.rut_reserva,
+    r.fecha_reserva,
+    r.email,
+    r.telefono_reserva,
+    r.cantidad_personas_reserva     
+    FROM RESERVA r
+    JOIN estado_reserva e
+    on r.estado_reserva_id_est_reserva = e.id_est_reserva
+    ORDER BY r.id_reserva;
 END;
-
-
-
 
 create or replace PROCEDURE SP_AGREGAR_RESERVA(
     v_ID_Reserva number,
