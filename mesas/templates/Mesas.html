@@ -28,6 +28,7 @@
                         </div>
                         <form action="" method="POST">
                             {% csrf_token %}
+                            <h2>Agregar Mesas</h2>
 
                             <div class="form-floating mb-3" id="user-group">
                                 <input type="number" name="idmesa" class="form-control" id="idmesa"
@@ -62,10 +63,12 @@
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="submit" value="Guardar" class="btn btn-success">
+                                <input type="submit" name='Guardar' value= "Guardar Mesa" class="btn btn-success">
                             </div>
 
                         </form>
+
+                        </table>
                     </div>
                 </div>
 
@@ -81,6 +84,67 @@
         </script>
         {%endif%}
         
+    </main>
+
+
+    <main class="main-section p-4 text-center">
+        <div class="modal-dialog text-center">
+
+            <div class="modal-dialog text-center">
+                <div class="col-sm-18">
+                    <div class="modal-content">
+                        <div class="col-12 user-img">
+                            <img src= "{% static 'img/LogoRestorant.png' %}"/>
+                        </div>
+                        <h2>Listado de Mesas</h2>
+                       <table>
+                         <tr>
+                           <th>Numero de Mesa</th> 
+                           <th>Capacidad de la Mesa</th>
+                           <th>Estado de la Mesa</th>
+                         </tr>
+                         {% for e in Mesas %}
+                            <tr>
+                              <td>{{ e.0 }}</td>
+                              <td>{{ e.1 }}</td>
+                              <td>{{ e.2 }}</td>
+                            </tr>
+                         {% endfor %}
+                       </table>
+
+    </main>
+
+    <main><div class="modal-dialog text-center">
+
+        <div class="modal-dialog text-center">
+            <div class="col-sm-18">
+                <div class="modal-content">
+                    <div class="col-12 user-img">
+                        <img src= "{% static 'img/LogoRestorant.png' %}"/>
+                    </div>
+                    <h2>Eliminar y/o modificar</h2>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <label for= "">Numero de la Mesa</label>
+                        <input type="number" name="idmesa" class="form-control" id="idmesa" placeholder="Número de la mesa">
+                        <br>
+                        <label for= "">Capacidad de la Mesa</label>
+                        <input type="number" name="capacidad" class="form-control" placeholder="Capacidad de personas">
+                        <br>
+                        <div>
+                            <label>Estado de la Mesa😈</label>
+                            <select name="estado" id="estado">
+                                <option value="">Seleccionar</option>
+                                {% for e in lista_estado %}
+                                <option value="{{ e.0 }}">{{e.1}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <br>
+                        <input type="submit" name='Eliminar' value= "Eliminar Mesa" class="btn btn-success">
+                        <input type="submit" name='Modificar' value= "Modificar Mesa" class="btn btn-success">
+                    </form>
+
     </main>
 </body>
 

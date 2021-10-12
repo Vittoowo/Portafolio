@@ -347,11 +347,21 @@ BEGIN
 END;
 
 
-CREATE OR REPLACE PROCEDURE SP_DELETE_MESAS(id_mes in NUMBER)
-AS
+CREATE OR REPLACE PROCEDURE SP_DELETE_MESAS(
+    v_ID_Mesa in number,
+    v_salida out number)
+IS
 BEGIN
-    DELETE FROM MESAS WHERE id_mesa = id_mes;
+    DELETE FROM MESAS
+    WHERE ID_MESA = v_ID_Mesa;
+    commit;
+    v_salida:=1;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
 END;
+
 
 
 ---------- Aqui comienza Cristiancito ----------
