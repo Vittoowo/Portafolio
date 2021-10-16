@@ -5,12 +5,15 @@ from django.shortcuts import render
 from django.db import connection
 from django.contrib.auth import login, logout
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 
 
 #Vista que retorna Home
 def home(request):
     return render(request,'usuarios/home.html')
-
+@login_required
+def inicioAdmin(request):
+    return render(request,'usuarios/inicio-admin.html')
 #Vista del Home
 def log(request):
     #Si se hace una solicitud de tipo POST    
@@ -27,7 +30,7 @@ def log(request):
             login(request,user)
             #Obtenemos su grupo y segun esto, le redireccionamos a otra pagina
             if user.groups.filter(name='Administrador').exists():
-                return redirect (to='mesas')
+                return redirect (to='inicio-admin')
             else:
                 return redirect (to='home')
     return render(request,'registration/login.html') 
