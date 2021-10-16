@@ -1,8 +1,4 @@
 
-//CREATE USER c##Administrador identified by 1234;
-//GRANT CONNECT , RESOURCE TO c##Administrador;
-//ALTER USER c##Administrador quota unlimited on USERS; 
-
 DROP TABLE boleta CASCADE CONSTRAINTS;
 
 DROP TABLE estado_mesa CASCADE CONSTRAINTS;
@@ -202,7 +198,8 @@ CREATE TABLE reserva (
     fecha_reserva                   DATE NOT NULL,
     email                           VARCHAR2(50),
     telefono_reserva                VARCHAR2(12) NOT NULL,
-    cantidad_personas_reserva       NUMBER(2) NOT NULL
+    cantidad_personas_reserva       NUMBER(2) NOT NULL,
+    mesas_id_mesa                   NUMBER(3) NOT NULL
 );
 
 ALTER TABLE reserva ADD CONSTRAINT reserva_pk PRIMARY KEY ( id_reserva );
@@ -261,10 +258,6 @@ ALTER TABLE pedido_proveedor
     ADD CONSTRAINT pedido_proveedor_proveedor_fk FOREIGN KEY ( proveedor_id_proveedor )
         REFERENCES proveedor ( id_proveedor );
 
-ALTER TABLE plato
-    ADD CONSTRAINT plato_receta_fk FOREIGN KEY ( receta_id_receta )
-        REFERENCES receta ( id_receta );
-
 ALTER TABLE platos_orden
     ADD CONSTRAINT platos_orden_orden_fk FOREIGN KEY ( orden_id_orden )
         REFERENCES orden ( id_orden );
@@ -293,16 +286,15 @@ ALTER TABLE productos
     ADD CONSTRAINT productos_unidad_medida_fk FOREIGN KEY ( unidad_medida_id_unidad )
         REFERENCES unidad_medida ( id_unidad );
 
-ALTER TABLE receta
-    ADD CONSTRAINT receta_plato_fk FOREIGN KEY ( plato_id_plato )
-        REFERENCES plato ( id_plato );
-
 ALTER TABLE reserva
     ADD CONSTRAINT reserva_estado_reserva_fk FOREIGN KEY ( estado_reserva_id_est_reserva )
         REFERENCES estado_reserva ( id_est_reserva );
 
-COMMIT;
+ALTER TABLE reserva
+    ADD CONSTRAINT reserva_mesas_fk FOREIGN KEY ( mesas_id_mesa )
+        REFERENCES mesas ( id_mesa );
 
+--============================
 
 
 CREATE OR REPLACE PROCEDURE SP_CREATE_MESAS
