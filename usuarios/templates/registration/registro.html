@@ -3,6 +3,52 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/bootstrap.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}" />
+
+<!-- BOOTSTRAP PARA PASSWORD-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- JAVASCRIP -->
+<script type="text/javascript">
+  function mostrarPassword(){
+      var cambio = document.getElementById("txtPassword");
+      if(cambio.type == "password"){
+        cambio.type = "text";
+        $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+      }else{
+        cambio.type = "password";
+        $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+      }
+    } 
+    
+    $(document).ready(function () {
+    //CheckBox mostrar contraseña
+    $('#ShowPassword').click(function () {
+      $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+    });
+  });
+
+  </script>
+  <script type="text/javascript">
+    function mostrarPassword2(){
+        var cambio = document.getElementById("txtConfirmacion");
+        if(cambio.type == "password"){
+          cambio.type = "text";
+          $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        }else{
+          cambio.type = "password";
+          $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+        }
+      } 
+      
+      $(document).ready(function () {
+      //CheckBox mostrar contraseña
+      $('#ShowPassword').click(function () {
+        $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+      });
+    });
+    </script>
+<!-- javascrip -->
 <html>
 
 <head>
@@ -34,18 +80,7 @@
                                     placeholder="Usuario">
                                 <label for="floatingUsuario">Nombre Usuario</label>
                             </div>
-
-                            <!-- 
-         <div>            
-            <select class="form-select" aria-label="Disabled select example" >
-                <option selected>Seleccionar </option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </br>
-        </div>
-        -->
+       
                             <div class="form-floating mb-3" id="user-group">
                                 <input type="email" name="email" class="form-control" placeholder="EXAMPLE@GMAIL.COM">
                                 <label for="floatingUsuario">Email</label>
@@ -59,17 +94,26 @@
                                 <label for="floatingUsuario">Apellido</label>
                             </div>
                             <div class="form-floating mb-3" id="user-group">
-                                <input type="text" name="password1" class="form-control" placeholder="Contraseña">
+                                <input type="password" name="password1" class="form-control" placeholder="Contraseña" id="txtPassword">
                                 <label for="floatingUsuario">Contraseña</label>
-                            </div>
+
+ <!-- ojito para ver contraseña-->
+<button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
+ <!-- hasta aca-->
+
+                    </div>
                             <div class="form-floating mb-3" id="user-group">
-                                <input type="text" name="password2" class="form-control"
-                                    placeholder="Confirmar Contraseña">
+                                <input type="password" name="password2" class="form-control" placeholder="Confirmar Contraseña" id="txtConfirmacion">
                                 <label for="floatingUsuario">Confirmar Contraseña</label>
+
+  <!-- ojito para ver contraseña-->
+  <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword2()"> <span class="fa fa-eye-slash icon"></span> </button>
+  <!-- hasta aca-->
+
                             </div>
                             <div>
                                 <label>Grupo</label>
-                                <select name="groups" id="groups">
+                                <select name="groups" id="groups" class="form-select">
                                     <option value="">Seleccionar</option>
                                     {% for c in grupos %}
                                     <option value="{{ c.0 }}">{{c.1}}</option>

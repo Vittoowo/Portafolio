@@ -3,6 +3,32 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/bootstrap.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}" />
+
+<!-- BOOTSTRAP PARA PASSWORD-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- JAVASCRIP -->
+<script type="text/javascript">
+  function mostrarPassword(){
+      var cambio = document.getElementById("txtPassword");
+      if(cambio.type == "password"){
+        cambio.type = "text";
+        $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+      }else{
+        cambio.type = "password";
+        $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+      }
+    } 
+    
+    $(document).ready(function () {
+    //CheckBox mostrar contraseña
+    $('#ShowPassword').click(function () {
+      $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+    });
+  });
+  </script>
+<!-- javascrip -->
 <html>
 
 <head>
@@ -33,12 +59,14 @@
                 <input type="text" name="username" class="form-control" id="floatingUsuario" placeholder="Usuario">
                 <label for="floatingUsuario">Nombre de Usuario</label>
               </div>
-
+              
               <div class="form-floating mb-3" id="user-group">
-                <input type="text" name="password1" class="form-control" placeholder="Contraseña">
-                <label for="floatingUsuario">Contraseña</label>
+                <input type="password" name="password1" class="form-control" placeholder="Contraseña" id="txtPassword"> 
+                <label for="floatingUsuario">Contraseña</label>                
+                  <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
               </div>
-              <input type="submit" value="Ingresar" class="btn btn-success">
+              <input type="submit" value="Ingresar" class="btn btn-success"><br></br>
+            
             </form>
           </div>
         </div>
