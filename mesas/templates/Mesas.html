@@ -8,7 +8,7 @@
 <head>
 </head>
 
-<body>
+<body class="aling-items-center">
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -17,12 +17,12 @@
         </div>
     </nav>
 
-    <main class="main-section p-4 text-center">
-        <div class="modal-dialog text-center">
-
+    <main class="main-section p-12 text-center">
+        
+    <!--  Formulario Agregar Mesa -->
             <div class="modal-dialog text-center">
-                <div class="col-sm-8">
-                    <div class="modal-content">
+                <div class="col-sm-12">
+                    <div class="modal-content text-center">
                         <div class="col-12 user-img">
                             <img src="{% static 'img/LogoRestorant.png' %}" />
                         </div>
@@ -33,33 +33,24 @@
                             <div class="form-floating mb-3" id="user-group">
                                 <input type="number" name="idmesa" class="form-control" id="idmesa"
                                     placeholder="numeromesa">
-                                <label for="floatingUsuario">Número de Mesa🤡</label>
+                                <label for="idmesa">Número de Mesa🤡</label>
                             </div>
 
-                            <!-- 
-         <div>            
-            <select class="form-select" aria-label="Disabled select example" >
-                <option selected>Seleccionar </option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </br>
-        </div>
-        -->
+            
                             <div class="form-floating mb-3" id="user-group">
-                                <input type="number" name="capacidad" class="form-control"  placeholder="capacidadper">
-                                <label for="floatingUsuario">Capacidad de Personas🤑</label>
+                                <input type="number" name="capacidad" class="form-control"  placeholder="capacidadper" id="floatingPer">
+                                <label for="floatingPer">Capacidad de Personas🤑</label>
                             </div>
 
-                            <div>
-                                <label>Estado de la Mesa💀</label>
-                                <select name="estado" id="estado">
+                            <div class="form-floating">
+                                <select name="estado" id="estado" class="form-select">
                                     <option value="">Seleccionar</option>
                                     {% for e in lista_estado %}
                                     <option value="{{ e.0 }}">{{e.1}}</option>
                                     {% endfor %}
                                 </select>
+                                <label for="estado">Estado de la mesa💀</label>
+                                <br>
                             </div>
 
                             <div class="form-floating mb-3">
@@ -68,14 +59,14 @@
 
                         </form>
 
-                        </table>
+                        
                     </div>
                 </div>
 
             </div>
-        </div>
+        
 
-        </div>
+        
         {% if mensaje %}
         <script>
             
@@ -84,20 +75,18 @@
         </script>
         {%endif%}
         
-    </main>
+    
+<!--  Listado de mesas -->
 
-
-    <main class="main-section p-4 text-center">
+    
         <div class="modal-dialog text-center">
 
             <div class="modal-dialog text-center">
-                <div class="col-sm-18">
+                <div class="col-sm-12">
                     <div class="modal-content">
-                        <div class="col-12 user-img">
-                            <img src= "{% static 'img/LogoRestorant.png' %}"/>
-                        </div>
+                        
                         <h2>Listado de Mesas</h2>
-                       <table>
+                       <table class="table table-dark table-striped">
                          <tr>
                            <th>Numero de Mesa</th> 
                            <th>Capacidad de la Mesa</th>
@@ -111,38 +100,55 @@
                             </tr>
                          {% endfor %}
                        </table>
+                       <br>
+                       <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
 
-    </main>
-
-    <main><div class="modal-dialog text-center">
+    
+<!--  Formulario eliminar o modifacr Mesa -->
+    
 
         <div class="modal-dialog text-center">
-            <div class="col-sm-18">
+            <div class="col-sm-12">
                 <div class="modal-content">
-                    <div class="col-12 user-img">
-                        <img src= "{% static 'img/LogoRestorant.png' %}"/>
-                    </div>
+                    
                     <h2>Eliminar y/o modificar</h2>
                     <form action="" method="POST">
                         {% csrf_token %}
-                        <label for= "">Numero de la Mesa</label>
-                        <input type="number" name="idmesa" class="form-control" id="idmesa" placeholder="Número de la mesa">
-                        <br>
-                        <label for= "">Capacidad de la Mesa</label>
-                        <input type="number" name="capacidad" class="form-control" placeholder="Capacidad de personas">
-                        <br>
-                        <div>
-                            <label>Estado de la Mesa😈</label>
-                            <select name="estado" id="estado">
+                        
+                        <div class="form-floating mb-3" id="user-group">
+                            <input type="number" name="idmesa" class="form-control" id="idmesa" 
+                                placeholder="Numero de la mesa">
+                            <label for="idmesa">Número de Mesa🤡</label>
+                        </div>
+
+                        <div class="form-floating mb-3" id="user-group">
+                            <input type="number" name="capacidad" class="form-control" id="floatingCap" 
+                                placeholder="Capacidad de personas">
+                            <label for="floatingCap">Capacidad Personas🤑</label>
+                        </div>
+
+
+                        
+                        <div class="form-floating">
+                            
+                            <select name="estado" id="estado" class="form-select">
                                 <option value="">Seleccionar</option>
                                 {% for e in lista_estado %}
                                 <option value="{{ e.0 }}">{{e.1}}</option>
                                 {% endfor %}
                             </select>
+                            <label for="estado">Estado de la Mesa😈</label>
                         </div>
                         <br>
-                        <input type="submit" name='Eliminar' value= "Eliminar Mesa" class="btn btn-success">
-                        <input type="submit" name='Modificar' value= "Modificar Mesa" class="btn btn-success">
+                        <input type="submit" name='Eliminar' value= "Eliminar Mesa" class="btn btn-danger">
+                        <input type="submit" name='Modificar' value= "Modificar Mesa" class="btn btn-primary">
+                        <br>
+                        <br>
                     </form>
 
     </main>
