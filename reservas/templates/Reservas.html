@@ -24,16 +24,16 @@
       </nav>
     
     <main class="main-section p-4 text-center">
-        <div class="modal-dialog text-center">
+        <div class=" text-center">
 
-           <div class="modal-dialog text-center">
+           
                <div class="col-sm-18">
                    <div class="modal-content">
                        <div class="col-12 user-img">
                            <img src= "{% static 'img/LogoRestorant.png' %}"/>
                        </div>
                        <h2>Listado de Reservas</h2>
-                       <table>
+                       <table class="table table-dark table-striped">
                          <tr>
                            <th>ID Reserva</th> 
                            <th>Estado de Reserva</th>
@@ -43,7 +43,9 @@
                            <th>Telefono</th>
                            <th>Cantidad de Personas</th>
                          </tr>
-                         {% for r in Reserva %}
+                         <!-- Descomentar cuando se ocupe
+                           
+                          {% for r in Reserva %}
                             <tr>
                               <td>{{ r.0 }}</td>
                               <td>{{ r.1 }}</td>
@@ -53,7 +55,49 @@
                               <td>{{ r.5 }}</td>
                               <td>{{ r.6 }}</td>
                             </tr>
-                         {% endfor %}
+                         {% endfor %} 
+                        
+                        -->
+
+                        <!-- Ejemplo en la tabla -->
+                         <tr>
+                           <td>UNO</td>
+                           <td>dOS</td>
+                           <td>tres</td>
+                           <td>CUATRO</td>
+                           <td>CINCO</td>
+                           <td>SEIS</td>
+                           <td>Siete</td>
+                         </tr>
+                         <tr>
+                          <td>UNO</td>
+                          <td>dOS</td>
+                          <td>tres</td>
+                          <td>CUATRO</td>
+                          <td>CINCO</td>
+                          <td>SEIS</td>
+                          <td>Siete</td>
+                        </tr>
+                        <tr>
+                          <td>UNO</td>
+                          <td>dOS</td>
+                          <td>tres</td>
+                          <td>CUATRO</td>
+                          <td>CINCO</td>
+                          <td>SEIS</td>
+                          <td>Siete</td>
+                        </tr>
+                        <tr>
+                          <td>UNO</td>
+                          <td>dOS</td>
+                          <td>tres</td>
+                          <td>CUATRO</td>
+                          <td>CINCO</td>
+                          <td>SEIS</td>
+                          <td>Siete</td>
+                        </tr>
+                        <!-- Fin ejemplo -->
+                         
                        </table>
     
     
@@ -62,42 +106,81 @@
                    </div>
                </div>
 
-           </div>
+           <!-- Formulario Reserva-->
            <div class="modal-dialog text-center">
             <div class="col-sm-18">
                 <div class="modal-content">
-                    <div class="col-12 user-img">
-                        <img src= "{% static 'img/LogoRestorant.png' %}"/>
-                    </div>
+                    
                     <h2>Reservas</h2>
                     <form action="" method="POST">
                         {% csrf_token %}
-
-                        <label for="">Id Reserva</label>
-                        <input type="number" name="IDReserva">
-                        <br>
-                        <label for="">Estado Reserva</label>
-                        <input type="number" name="EstadoReserva">
-                        <br>
-                        <label for="">Rut Reserva</label>
-                        <input type="number" name="RutReserva">
-                        <br>
-                        <label for="">Fecha Reserva</label>
-                        <input type="date" name="FechaReserva">
-                        <br>
-                        <label for="">Email</label>
-                        <input type="email" name="Email">
-                        <br>
-                        <label for="">Telefono</label>
-                        <input type="text" name="Telefono">
-                        <br>
-                        <label for="">Cantidad de Personas</label>
-                        <input type="number" name="CantidadPersonas">
-                        <br>
-                        <br>
-                        <input type="submit" name='Guardar' value="Guardar Reserva">
-                        <input type="submit" name='Eliminar' value="Eliminar Reserva">
-                        <input type="submit" name='Modificar' value="Modificar Reserva">
+                        <div class="form-floating mb-3" id="user-group">
+                          <input type="number" name="IDReserva" class="form-control" id="floatingId"
+                              placeholder="ID Reserva">
+                          <label for="floatingId">ID Reserva</label>
+                        </div>
+                        <div class="form-floating mb-3" id="user-group">
+                          <input type="number" name="EstadoReserva" class="form-control" id="floatingEstado"
+                              placeholder="Estado Reserva">
+                          <label for="floatingEstado">Estado reserva</label>
+                        </div> 
+                        <div class="form-floating mb-3" id="user-group">
+                          <input type="number" name="RutReserva" class="form-control" id="floatingRut"
+                              placeholder="Rut Reserva">
+                          <label for="floatingRut">Rut Reserva</label>
+                        </div> 
+                        <div class="form-floating mb-3" id="user-group">
+                          <input type="date" name="FechaReserva" class="form-control" id="floatingFecha"
+                              placeholder="Fecha Reserva">
+                          <label for="floatingReserva">Fecha Reserva</label>
+                        </div>  
+                        <div class="form-floating mb-3" id="user-group">
+                          <input type="email" name="Email" class="form-control" id="floatingEmail"
+                              placeholder="Email">
+                          <label for="floatingEmail">Email</label>
+                        </div>  
+                        <div class="form-floating mb-3" id="user-group">
+                          <input type="text" name="Telefono" class="form-control" id="floatingTelefono"
+                              placeholder="Telefono">
+                          <label for="floatingTelefono">Telefono</label>
+                        </div>  
+                        <div class="form-floating mb-3" id="user-group">
+                          <input type="number" name="CantidadPersonas" class="form-control" id="floatingCantidad"
+                              placeholder="Cantidad de personas">
+                          <label for="floatingCantidad">Cantidad de personas</label>
+                        </div>  
+                        
+                        
+                        <!-- Respaldo de formulario reservas
+                          <label for="">Id Reserva</label>
+                          <input type="number" name="IDReserva">
+                          <br>
+                          <label for="">Estado Reserva</label>
+                          <input type="number" name="EstadoReserva">
+                          <br>
+                          <label for="">Rut Reserva</label>
+                          <input type="number" name="RutReserva">
+                          <br>
+                          <label for="">Fecha Reserva</label>
+                          <input type="date" name="FechaReserva">
+                          <br>
+                          <label for="">Email</label>
+                          <input type="email" name="Email">
+                          <br>
+                          <label for="">Telefono</label>
+                          <input type="text" name="Telefono">
+                          <br>
+                          <label for="">Cantidad de Personas</label>
+                          <input type="number" name="CantidadPersonas">
+                          <br>
+                          <br>
+                        -->
+                        
+                        <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Reserva">
+                        
+                        <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Reserva">
+                        
+                        <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Reserva">
                         <br>
                         <br>
 
@@ -110,6 +193,7 @@
             </div>
 
         </div>
+        <!-- Fin Formulario-->
          </div>
 
        </div>
