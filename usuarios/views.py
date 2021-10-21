@@ -1,22 +1,24 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
-from django.contrib.auth.models import Group, User
-from django.shortcuts import render
-from django.db import connection
-from django.contrib.auth import login, logout
-from django.contrib.auth import authenticate
+from django.shortcuts import render, redirect,render
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-
+from usuarios.models import Usuario
 
 #Vista que retorna Home
 def home(request):
     return render(request,'usuarios/home.html')
+
+
 @login_required
 def inicioAdmin(request):
     return render(request,'usuarios/inicio-admin.html')
-#Vista del Home
+
+#Preguntar si tiene mucho sentido que esto se cambie a un models o no.
+#Vista del Login
 def log(request):
-    #Si se hace una solicitud de tipo POST    
+    #Si se hace una solicitud de tipo POST
+    data ={
+        'message':''
+    }    
     if request.method =='POST':
         #Obtiene los datos mandados por el formulario en POST
         usr=request.POST.get("username")
@@ -24,7 +26,8 @@ def log(request):
         #Autentica el usuario y nos devuelve el usuario
         user = authenticate(username=usr, password=pwd)
         if user is None:
-            print("no hay usuario")
+            data['message']='Usuario y/o contraseña incorrecta'
+            return render(request,'registration/login.html',data)
         else:
             #Iniciamos sesion con el usuario
             login(request,user)
@@ -33,7 +36,7 @@ def log(request):
                 return redirect (to='inicio-admin')
             else:
                 return redirect (to='home')
-    return render(request,'registration/login.html') 
+    return render(request,'registration/login.html',data) 
 
 #Vista del logout
 #Lo que hace simplemente es terminar la sesion y redirigir al home
@@ -56,33 +59,22 @@ def RegistroUsuario(request):
             username=request.POST.get("username")
             password=request.POST.get("password1")
             email=request.POST.get("email")
+             #Traemos el grupo que seleccionaron
             id_grupo=int(request.POST.get('groups'))
-            #Creamos el usuario
-            user = User.objects.create_user(username,email,password)
-            #Traemos el grupo que seleccionaron
-            group=Group.objects.get(id=id_grupo)
-            #Agregamos al usuario a un grupo
-            user.groups.add(group)
+            #Pasamos los datos a la clase Usuario(creada por nosotros)
+            user = Usuario(username,password,email,id_grupo)
+            #Utilizamos el metodo crear usuario(creado por nosotros)
+            user.create_user()
             #Lo redirigimos al login
-            data['message']='Usuario creado exitosamente'
-            return render(request,'registration/login.html',data)    
-            #return redirect(to='login')
-            
+            data['message']='Usuario creado exitosamente'    
+            return render(request,'registration/login.html',data)   
         except Exception as e:
             data['message']=e.__str__
             return render(request,'registration/registro.html',data)
     return render(request,'registration/registro.html',data)     
-    
-
 
 #Metodo que devuelve la lista de los grupos
 def listar_grupos():
     #Creamos una lista vacia que devolveremos
-    lista=[]
-    #Obtenemos la cantidad total de grupos
-    size= Group.objects.count()
-    #Iteramos segun la cantidad de grupos y añadimos uno por uno los grupos
-    for g in range (size):
-        lista.append(Group.objects.values_list()[g])
-    #Finalmente retornamos la lista
+    lista=Usuario.lista_grupos()
     return lista
