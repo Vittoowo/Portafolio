@@ -49,7 +49,7 @@ def RegistroUsuario(request):
     #Este es un diccionario que se le pasará por parametro y se le incrustan
     #datos que metamos, en este caso, incrustamos una lista de tuplas y un mensaje
     data={
-       'grupos':listar_grupos(),
+       'grupos':Usuario.lista_grupos(),
        'message':""
     }
     if request.method =='POST':
@@ -74,7 +74,3 @@ def RegistroUsuario(request):
     return render(request,'registration/registro.html',data)     
 
 #Metodo que devuelve la lista de los grupos
-def listar_grupos():
-    #Creamos una lista vacia que devolveremos
-    lista=Usuario.lista_grupos()
-    return lista
