@@ -73,36 +73,48 @@
                     <h2>Reservas</h2>
                     <form action="" method="POST">
                         {% csrf_token %}
+                        
                         <div class="form-floating mb-3" id="user-group">
                           <input type="number" name="IDReserva" class="form-control" id="floatingId"
                               placeholder="ID Reserva">
                           <label for="floatingId">ID Reserva</label>
                         </div>
+                        
+                        <div class="form-floating">
+                          <select name="EstadoReserva" id="user-group" class="form-select">
+                              <option value="">Seleccionar</option>
+                              {% for e in Lista_Estado_Reserva %}
+                              <option value="{{ e.0 }}">{{e.1}}</option>
+                              {% endfor %}
+                          </select>
+                          <label for="estado">Estado de Reserva</label>
+                          <br>
+                        </div>
+
                         <div class="form-floating mb-3" id="user-group">
-                          <input type="number" name="EstadoReserva" class="form-control" id="floatingEstado"
-                              placeholder="Estado Reserva">
-                          <label for="floatingEstado">Estado reserva</label>
-                        </div> 
-                        <div class="form-floating mb-3" id="user-group">
-                          <input type="number" name="RutReserva" class="form-control" id="floatingRut"
+                          <input type="text" name="RutReserva" class="form-control" id="floatingRut"
                               placeholder="Rut Reserva">
                           <label for="floatingRut">Rut Reserva</label>
                         </div> 
+
                         <div class="form-floating mb-3" id="user-group">
                           <input type="date" name="FechaReserva" class="form-control" id="floatingFecha"
                               placeholder="Fecha Reserva">
                           <label for="floatingReserva">Fecha Reserva</label>
                         </div>  
+
                         <div class="form-floating mb-3" id="user-group">
                           <input type="email" name="Email" class="form-control" id="floatingEmail"
                               placeholder="Email">
                           <label for="floatingEmail">Email</label>
                         </div>  
+
                         <div class="form-floating mb-3" id="user-group">
                           <input type="text" name="Telefono" class="form-control" id="floatingTelefono"
                               placeholder="Telefono">
                           <label for="floatingTelefono">Telefono</label>
                         </div>  
+
                         <div class="form-floating mb-3" id="user-group">
                           <input type="number" name="CantidadPersonas" class="form-control" id="floatingCantidad"
                               placeholder="Cantidad de personas">
@@ -110,30 +122,6 @@
                         </div>  
                         
                         
-                        <!-- Respaldo de formulario reservas
-                          <label for="">Id Reserva</label>
-                          <input type="number" name="IDReserva">
-                          <br>
-                          <label for="">Estado Reserva</label>
-                          <input type="number" name="EstadoReserva">
-                          <br>
-                          <label for="">Rut Reserva</label>
-                          <input type="number" name="RutReserva">
-                          <br>
-                          <label for="">Fecha Reserva</label>
-                          <input type="date" name="FechaReserva">
-                          <br>
-                          <label for="">Email</label>
-                          <input type="email" name="Email">
-                          <br>
-                          <label for="">Telefono</label>
-                          <input type="text" name="Telefono">
-                          <br>
-                          <label for="">Cantidad de Personas</label>
-                          <input type="number" name="CantidadPersonas">
-                          <br>
-                          <br>
-                        -->
                         
                         <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Reserva">
                         
