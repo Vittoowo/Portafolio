@@ -8,8 +8,8 @@ urlpatterns = [
     path('registro/',RegistroUsuario,name="registro"),
     path('login/',log,name='login'),
     path('logout/',logout_def,name='logout'),
-    path('', include('mesas.urls')),
-    path('',include('reservas.urls')),
+    path('/', include('mesas.urls')),
+    path('/',include('reservas.urls')),
     path('Administrador/home',inicioAdmin,name="inicio-admin"),
     #path('Administrador/Mesas',mv.Mesas,name="mesas"),#modificar con include
     #path('Administrador/Reservas',rv.Reservas,name="reservas"), #modificar con include
