@@ -12,7 +12,7 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <h3>♥Gestion de Mesas♥</h3>
+                <h3>Gestion de Mesas Restaurant Siglo XXI</h3>
             </a>
         </div>
     </nav>
@@ -33,13 +33,13 @@
                             <div class="form-floating mb-3" id="user-group">
                                 <input type="number" name="idmesa" class="form-control" id="idmesa"
                                     placeholder="numeromesa">
-                                <label for="idmesa">Número de Mesa🤡</label>
+                                <label for="idmesa">Número de Mesa</label>
                             </div>
 
             
                             <div class="form-floating mb-3" id="user-group">
                                 <input type="number" name="capacidad" class="form-control"  placeholder="capacidadper" id="floatingPer">
-                                <label for="floatingPer">Capacidad de Personas🤑</label>
+                                <label for="floatingPer">Capacidad de la Mesa</label>
                             </div>
 
                             <div class="form-floating">
@@ -49,7 +49,7 @@
                                     <option value="{{ e.0 }}">{{e.1}}</option>
                                     {% endfor %}
                                 </select>
-                                <label for="estado">Estado de la mesa💀</label>
+                                <label for="estado">Estado de la mesa</label>
                                 <br>
                             </div>
 
@@ -85,7 +85,7 @@
                 <div class="col-sm-12">
                     <div class="modal-content">
                         
-                        <h2>Listado de Mesas</h2>
+                        <h2>Listado de Mesas del Restaurant</h2>
                        <table class="table table-dark table-striped">
                          <tr>
                            <th>Numero de Mesa</th> 
@@ -116,20 +116,21 @@
             <div class="col-sm-12">
                 <div class="modal-content">
                     
-                    <h2>Eliminar y/o modificar</h2>
+                    <h2>Sección de Eliminar y/o Modificar</h2>
+                    <h9>Para eliminar, solo debe ingresar el número de la mesa y seleccionar "Eliminar"</h9>
                     <form action="" method="POST">
                         {% csrf_token %}
                         
                         <div class="form-floating mb-3" id="user-group">
                             <input type="number" name="idmesa" class="form-control" id="idmesa" 
                                 placeholder="Numero de la mesa">
-                            <label for="idmesa">Número de Mesa🤡</label>
+                            <label for="idmesa">Número de Mesa</label>
                         </div>
 
                         <div class="form-floating mb-3" id="user-group">
                             <input type="number" name="capacidad" class="form-control" id="floatingCap" 
                                 placeholder="Capacidad de personas">
-                            <label for="floatingCap">Capacidad Personas🤑</label>
+                            <label for="floatingCap">Capacidad Personas</label>
                         </div>
 
 
@@ -142,7 +143,7 @@
                                 <option value="{{ e.0 }}">{{e.1}}</option>
                                 {% endfor %}
                             </select>
-                            <label for="estado">Estado de la Mesa😈</label>
+                            <label for="estado">Estado de la Mesa</label>
                         </div>
                         <br>
                         <input type="submit" name='Eliminar' value= "Eliminar Mesa" class="btn btn-danger">

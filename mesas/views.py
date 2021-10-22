@@ -1,31 +1,9 @@
 from django.shortcuts import render
 from django.db import connection
-# Create your views here.
 from django.contrib.auth.decorators import login_required
 import cx_Oracle
 from mesas.models import Mesas as mesas
-"""
-def Mesas(request):
-    data ={
-        'lista_estado':listar_estados(),
-        'mensaje': "",
-    }
-    return render(request,'Mesas.html',data)
 
-      
-try:
-        if request.method == 'POST':
-            numeromesa = int(request.POST.get('idmesa'))
-            cantidadpersonas=int(request.POST.get('capacidad'))
-            estadomesa=int(request.POST.get('estado'))
-            salida = agregar_mesa(numeromesa,cantidadpersonas,estadomesa)
-            if salida==1:
-                data['mensaje'] = 'Mesa agregada correctamente'
-            else:
-                data['mensaje'] = f'No se pudo agregar la mesa :('
-    except Exception as e:
-        data['mensaje']= f'Error al agregar mesa: {e.__str__()}'
-"""
 @login_required
 def Mesas(request):
     data ={
@@ -33,17 +11,17 @@ def Mesas(request):
         'mensaje': "",
         'Mesas' : mesas.listado_mesa(),
     }
-    print ('estoy en la linea 36')    
+      
     if 'Guardar' in request.POST:
-        print ('estoy en la linea 38') 
+        
         numeromesa = int(request.POST.get('idmesa'))
         cantidadpersonas=int(request.POST.get('capacidad'))
         estadomesa=int(request.POST.get('estado'))
-        print ('estoy en la linea 42') 
+        
         salida = agregar_mesa(numeromesa,cantidadpersonas,estadomesa)
-        print ('estoy en la linea 44') 
+        print 
         if salida==1:
-            print ('estoy en la linea 45') 
+            print 
             data['mensaje'] = 'Mesa agregada correctamente'
             data['Mesas'] = mesas.listado_mesa()
         else:
@@ -74,8 +52,6 @@ def Mesas(request):
         return render(request, 'Mesas.html', data)
     return render(request, 'Mesas.html', data)
 
-    
-
 def listar_estados():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -86,9 +62,9 @@ def listar_estados():
         lista.append(fila)
     return lista
 
-#VARIABLES DEL CRUDCITO
+#VARIABLES DEL CRUD
 
-#agregar-create-a;adir-crear del Crud
+#agregar-create-añadir-crear del Crud
 def agregar_mesa(numeromesa,cantidadpersonas,estadomesa):
     try:
         django_cursor = connection.cursor()
@@ -99,9 +75,8 @@ def agregar_mesa(numeromesa,cantidadpersonas,estadomesa):
     except Exception as e:
         raise e.__str__()
 
-#listado-leer-mostrar-read del cRud
 
-#ELIMINAR MESITAS UVU
+#ELIMINAR 
 def eliminar_mesa(numeromesa):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -109,7 +84,7 @@ def eliminar_mesa(numeromesa):
     cursor.callproc('SP_DELETE_MESAS',[numeromesa, salida])
     return salida.getvalue()
 
-#EL MODIFICAR PULENTO
+#EL MODIFICAR 
 def modificar_mesa(numeromesa,cantidadpersonas,estadomesa):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
