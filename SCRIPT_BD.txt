@@ -368,6 +368,14 @@ END;
 
 ---------- Aqui comienza Cristiancito ----------
 
+create or replace PROCEDURE SP_R_ESTADO_RESERVA(estado out SYS_REFCURSOR)
+IS 
+BEGIN
+    open estado for select * from estado_reserva;
+END;
+
+
+
 create or replace PROCEDURE SP_LISTAR_RESERVAS(reservas out SYS_REFCURSOR)
 IS
 BEGIN
@@ -385,17 +393,21 @@ BEGIN
     ORDER BY r.id_reserva;
 END;
 
+
+
 create or replace PROCEDURE SP_AGREGAR_RESERVA(
     v_ID_Reserva number,
-    v_ID_Mesa number,
     v_ID_Estado_Mesa number,
     v_Rut_Reserva NVARCHAR2,
     v_Fecha_Reserva date,
+    v_email VARCHAR2,
+    v_telefono_reserva varchar2,
+    v_cantidad_personas_reserva number,
     v_salida out number)
 IS
 BEGIN
-    INSERT INTO RESERVA (ID_RESERVA, mesas_id_mesa, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva)
-    VALUES(v_ID_Reserva, v_ID_Mesa, v_ID_Estado_Mesa, v_Rut_Reserva, v_Fecha_Reserva);
+    INSERT INTO RESERVA (ID_RESERVA, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva)
+    VALUES(v_ID_Reserva, v_ID_Estado_Mesa, v_Rut_Reserva, v_Fecha_Reserva, v_email, v_telefono_reserva, v_cantidad_personas_reserva);
     commit;
     v_salida:=1;
     EXCEPTION
@@ -406,8 +418,8 @@ END;
 
 
 
-CREATE OR REPLACE PROCEDURE SP_ELIMINAR_RESERVA(
-    v_ID_Reserva number,
+create or replace PROCEDURE SP_ELIMINAR_RESERVA(
+    v_ID_Reserva in number,
     v_salida out number)
 IS
 BEGIN
@@ -448,6 +460,12 @@ BEGIN
     WHEN OTHERS THEN
     v_salida:=0;
 END;
+
+
+
+INSERT INTO ESTADO_RESERVA VALUES(1,'Agendada');
+INSERT INTO ESTADO_RESERVA VALUES(2,'Finalizada');
+INSERT INTO ESTADO_RESERVA VALUES(3,'Cancelada');
 
 ---------- Fin de Cristiancito -----------
 
