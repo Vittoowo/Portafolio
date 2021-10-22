@@ -7,25 +7,23 @@ from mesas.models import Mesas as mesas
 @login_required
 def Mesas(request):
     data ={
-        'lista_estado':listar_estados(),
+        'lista_estado':mesas.listar_estados(),
         'mensaje': "",
         'Mesas' : mesas.listado_mesa(),
     }
       
     if 'Guardar' in request.POST:
-        
         numeromesa = int(request.POST.get('idmesa'))
         cantidadpersonas=int(request.POST.get('capacidad'))
         estadomesa=int(request.POST.get('estado'))
-        
-        salida = agregar_mesa(numeromesa,cantidadpersonas,estadomesa)
-        print 
+        mesa_c=mesas(numeromesa,cantidadpersonas,estadomesa) #creando el objeto
+        salida = mesa_c.agregar_mesa()#llamamos al metodo del models, creamos una variable y le asigna el valor que va a retornar
         if salida==1:
             print 
             data['mensaje'] = 'Mesa agregada correctamente'
             data['Mesas'] = mesas.listado_mesa()
         else:
-            data['mensaje'] = f'No se pudo agregar la mesa :('
+            data['mensaje'] = f'No se pudo agregar la mesa'
         return render(request, 'Mesas.html', data)
 
 
@@ -52,31 +50,10 @@ def Mesas(request):
         return render(request, 'Mesas.html', data)
     return render(request, 'Mesas.html', data)
 
-def listar_estados():
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor()
-    out_cur = django_cursor.connection.cursor()
-    cursor.callproc("SP_R_ESTADO_MESA",[out_cur])
-    lista=[]
-    for fila in out_cur:
-        lista.append(fila)
-    return lista
-
-#VARIABLES DEL CRUD
-
-#agregar-create-añadir-crear del Crud
-def agregar_mesa(numeromesa,cantidadpersonas,estadomesa):
-    try:
-        django_cursor = connection.cursor()
-        cursor = django_cursor.connection.cursor()
-        salida= cursor.var(cx_Oracle.NUMBER)
-        cursor.callproc ('SP_CREATE_MESAS',[numeromesa,cantidadpersonas,estadomesa,salida])
-        return salida.getvalue()
-    except Exception as e:
-        raise e.__str__()
 
 
 #ELIMINAR 
+
 def eliminar_mesa(numeromesa):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
