@@ -3,7 +3,7 @@ from django.db import connection
 # Create your views here.
 from django.contrib.auth.decorators import login_required
 import cx_Oracle
-
+from mesas.models import Mesas as mesas
 """
 def Mesas(request):
     data ={
@@ -31,7 +31,7 @@ def Mesas(request):
     data ={
         'lista_estado':listar_estados(),
         'mensaje': "",
-        'Mesas' :listado_mesa(),
+        'Mesas' : mesas.listado_mesa(),
     }
     print ('estoy en la linea 36')    
     if 'Guardar' in request.POST:
@@ -45,7 +45,7 @@ def Mesas(request):
         if salida==1:
             print ('estoy en la linea 45') 
             data['mensaje'] = 'Mesa agregada correctamente'
-            data['Mesas'] = listado_mesa()
+            data['Mesas'] = mesas.listado_mesa()
         else:
             data['mensaje'] = f'No se pudo agregar la mesa :('
         return render(request, 'Mesas.html', data)
@@ -56,7 +56,7 @@ def Mesas(request):
         salida = eliminar_mesa(numeromesa)
         if salida == 1:
             data['mensaje'] = 'Mesa Eliminada Correctamente'
-            data['Mesas'] = listado_mesa()
+            data['Mesas'] = mesas.listado_mesa()
         else:
             data['mensaje'] = 'No se ha podido eliminar la mesa'
         return render(request, 'Mesas.html', data)
@@ -68,7 +68,7 @@ def Mesas(request):
         salida= modificar_mesa(numeromesa,cantidadpersonas,estadomesa)
         if salida == 1:
             data['mensaje'] = 'Mesa Modificada Correctamente'
-            data['Mesas'] = listado_mesa()
+            data['Mesas'] = mesas.listado_mesa()
         else:
             data['mensaje'] = 'No se ha podido modificar la mesa'
         return render(request, 'Mesas.html', data)
@@ -100,17 +100,6 @@ def agregar_mesa(numeromesa,cantidadpersonas,estadomesa):
         raise e.__str__()
 
 #listado-leer-mostrar-read del cRud
-def listado_mesa():
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor() #llama
-    out_cur= django_cursor.connection.cursor() #recibe
-    #voy a llamar al procedimiento almacedado desde el cursor
-    cursor.callproc("SP_READ_MESAS",[out_cur])
-    #lo paso de cursor a listado
-    lista=[]
-    for fila in out_cur:
-        lista.append(fila)
-    return lista
 
 #ELIMINAR MESITAS UVU
 def eliminar_mesa(numeromesa):
