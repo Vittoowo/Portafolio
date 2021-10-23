@@ -357,14 +357,14 @@ IS
 BEGIN
     DELETE FROM MESAS
     WHERE ID_MESA = v_ID_Mesa;
-    commit;
+    if sql%rowcount > 0 then
     v_salida:=1;
+    end if;
+    commit;
     EXCEPTION
-
     WHEN OTHERS THEN
     v_salida:=0;
 END;
-
 -------------------------- Fin procedimientos Yensy ------------------------------
 
 
