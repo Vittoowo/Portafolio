@@ -14,7 +14,7 @@ def inicioAdmin(request):
 
 #Preguntar si tiene mucho sentido que esto se cambie a un models o no.
 #Vista del Login
-def log(request):
+def login_user(request):
     #Si se hace una solicitud de tipo POST
     data ={
         'message':''
