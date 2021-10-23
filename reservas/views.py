@@ -1,7 +1,6 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 from django.db import connection
 from django.contrib.auth.decorators import login_required
-import cx_Oracle
 from reservas.models import Reservas as reservas
 # Create your views here.
 
