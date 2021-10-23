@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'usuarios',
     'mesas',
     'reservas',
+    'finanzas',
+    'bodega',
+    'cocina',
+    'pedidos',
 ]
 
 MIDDLEWARE = [
