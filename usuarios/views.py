@@ -61,8 +61,11 @@ def RegistroUsuario(request):
             email=request.POST.get("email")
              #Traemos el grupo que seleccionaron
             id_grupo=int(request.POST.get('groups'))
+            first_name = request.POST.get('first_name')
+            last_name=request.POST.get('last_name')
+            print(last_name)
             #Pasamos los datos a la clase Usuario(creada por nosotros)
-            user = Usuario(username,password,email,id_grupo)
+            user = Usuario(username,password,email,id_grupo,first_name,last_name)
             #Utilizamos el metodo crear usuario(creado por nosotros)
             user.create_user()
             #Lo redirigimos al login
