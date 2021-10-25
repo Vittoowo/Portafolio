@@ -40,7 +40,7 @@ def Mesas(request):
         cantidadpersonas=int(request.POST.get('capacidad'))
         estadomesa=int(request.POST.get('estado'))
         mesa_m=mesas(numeromesa,cantidadpersonas,estadomesa)
-        salida= mesa_m.modificar_mesa(numeromesa,cantidadpersonas,estadomesa)
+        salida=mesa_m.modificar_mesa(numeromesa,cantidadpersonas,estadomesa)
         if salida == 1:
             data['mensaje'] = 'Mesa Modificada Correctamente'
             data['Mesas'] = mesas.listado_mesa()

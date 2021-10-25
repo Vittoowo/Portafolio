@@ -52,7 +52,7 @@ class Mesas():
         return salida.getvalue()
 
     #MODIFICAR 
-    def modificar_mesa(self):
+    def modificar_mesa(self,id_mesa,cant_mesa,id_estado_mesa):
         django_cursor = connection.cursor()
         cursor = django_cursor.connection.cursor()
         salida = cursor.var(cx_Oracle.NUMBER)
