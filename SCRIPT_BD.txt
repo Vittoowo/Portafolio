@@ -366,6 +366,22 @@ BEGIN
     v_salida:=0;
 END;
 
+---Para metodo de solo cambiar el estado de la mesa---
+CREATE OR REPLACE PROCEDURE SP_UPDATE_ESTADO(
+    v_id_mesa in number,
+    v_id_estado number,
+    v_salida out number
+)
+IS
+BEGIN
+    UPDATE MESAS SET estado_mesa_id_est_mesa=v_id_estado
+    WHERE id_mesa = v_id_mesa;
+    commit;
+    v_salida:=1;
+    EXCEPTION
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
 -------------------------------------------
 -------------Modulo de Bodega--------------
 -------------------------------------------

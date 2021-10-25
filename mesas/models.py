@@ -58,3 +58,11 @@ class Mesas():
         salida = cursor.var(cx_Oracle.NUMBER)
         cursor.callproc('SP_UPDATE_MESAS',[self.id_mesa, self.cant_mesa, self.id_estado_mesa,salida])
         return salida.getvalue()
+
+    #METODO QUE SOLO CAMBIA EL ESTADO DE LA MESA
+    def modificar_estado_mesa(self,id_estado_mesa):
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        salida = cursor.var(cx_Oracle.NUMBER)
+        cursor.callproc('SP_UPDATE_ESTADO',[self.id_estado_mesa,salida])
+        return salida.getvalue()
