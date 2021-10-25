@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/bootstrap.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}" />
+<html>
+
+<head>
+</head>
+
+<body class="aling-items-center">
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <h3>Bodega Restaurant Siglo XXI</h3>
+            </a>
+        </div>
+    </nav>
+    <main class="main-section p-12 text-center"></main>
+
+    <!--  Formulario Agregar Producto -->
+    <div class="modal-dialog text-center">
+        <div class="col-sm-12">
+            <div class="modal-content text-center">
+                <div class="col-12 user-img">
+                    <img src="{% static 'img/LogoRestorant.png' %}" />
+                </div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <h2>Agregar Producto</h2>
+                </form>
+
+
+            </div>
+
+         </div>
+
+    </div>
+    {% if mensaje %}
+        <script>
+            
+            alert('{{ mensaje }}');
+            
+        </script>
+        {%endif%}
+
+
+
+
+</body>
