@@ -6,16 +6,18 @@ from reservas.models import Reservas as reservas
 
 @login_required
 def Reservas(request):
+    #RUT_RESERVA = request.POST.get('BuscarReserva')
     data ={
         'Lista_Estado_Reserva':reservas.listar_estados(),
         'Reserva':reservas.listado_reservas()
+        #'Buscar_Reservas':reservas.buscar_reservas(RUT_RESERVA)
     }
     
     if 'Guardar' in request.POST:
         ID_RESERVA = request.POST.get('IDReserva')
         ESTADO_RESERVA_ID_EST_RESERVA = request.POST.get('EstadoReserva')
-        RUT_RESERVA = request.POST.get('RutReserva')
-        FECHA_RESERVA = request.POST.get('FechaReserva')
+        RUT_RESERVA = request.POST.get('RutReserva') + " - " + request.POST.get('DVRUTReserva')
+        FECHA_RESERVA = request.POST.get('FechaReserva') + " " + request.POST.get('HoraReserva')
         EMAIL = request.POST.get('Email')
         TELEFONO_RESERVA = request.POST.get('Telefono')
         CANTIDAD_PERSONAS_RESERVA = request.POST.get('CantidadPersonas')
@@ -52,6 +54,11 @@ def Reservas(request):
         else:
             data['Mensaje'] = 'No se ha podido modificar'
         return render(request, 'Reservas.html', data)
+
+    """elif 'BuscarReserva' in request.POST:
+        RUT_RESERVA = request.POST.get('BuscarReserva')
+        data['Buscar_Reserva'] = reservas.buscar_reservas(RUT_RESERVA)
+        return render(request, 'Reservas.html', data)"""
     return render(request, 'Reservas.html', data)
     
 

@@ -195,7 +195,7 @@ CREATE TABLE reserva (
     id_reserva                      NUMBER(10) NOT NULL,
     estado_reserva_id_est_reserva   NUMBER(1) NOT NULL,
     rut_reserva                     NVARCHAR2(12) NOT NULL,
-    fecha_reserva                   DATE NOT NULL,
+    fecha_reserva                   TIMESTAMP NOT NULL,
     email                           VARCHAR2(50),
     telefono_reserva                VARCHAR2(12) NOT NULL,
     cantidad_personas_reserva       NUMBER(2) NOT NULL,

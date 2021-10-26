@@ -34,15 +34,15 @@
                        </div>
                        <h2>Listado de Reservas</h2>
                        <table class="table table-dark table-striped">
-                         <tr>
-                           <th>ID Reserva</th> 
-                           <th>Estado de Reserva</th>
-                           <th>Rut Reserva</th>
-                           <th>Fecha Reserva</th>
-                           <th>Email</th>
-                           <th>Telefono</th>
-                           <th>Cantidad de Personas</th>
-                         </tr>
+                            <tr>
+                              <th>ID Reserva</th> 
+                              <th>Estado de Reserva</th>
+                              <th>Rut Reserva</th>
+                              <th>Fecha Reserva</th>
+                              <th>Email</th>
+                              <th>Telefono</th>
+                              <th>Cantidad de Personas</th>
+                            </tr>
                          
                            
                           {% for r in Reserva %}
@@ -57,8 +57,44 @@
                             </tr>
                          {% endfor %} 
                          
-                       </table>
-    
+                        </table>
+
+
+                        <!-- Buscar Reservas 
+                          
+                        <table class="table table-dark table-striped">
+                          <form action="" method="POST">
+                            {% csrf_token %}
+                            <h4>Buscar Reserva Por Rut</h4>
+                            <input style="width: 200px;" type="text" name="BuscarRUTReserva" class="form-control" id="floatingId"
+                                    placeholder="Buscar Reserva Por RUT">
+                            <input type="submit" class="btn btn-success" name='BuscarReserva' value="Buscar Reserva">       
+                          </form>
+                            <tr>
+                              <th>ID Reserva</th> 
+                              <th>Estado de Reserva</th>
+                              <th>Rut Reserva</th>
+                              <th>Fecha Reserva</th>
+                              <th>Email</th>
+                              <th>Telefono</th>
+                              <th>Cantidad de Personas</th>
+                            </tr>
+                         
+                           
+                          {% for r in buscar_reservas %}
+                            <tr>
+                              <td>{{ r.0 }}</td>
+                              <td>{{ r.1 }}</td>
+                              <td>{{ r.2 }}</td>
+                              <td>{{ r.3 }}</td>
+                              <td>{{ r.4 }}</td>
+                              <td>{{ r.5 }}</td>
+                              <td>{{ r.6 }}</td>
+                            </tr>
+                         {% endfor %} 
+                         
+                        </table>
+                        -->
     
 
                     
@@ -92,15 +128,25 @@
                         </div>
 
                         <div class="form-floating mb-3" id="user-group">
-                          <input type="text" name="RutReserva" class="form-control" id="floatingRut"
-                              placeholder="Rut Reserva">
-                          <label for="floatingRut">Rut Reserva</label>
+                          <div class="input-group">
+                            <input type="text" style="width: 200px;" name="RutReserva" class="form-control" id="floatingRut"
+                                placeholder="Rut Reserva">
+                            <h3> - </h3>
+                            <input type="text" name="DVRUTReserva" class="form-control" id="floatingDV"
+                                placeholder="DV">
+                          </div>
                         </div> 
 
                         <div class="form-floating mb-3" id="user-group">
                           <input type="date" name="FechaReserva" class="form-control" id="floatingFecha"
                               placeholder="Fecha Reserva">
                           <label for="floatingReserva">Fecha Reserva</label>
+                        </div>  
+
+                        <div class="form-floating mb-3" id="user-group">
+                          <input type="time" name="HoraReserva" class="form-control" id="floatingFecha"
+                              placeholder="Hora Reserva">
+                          <label for="floatingReserva">Hora Reserva</label>
                         </div>  
 
                         <div class="form-floating mb-3" id="user-group">

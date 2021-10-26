@@ -40,6 +40,17 @@ class Reservas():
 
         return lista
 
+    """def buscar_reservas(RUT_RESERVA):
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        out_cur = django_cursor.connection.cursor()
+        cursor.callproc("SP_BUSCAR_RESERVAS", [RUT_RESERVA, out_cur])
+        lista = []
+        for fila in out_cur:
+            lista.append(fila)
+        return lista"""
+
+
         #Guardar Reserva
     def agregar_reserva(ID_RESERVA, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva):
         django_cursor = connection.cursor()
