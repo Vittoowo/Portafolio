@@ -1,0 +1,29 @@
+
+        <div class="modal-dialog text-center">
+
+            <div class="modal-dialog text-center">
+                <div class="col-sm-12">
+                    <div class="modal-content">
+                        
+                        <h2>Listado de Mesas del Restaurant</h2>
+                       <table class="table table-dark table-striped">
+                         <tr>
+                           <th>Numero de Mesa</th> 
+                           <th>Capacidad de la Mesa</th>
+                           <th>Estado de la Mesa</th>
+                         </tr>
+                         {% for e in Mesas %}
+                            <tr>
+                              <td>{{ e.0 }}</td>
+                              <td>{{ e.1 }}</td>
+                              <td>{{ e.2 }}</td>
+                            </tr>
+                         {% endfor %}
+                       </table>
+                       <br>
+                       <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
