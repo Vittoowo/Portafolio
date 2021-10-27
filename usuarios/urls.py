@@ -10,6 +10,7 @@ urlpatterns = [
     path('logout/',logout_def,name='logout'),
     path('mesas/', include('mesas.urls')),
     path('/',include('reservas.urls')),
+    path('bodega/',include('bodega.urls')),
     path('Administrador/home',inicioAdmin,name="inicio-admin"),
     
     #path('Administrador/Mesas',mv.Mesas,name="mesas"),#modificar con include

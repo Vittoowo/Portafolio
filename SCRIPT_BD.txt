@@ -76,6 +76,13 @@ CREATE TABLE informe_rendimiento
     -- No Columns 
 ;
 
+CREATE TABLE formato_stock (
+    id_formato_stock number(2) NOT NULL,
+    desc_formato_stock VARCHAR2 (15) NOT NULL
+);
+
+ALTER TABLE formato_stock ADD CONSTRAINT formato_stock_pk PRIMARY KEY ( id_formato_stock );
+
 CREATE TABLE marca_producto (
     id_marca   NUMBER(5) NOT NULL,
     marca      NVARCHAR2(25) NOT NULL
@@ -111,7 +118,7 @@ ALTER TABLE orden ADD CONSTRAINT orden_pk PRIMARY KEY ( id_orden );
 
 CREATE TABLE pedido_producto (
     pedido_proveedor_id_pedido   NUMBER(10) NOT NULL,
-    productos_id_producto        NUMBER(4) NOT NULL,
+    productos_id_producto        NUMBER(20) NOT NULL,
     cantidad                     NUMBER(4,2) NOT NULL
 );
 
@@ -152,18 +159,20 @@ ALTER TABLE platos_orden ADD CONSTRAINT platos_orden_pk PRIMARY KEY ( plato_id_p
                                                                       orden_id_orden );
 
 CREATE TABLE productos (
-    id_producto               NUMBER(4) NOT NULL,
+    id_producto               NUMBER(20) NOT NULL,
     nom_producto              VARCHAR2(50) NOT NULL,
     proveedor_id_proveedor    NUMBER(2) NOT NULL,
-    stock                     NUMBER NOT NULL,
     marca_producto_id_marca   NUMBER(5) NOT NULL,
+    stock                     NUMBER(3) NOT NULL,
+    formato_stock_id_formato  NUMBER(2) NOT NULL,
+    medida_stock              NUMBER(5) NOT NULL,
     unidad_medida_id_unidad   NUMBER(1) NOT NULL
 );
 
 ALTER TABLE productos ADD CONSTRAINT productos_pk PRIMARY KEY ( id_producto );
 
 CREATE TABLE productos_receta (
-    productos_id_producto   NUMBER(4) NOT NULL,
+    productos_id_producto   NUMBER(20) NOT NULL,
     receta_id_receta        NUMBER(4) NOT NULL,
     cantidad                NUMBER(3,2) NOT NULL
 );
@@ -195,7 +204,7 @@ CREATE TABLE reserva (
     id_reserva                      NUMBER(10) NOT NULL,
     estado_reserva_id_est_reserva   NUMBER(1) NOT NULL,
     rut_reserva                     NVARCHAR2(12) NOT NULL,
-    fecha_reserva                   DATE NOT NULL,
+    fecha_reserva                   TIMESTAMP NOT NULL,
     email                           VARCHAR2(50),
     telefono_reserva                VARCHAR2(12) NOT NULL,
     cantidad_personas_reserva       NUMBER(2) NOT NULL,
@@ -273,6 +282,10 @@ ALTER TABLE productos
 ALTER TABLE productos
     ADD CONSTRAINT productos_proveedor_fk FOREIGN KEY ( proveedor_id_proveedor )
         REFERENCES proveedor ( id_proveedor );
+
+ALTER TABLE productos
+  ADD CONSTRAINT producto_formato_stock_fk FOREIGN KEY ( formato_stock_id_formato )
+    REFERENCES formato_stock ( id_formato_stock );
 
 ALTER TABLE productos_receta
     ADD CONSTRAINT productos_receta_productos_fk FOREIGN KEY ( productos_id_producto )
@@ -366,6 +379,7 @@ BEGIN
     v_salida:=0;
 END;
 
+
 -------------------------------------------
 -----Metodo de cambiar estado mesa------
 -------------------------------------------
@@ -385,34 +399,6 @@ BEGIN
     WHEN OTHERS THEN
     v_salida:=0;
 END;
--------------------------------------------
--------------Modulo de Bodega--------------
--------------------------------------------
-CREATE OR REPLACE PROCEDURE SP_CREATE_PRODUCTOS(
-    v_id_prod in NUMBER,
-    v_nombre_prod varchar2,
-    v_marca_prod varchar2,
-    v_proveedor_prod varchar2,
-    v_precio_compra number,
-    v_ultima_compra number,
-    v_salida out number
-)
-IS 
-BEGIN
-  INSERT INTO productos
-  VALUES(
-    v_id_prod,
-    v_nombre_prod,
-    v_marca_prod ,
-    v_proveedor_prod,
-    v_precio_compra,
-    v_ultima_compra
-);
-COMMIT;
-    v_salida:=1;
-EXCEPTION WHEN OTHERS THEN
-    v_salida:=0;
-END;
 
 
 
@@ -420,6 +406,138 @@ END;
 
 
 ---------- Aqui comienza Cristiancito ----------
+-------------------------------------------
+-------------Modulo de Bodega--------------
+-------------------------------------------
+
+INSERT INTO formato_stock VALUES (1,'Lata');
+INSERT INTO formato_stock VALUES (2,'Botella');
+INSERT INTO formato_stock VALUES (3,'Caja');
+
+create or replace PROCEDURE SP_AGREGAR_PRODUCTO(
+    v_ID_Producto in number,
+    v_Nom_Producto in NVARCHAR2,
+    v_Proveedor NVARCHAR2,
+    v_Marca nvarchar2,
+    v_Stock in number,
+    v_Formato_Stock_ID_Formato in number,
+    v_Medida_Stock in number,
+    v_Unidad_Medida in number,
+    v_salida out number)
+IS
+BEGIN
+    INSERT INTO productos (id_producto, nom_producto, proveedor_id_proveedor, marca_producto_id_marca, stock, formato_stock_id_formato, medida_stock, unidad_medida_id_unidad)
+    VALUES(v_ID_Producto, v_Nom_Producto, v_Proveedor, v_Marca, v_Stock, v_Formato_Stock_ID_Formato, v_Medida_Stock, v_Unidad_Medida);
+    commit;
+    v_salida:=1;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+
+
+create or replace PROCEDURE SP_ELIMINAR_PRODUCTO(
+    v_ID_PRODUCTO in number,
+    v_salida out number)
+IS
+BEGIN
+    DELETE FROM PRODUCTOS
+    WHERE ID_PRODUCTO = v_ID_PRODUCTO;
+    if sql%rowcount > 0 then
+    v_salida:=1;
+    end if;
+    commit;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+
+
+create or replace PROCEDURE SP_LISTAR_FORMATO_STOCK(formstock out SYS_REFCURSOR)
+IS 
+BEGIN
+    open formstock for select * from formato_stock;
+END;
+
+
+
+create or replace PROCEDURE SP_LISTAR_MARCAS(marcas out SYS_REFCURSOR)
+IS 
+BEGIN
+    open marcas for select * from marca_producto;
+END;
+
+
+
+create or replace PROCEDURE SP_LISTAR_MEDIDAS(uni_medidas out SYS_REFCURSOR)
+IS 
+BEGIN
+    open uni_medidas for select * from unidad_medida;
+END;
+
+
+
+create or replace PROCEDURE SP_LISTAR_PRODUCTOS(produc out SYS_REFCURSOR)
+IS 
+BEGIN
+    open produc for
+    select pd.id_producto,
+           pd.nom_producto,
+           pv.nombre_proveedor,
+           mp.marca,
+           pd.stock,
+           fs.desc_formato_stock,
+           pd.medida_stock,
+           ump.desc_unidad
+    from productos pd
+    join proveedor pv on pd.proveedor_id_proveedor = pv.id_proveedor
+    join marca_producto mp on pd.marca_producto_id_marca = mp.id_marca
+    join formato_stock fs on pd.formato_stock_id_formato = fs.id_formato_stock
+    join unidad_medida ump on pd.unidad_medida_id_unidad = ump.id_unidad
+    order by pd.nom_producto;
+END;
+
+
+create or replace PROCEDURE SP_LISTAR_PROVEEDORES(proveedores out SYS_REFCURSOR)
+IS 
+BEGIN
+    open proveedores for select * from proveedor;
+END;
+
+
+
+create or replace PROCEDURE SP_MODIFICAR_PRODUCTO(
+    v_ID_Producto in number,
+    v_Nom_Producto in NVARCHAR2,
+    v_Proveedor NVARCHAR2,
+    v_Marca nvarchar2,
+    v_Stock in number,
+    v_Formato_Stock in Nvarchar2,
+    v_medida_stock in number,
+    v_Unidad_Medida in number,
+    v_salida out number)
+IS
+BEGIN
+    UPDATE PRODUCTOS SET nom_producto = v_Nom_Producto,
+                         proveedor_id_proveedor = v_Proveedor,
+                         marca_producto_id_marca = v_Marca,
+                         stock = v_Stock,
+                         formato_stock_id_formato = v_Formato_Stock,
+                         medida_stock = v_medida_stock,
+                         unidad_medida_id_unidad = v_Unidad_Medida
+    WHERE id_producto = v_ID_Producto;
+    commit;
+    v_salida:=1;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
 
 create or replace PROCEDURE SP_R_ESTADO_RESERVA(estado out SYS_REFCURSOR)
 IS 
