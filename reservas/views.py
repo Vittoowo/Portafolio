@@ -31,7 +31,7 @@ def Reservas(request):
     
     elif 'Eliminar' in request.POST:
         ID_RESERVA = request.POST.get('IDReserva')
-        salida = reservas.eliminar_reserva (ID_RESERVA)
+        salida = reservas.eliminar_reserva(ID_RESERVA)
         if salida == 1:
             data['Mensaje'] = 'Reserva Eliminada'
             data['Reserva'] = reservas.listado_reservas()

@@ -60,7 +60,7 @@ class Reservas():
         return salida.getvalue()
 
 
-        #ELiminar Reserva
+        #Eliminar Reserva
     def eliminar_reserva(ID_RESERVA):
         django_cursor = connection.cursor()
         cursor = django_cursor.connection.cursor()

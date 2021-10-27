@@ -1,50 +1,176 @@
 <!DOCTYPE html>
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/bootstrap.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}" />
+<link
+ rel="stylesheet"
+ type="text/css"
+ href="{% static 'Estilo/css/bootstrap.css' %}"
+/>
+<link
+ rel="stylesheet"
+ type="text/css"
+ href="{% static 'Estilo/css/style.css' %}"
+/>
 <html>
-
 <head>
 </head>
-
-<body class="aling-items-center">
+<body>
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <h3>Bodega Restaurant Siglo XXI</h3>
-            </a>
+          <a class="navbar-brand" href="#">
+            <h3>Bodega</h3>
+          </a>
         </div>
-    </nav>
-    <main class="main-section p-12 text-center"></main>
+      </nav>
+    
+    <main class="main-section p-4 text-center">
+        <div class=" text-center">
 
-    <!--  Formulario Agregar Producto -->
-    <div class="modal-dialog text-center">
-        <div class="col-sm-12">
-            <div class="modal-content text-center">
-                <div class="col-12 user-img">
-                    <img src="{% static 'img/LogoRestorant.png' %}" />
+           
+            <div class="col-sm-18">
+                <div class="modal-content">
+                    <div class="col-12 user-img">
+                        <img src= "{% static 'img/LogoRestorant.png' %}"/>
+                    </div>
+                    <h2>Listado de Productos</h2>
+                    <table class="table table-dark table-striped">
+                        <tr>
+                            <th>ID Producto</th> 
+                            <th>Nombre Producto</th>
+                            <th>Proveedor</th>
+                            <th>Marca</th>
+                            <th>Stock</th>
+                            <th>Formato de Stock</th>
+                            <th>Medida</th>
+                            <th>Unidad de Medida</th>
+                        </tr>
+                    
+                        {% for r in Producto %}
+                        <tr>
+                            <td>{{ r.0 }}</td>
+                            <td>{{ r.1 }}</td>
+                            <td>{{ r.2 }}</td>
+                            <td>{{ r.3 }}</td>
+                            <td>{{ r.4 }}</td>
+                            <td>{{ r.5 }}</td>
+                            <td>{{ r.6 }}</td>
+                            <td>{{ r.7 }}</td>
+                        </tr>
+                        {% endfor %} 
+                        
+                    </table>
                 </div>
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    <h2>Agregar Producto</h2>
-                </form>
-
-
             </div>
 
-         </div>
+                    <!-- Formulario Reserva-->
+           <div class="modal-dialog text-center">
+                <div class="col-sm-18">
+                    <div class="modal-content">
+                        
+                        <h2>Agregar Producto</h2>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            
+                            <div class="form-floating mb-3" id="user-group">
+                                <input type="number" name="IDProducto" class="form-control" id="floatingIdProducto"
+                                    placeholder="Codigo de Barra">
+                                <label for="floatingIdProducto">Codigo de Barra</label>
+                            </div>
+                            
+                            <div class="form-floating mb-3" id="user-group">
+                                <input type="text" name="NombreProducto" class="form-control" id="floatingNomProducto"
+                                    placeholder="Nombre Producto">
+                                <label for="floatingNomProducto">Nombre Producto</label>
+                                </div>
 
-    </div>
-    {% if mensaje %}
-        <script>
-            
-            alert('{{ mensaje }}');
-            
-        </script>
-        {%endif%}
+                            <div class="form-floating">
+                                <select name="ProveedorProducto" id="user-group" class="form-select">
+                                    <option value="">Seleccionar</option>
+                                    {% for e in Listado_Proveedores %}
+                                    <option value="{{ e.0 }}">{{e.1}}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="ProveedorProducto">Proveedor Producto</label>
+                                <br>
+                            </div>
 
+                            <div class="form-floating">
+                                <select name="MarcaProducto" id="user-group" class="form-select">
+                                    <option value="">Seleccionar</option>
+                                    {% for e in Listado_Marcas %}
+                                    <option value="{{ e.0 }}">{{e.1}}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="MarcaProducto">Marca Producto</label>
+                                <br>
+                            </div>
 
+                            
+                            <div class="form-floating mb-3" id="user-group">
+                                <input type="number" name="StockProducto" class="form-control" id="floatingStockProducto"
+                                    placeholder="Stock">
+                                <label for="floatingStockProducto">Stock</label>
+                            </div>  
 
+                            <div class="form-floating">
+                                <select name="FormatoStockProducto" id="user-group" class="form-select">
+                                    <option value="">Seleccionar</option>
+                                    {% for e in Listado_Formato_Stock %}
+                                    <option value="{{ e.0 }}">{{e.1}}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="FormatoStockProducto">Formato Stock Producto</label>
+                                <br>
+                            </div> 
 
+                            <div class="form-floating mb-3" id="user-group">
+                                <input type="number" name="MedidaProducto" class="form-control" id="floatingMedidaProducto"
+                                    placeholder="Medida Producto">
+                                <label for="floatingMedidaProducto">Medida De Producto</label>
+                            </div>  
+
+                            <div class="form-floating">
+                                <select name="UnidadMedidaProducto" id="user-group" class="form-select">
+                                    <option value="">Seleccionar</option>
+                                    {% for e in Listado_Unidades_Medida %}
+                                    <option value="{{ e.0 }}">{{e.1}}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="UnidadMedidaProducto">Unidad de Medida del Producto</label>
+                                <br>
+                            </div>  
+                            
+                            
+                            
+                            <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Producto">
+                            
+                            <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Producto">
+                            
+                            <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Producto">
+                            <br>
+                            <br>
+
+                        </form>
+
+                        {{Mensaje}}
+                        <br>
+                        <br>
+
+                    </div>
+                </div>
+
+                    
+                
+            </div>
+
+        </div>
+        <!-- Fin Formulario-->
+        
+
+       </div>
+
+    </main>
 </body>
+
+
+</html>

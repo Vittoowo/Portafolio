@@ -5,24 +5,96 @@ from django.shortcuts import render
 import cx_Oracle
 # Create your models here.
 
-
-#bodega v_id_prod in NUMBER,
     
-class Bodega():
-    def __init__(self,nombre_prod,marca_prod,proveedor_prod,precio_compra,ultima_compra):
-        self.nombre_prod = nombre_prod
-        self.marca_prod=marca_prod
-        self.proveedor_prod=proveedor_prod
-        self.precio_compra= precio_compra
-        self.ultima_compra= ultima_compra
+class Producto():
 
-    def agregar_producto(self):
-            try:
-                django_cursor = connection.cursor()
-                cursor = django_cursor.connection.cursor()
-                salida= cursor.var(cx_Oracle.NUMBER)
-                cursor.callproc ('SP_CREATE_PRODUCTOS',[self.nombre_prod,self.marca_prod,self.proveedor_prod,
-                self.precio_compra,self.ultima_compra,salida])
-                return salida.getvalue()
-            except Exception as e:
-                raise e.__str__()
+    def __init__(self,ID_PRODUCTO, NOM_PRODUCTO, PROVEEDOR, MARCA, STOCK, FORMATO_STOCK, MEDIDA, UNIDAD_MEDIDA):
+        self.ID_PRODUCTO = ID_PRODUCTO
+        self.NOM_PRODUCTO = NOM_PRODUCTO
+        self.PROVEEDOR = PROVEEDOR
+        self.MARCA = MARCA
+        self.STOCK = STOCK
+        self.FORMATO_STOCK = FORMATO_STOCK
+        self.MEDIDA = MEDIDA
+        self.UNIDAD_MEDIDA = UNIDAD_MEDIDA
+
+    def listar_marcas():
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        out_cur = django_cursor.connection.cursor()
+        cursor.callproc("SP_LISTAR_MARCAS",[out_cur])
+        lista=[]
+        for fila in out_cur:
+            lista.append(fila)
+        return lista
+
+    def listar_formato_stock():
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        out_cur = django_cursor.connection.cursor()
+        cursor.callproc("SP_LISTAR_FORMATO_STOCK",[out_cur])
+        lista=[]
+        for fila in out_cur:
+            lista.append(fila)
+        return lista
+
+    def listar_proveedores():
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        out_cur = django_cursor.connection.cursor()
+        cursor.callproc("SP_LISTAR_PROVEEDORES",[out_cur])
+        lista=[]
+        for fila in out_cur:
+            lista.append(fila)
+        return lista
+
+    def listar_productos():
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        out_cur = django_cursor.connection.cursor()
+        cursor.callproc("SP_LISTAR_PRODUCTOS", [out_cur])
+        lista=[]
+        for fila in out_cur:
+            lista.append(fila)
+        return lista
+
+    def listar_unidades_medida():
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        out_cur = django_cursor.connection.cursor()
+        cursor.callproc("SP_LISTAR_MEDIDAS", [out_cur])
+        lista=[]
+        for fila in out_cur:
+            lista.append(fila)
+        return lista
+
+    def agregar_producto(ID_PRODUCTO, NOM_PRODUCTO, PROVEEDOR_ID_PROVEEDOR, MARCA_PRODUCTO_ID_MARCA, STOCK, FORMATO_STOCK_ID_FORMATO, MEDIDA, UNIDAD_MEDIDA_ID_UNIDAD):
+        try:
+            django_cursor = connection.cursor()
+            cursor = django_cursor.connection.cursor()
+            salida= cursor.var(cx_Oracle.NUMBER)
+            cursor.callproc ('SP_AGREGAR_PRODUCTO',[ID_PRODUCTO, NOM_PRODUCTO, PROVEEDOR_ID_PROVEEDOR, MARCA_PRODUCTO_ID_MARCA, STOCK, FORMATO_STOCK_ID_FORMATO, MEDIDA, UNIDAD_MEDIDA_ID_UNIDAD, salida])
+            return salida.getvalue()
+        except Exception as e:
+            raise e.__str__()
+    
+    def modificar_producto(ID_PRODUCTO, NOM_PRODUCTO, PROVEEDOR_ID_PROVEEDOR, MARCA_PRODUCTO_ID_MARCA, STOCK, FORMATO_STOCK_ID_FORMATO, MEDIDA, UNIDAD_MEDIDA_ID_UNIDAD):
+        try:
+            django_cursor = connection.cursor()
+            cursor = django_cursor.connection.cursor()
+            salida= cursor.var(cx_Oracle.NUMBER)
+            cursor.callproc ('SP_MODIFICAR_PRODUCTO',[ID_PRODUCTO, NOM_PRODUCTO, PROVEEDOR_ID_PROVEEDOR, MARCA_PRODUCTO_ID_MARCA, STOCK, FORMATO_STOCK_ID_FORMATO, MEDIDA, UNIDAD_MEDIDA_ID_UNIDAD, salida])
+            return salida.getvalue()
+        except Exception as e:
+            raise e.__str__()
+
+    def eliminar_producto(ID_PRODUCTO):
+        try:
+            django_cursor = connection.cursor()
+            cursor = django_cursor.connection.cursor()
+            salida= cursor.var(cx_Oracle.NUMBER)
+            cursor.callproc ('SP_ELIMINAR_PRODUCTO',[ID_PRODUCTO, salida])
+            return salida.getvalue()
+        except Exception as e:
+            raise e.__str__()
+    
