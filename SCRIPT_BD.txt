@@ -367,6 +367,25 @@ BEGIN
 END;
 
 -------------------------------------------
+-----Metodo de cambiar estado mesa------
+-------------------------------------------
+
+CREATE OR REPLACE PROCEDURE SP_UPDATE_MESA(
+    v_id_mesa in number,
+    v_id_estado number,
+    v_salida out number
+)
+IS 
+BEGIN
+    UPDATE MESAS SET estado_mesa_id_est_mesa=v_id_estado
+    WHERE id_mesa = v_id_mesa;
+    commit;
+    v_salida:=1;
+    EXCEPTION
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+-------------------------------------------
 -------------Modulo de Bodega--------------
 -------------------------------------------
 CREATE OR REPLACE PROCEDURE SP_CREATE_PRODUCTOS(
@@ -394,6 +413,8 @@ COMMIT;
 EXCEPTION WHEN OTHERS THEN
     v_salida:=0;
 END;
+
+
 
 -------------------------- Fin procedimientos Yensy ------------------------------
 

@@ -48,3 +48,7 @@ def Mesas(request):
             data['mensaje'] = 'No se ha podido modificar la mesa'
         return render(request, 'Mesas.html', data)
     return render(request, 'Mesas.html', data)
+
+def mesas_totem(request):
+    #aqui la logica pues
+    return render (request,'MesasDisponibles.html')
