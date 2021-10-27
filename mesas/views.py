@@ -51,4 +51,4 @@ def Mesas(request):
 
 def mesas_totem(request):
     #aqui la logica pues
-    return render (request,'MesasDisponibles.html')
+    return render (request,'./MesasDisponibles.html')
