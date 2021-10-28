@@ -51,4 +51,7 @@ def Mesas(request):
 
 def mesas_totem(request):
     #aqui la logica pues
-    return render (request,'./MesasDisponibles.html')
+    data ={
+        'Mesas' : mesas.listado_mesa(),
+    }
+    return render (request,'./MesasDisponibles.html',data)
