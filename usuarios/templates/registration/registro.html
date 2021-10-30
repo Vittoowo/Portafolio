@@ -93,34 +93,44 @@
                                 <input type="text" name="last_name" class="form-control" placeholder="Apellido">
                                 <label for="floatingUsuario">Apellido</label>
                             </div>
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="password" name="password1" class="form-control" placeholder="Contraseña" id="txtPassword">
-                                <label for="floatingUsuario">Contraseña</label>
 
- <!-- ojito para ver contraseña-->
-<button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
- <!-- hasta aca-->
 
+
+                    <div class="input-group mb-3">                    
+                        <input type="password" name="password1" class="form-control" placeholder="Contraseña" id="txtPassword">                                                 
+    
+                        <div class="input-group-append">
+                        <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()">
+                        <span class="fa fa-eye-slash icon"></span> </button>
+    
+                               </div>                
+                        </div>
+                    
+
+<!-- segunda casilla de password-->
+                
+                <div class="input-group mb-3">                    
+                    <input type="password" name="password2" class="form-control" placeholder="Confirmar Contraseña" id="txtConfirmacion">                                                 
+
+                    <div class="input-group-append">
+                    <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword2()">
+                    <span class="fa fa-eye-slash icon"></span> </button>
+
+                           </div>                
                     </div>
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="password" name="password2" class="form-control" placeholder="Confirmar Contraseña" id="txtConfirmacion">
-                                <label for="floatingUsuario">Confirmar Contraseña</label>
-
-  <!-- ojito para ver contraseña-->
-  <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword2()"> <span class="fa fa-eye-slash icon"></span> </button>
-  <!-- hasta aca-->
-
-                            </div>
-                            <div>
-                                <label>Grupo</label>
+                            <div class="form-floating">
+                                
                                 <select name="groups" id="groups" class="form-select">
                                     <option value="">Seleccionar</option>
                                     {% for c in grupos %}
                                     <option value="{{ c.0 }}">{{c.1}}</option>
                                     {% endfor %}
                                 </select>
+
+                                <label for="groups">Grupo</label>
                             </div>
 
+                                </br>
                             <div class="form-floating mb-3">
                                 <input type="submit" value="Registrar" class="btn btn-success">
                             </div>
