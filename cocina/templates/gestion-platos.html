@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/bootstrap.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}" />
+<html>
+
+<head>
+</head>
+
+<body class="aling-items-center">
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <h3>Gestion de Platos</h3>
+            </a>
+        </div>
+    </nav>
+
+    <main class="main-section p-12 text-center">
+        
+    <!--  Formulario Agregar Mesa -->
+            <div class="modal-dialog text-center">
+                <div class="col-sm-12">
+                    <div class="modal-content text-center">
+                        <div class="col-12 user-img">
+                            <img src="{% static 'img/LogoRestorant.png' %}" />
+                        </div>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <h2>Ingresar Plato</h2>
+                            
+                            <div class="form-floating mb-3" id="user-group">
+                                <input type="text" name="nom_plato" class="form-control" id="nom_plato"
+                                    placeholder="numeromesa">
+                                <label for="nom_plato">Nombre del Plato</label>
+                            </div>
+                        
+                            <div class="form-floating mb-3" id="user-group">
+                                <input type="number" name="precio" class="form-control"  placeholder="precio" id="precio">
+                                <label for="precio">Precio</label>
+                            </div>
+                            <div class="form-floating mb-3" id="user-group">
+                                <input type="file" name="img_plato" class="form-control" id="img_plato">
+                                <label for="img_plato">Imagen</label>
+                            </div>
+                            <div class="modal-dialog text-center">
+                                <div class="modal-dialog text-center">
+                                    <div class="col-sm-12">
+                                        <div class="modal-content">
+                                            <h2>Ingredientes</h2>
+                                            <form action="">
+                                            <table class="table table-dark table-striped">
+                                                <tr>
+                                                    <th>Nombre Producto</th> 
+                                                    <th>Cantidad</th>
+                                                    <th>Añadir</th> 
+                                                </tr>
+                                                <tr>
+                                                    <td>Papas</td>
+                                                    <td><input type="number" value="0"></td>
+                                                    <td><input type="submit"></td>
+                                                </tr>
+                                                <!--{% for e in Mesas %}
+                                                <tr>
+                                                      <td>Papas</td>
+                                                      <td><input type="number" value="0"></td>
+                                                      <td><input type="submit"></td>
+                                                </tr>
+                                                {% endfor %}-->
+                                            </table>
+
+                                            <table class="table table-dark table-striped">
+                                                <tr>
+                                                    <th>Nombre Producto</th> 
+                                                    <th>Cantidad</th>
+                                                    <th>Quitar</th> 
+                                                </tr>
+                                                <tr>
+                                                    <td>Papas</td>
+                                                    <td><input type="number" value="0"></td>
+                                                    <td><input type="submit"></td>
+                                                </tr>
+                                                <!--{% for e in Mesas %}
+                                                <tr>
+                                                      <td>Papas</td>
+                                                      <td><input type="number" value="0"></td>
+                                                      <td><input type="submit"></td>
+                                                </tr>
+                                                {% endfor %}-->
+                                            </table>
+                                            <div class="form-floating mb-3" id="user-group">
+                                                <textarea name="instrucciones" class="form-control" id="instrucciones"
+                                                    placeholder="Instrucciones"></textarea>
+                                                <label for="instrucciones">Instrucciones</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="submit" name='Guardar' value= "Ingresar Plato" class="btn btn-success">
+                                            </div>
+                                        </form>
+                                            <br>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+
+        
+        {% if mensaje %}
+        <script>
+            
+            alert('{{ mensaje }}');
+            
+        </script>
+        {%endif%}
+        
+
+
+    </main>
+</body>
+
+
+</html>
