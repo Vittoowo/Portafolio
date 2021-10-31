@@ -2,7 +2,6 @@ body{
     background: url( /static/img/background.jpg) no-repeat center center fixed;
     background-size: cover;
     margin: 0;
-
 }
 
 /* Estilo del login */
@@ -10,11 +9,14 @@ body{
 header{
      width: 100%;
  }
+
+
 .bg-dark{
     position: fixed;
     z-index: 20;
     width: 100%;
 }
+
 
 .main-section{
     margin: 0 auto;
@@ -42,10 +44,10 @@ header{
 }
 
 .footerpg{
-    bottom: 0px;
+    bottom: 0;
     position: absolute;
     width: 100%;
-    background-color: #dddddd;
+    background-color: #333;
     
 }
 
