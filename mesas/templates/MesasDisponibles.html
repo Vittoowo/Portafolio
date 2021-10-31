@@ -63,6 +63,13 @@
     </div>
 
     <script>
+      
+      //Se obtienen todos los elementos con el nombre de clase filterDiv 4
+      //El 4 significa que esta reservada(según la bdd)
+      //Una vez se obtenidos, se les cambia el color mediante un ciclo for 
+      var a=document.getElementsByClassName("filterDiv 4");
+		  for (var i=0; i<a.length; i++) a[i].style.backgroundColor="red";
+
       filterSelection("all")
       function filterSelection(c) {
         var x, i;
