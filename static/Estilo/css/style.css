@@ -1,6 +1,7 @@
 body{
     background: url( /static/img/background.jpg) no-repeat center center fixed;
     background-size: cover;
+    margin: 0;
 
 }
 
@@ -38,4 +39,16 @@ header{
     height: 100px;
     box-shadow: 0px 0px 6px black;
     border-radius: 50%;
+}
+
+.footerpg{
+    bottom: 0px;
+    position: absolute;
+    width: 100%;
+    background-color: #dddddd;
+    
+}
+
+.footerpg a{
+    text-decoration: none;
 }

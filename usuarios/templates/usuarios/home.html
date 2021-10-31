@@ -3,17 +3,17 @@
 
 <html>
 <head>  
-
+  <link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'Estilo/css/style.css' %}"
+ />
   <link
   rel="stylesheet"
   type="text/css"
   href="{% static 'Estilo/css/bootstrap.css' %}"
  />
- <link
-  rel="stylesheet"
-  type="text/css"
-  href="{% static 'Estilo/css/style.css' %}"
- />
+ 
  <!--  Responsive tag de bootstap -->
  <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,7 +63,7 @@
            </div>
          </div>
 
-       </div>
+       
 
         {% if message %}
         <script>
@@ -74,6 +74,26 @@
         {%endif%}
         
     </main>
+    <footer class="footerpg bg-dark text-white">
+      
+      
+        <div class="container">
+        <nav class="row">
+          <a href="" class="col-3 text-reset text-uppercase d-flex align-items-center">
+            <img src="{% static 'img/LogoRestorant.png' %}" alt="Logo restaurante siglo XXI" width="40" height="40" class="img-logo mr-2">
+            Restaurante Siglo XXI
+          </a>
+          <ul class="col-3 list-unstyled">
+            <li class="font-weihgt-bold text-uppercase">Contactanos</li>
+            <li class="text-reset">Mail: Contacto@sigloxxi.cl</li>
+            <li class="text-reset">Numero: +56 9 98923459</li>
+
+          </ul>
+        </nav>
+      </div>
+      
+    </footer>
+
         
 </body>
 
