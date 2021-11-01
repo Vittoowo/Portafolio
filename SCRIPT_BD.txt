@@ -308,7 +308,7 @@ ALTER TABLE reserva
         REFERENCES mesas ( id_mesa );
 
 --============================
-
+/
 -------------------- Procedimientos Yensy -----------------------
 
 CREATE OR REPLACE PROCEDURE SP_CREATE_MESAS
@@ -330,7 +330,7 @@ EXCEPTION WHEN OTHERS THEN
 
 END;
 
-
+/
 
 CREATE OR REPLACE PROCEDURE SP_R_ESTADO_MESA(estado out SYS_REFCURSOR)
 IS 
@@ -338,6 +338,7 @@ BEGIN
     open estado for select*from estado_mesa;
 END;
 
+/
 
 CREATE OR REPLACE PROCEDURE SP_READ_MESAS(prc out sys_refcursor)
 AS
@@ -345,6 +346,7 @@ BEGIN
     OPEN prc for SELECT * FROM MESAS;
 END;
 
+/
 
 create or replace PROCEDURE SP_UPDATE_MESAS(
     v_ID_Mesa in number,
@@ -362,6 +364,7 @@ BEGIN
     v_salida:=0;
 END;
 
+/
 
 CREATE OR REPLACE PROCEDURE SP_DELETE_MESAS(
     v_ID_Mesa in number,
@@ -379,7 +382,7 @@ BEGIN
     v_salida:=0;
 END;
 
-
+/
 -------------------------------------------
 -----Metodo de cambiar estado mesa------
 -------------------------------------------
@@ -400,7 +403,7 @@ BEGIN
     v_salida:=0;
 END;
 
-
+/
 
 -------------------------- Fin procedimientos Yensy ------------------------------
 
@@ -413,6 +416,8 @@ END;
 INSERT INTO formato_stock VALUES (1,'Lata');
 INSERT INTO formato_stock VALUES (2,'Botella');
 INSERT INTO formato_stock VALUES (3,'Caja');
+
+/
 
 create or replace PROCEDURE SP_AGREGAR_PRODUCTO(
     v_ID_Producto in number,
@@ -436,7 +441,7 @@ BEGIN
     v_salida:=0;
 END;
 
-
+/
 
 create or replace PROCEDURE SP_ELIMINAR_PRODUCTO(
     v_ID_PRODUCTO in number,
@@ -455,7 +460,7 @@ BEGIN
     v_salida:=0;
 END;
 
-
+/
 
 create or replace PROCEDURE SP_LISTAR_FORMATO_STOCK(formstock out SYS_REFCURSOR)
 IS 
@@ -463,7 +468,7 @@ BEGIN
     open formstock for select * from formato_stock;
 END;
 
-
+/
 
 create or replace PROCEDURE SP_LISTAR_MARCAS(marcas out SYS_REFCURSOR)
 IS 
@@ -471,7 +476,7 @@ BEGIN
     open marcas for select * from marca_producto;
 END;
 
-
+/
 
 create or replace PROCEDURE SP_LISTAR_MEDIDAS(uni_medidas out SYS_REFCURSOR)
 IS 
@@ -479,7 +484,7 @@ BEGIN
     open uni_medidas for select * from unidad_medida;
 END;
 
-
+/
 
 create or replace PROCEDURE SP_LISTAR_PRODUCTOS(produc out SYS_REFCURSOR)
 IS 
@@ -501,6 +506,7 @@ BEGIN
     order by pd.nom_producto;
 END;
 
+/
 
 create or replace PROCEDURE SP_LISTAR_PROVEEDORES(proveedores out SYS_REFCURSOR)
 IS 
@@ -508,7 +514,7 @@ BEGIN
     open proveedores for select * from proveedor;
 END;
 
-
+/
 
 create or replace PROCEDURE SP_MODIFICAR_PRODUCTO(
     v_ID_Producto in number,
@@ -538,6 +544,7 @@ BEGIN
     v_salida:=0;
 END;
 
+/
 
 create or replace PROCEDURE SP_R_ESTADO_RESERVA(estado out SYS_REFCURSOR)
 IS 
@@ -545,7 +552,7 @@ BEGIN
     open estado for select * from estado_reserva;
 END;
 
-
+/
 
 create or replace PROCEDURE SP_LISTAR_RESERVAS(reservas out SYS_REFCURSOR)
 IS
@@ -564,7 +571,7 @@ BEGIN
     ORDER BY r.id_reserva;
 END;
 
-
+/
 
 create or replace PROCEDURE SP_AGREGAR_RESERVA(
     v_ID_Reserva number,
@@ -587,7 +594,7 @@ BEGIN
     v_salida:=0;
 END;
 
-
+/
 
 create or replace PROCEDURE SP_ELIMINAR_RESERVA(
     v_ID_Reserva in number,
@@ -606,7 +613,7 @@ BEGIN
     v_salida:=0;
 END;
 
-
+/
 
 create or replace PROCEDURE SP_MODIFICAR_RESERVA(
     v_ID_Reserva number,
@@ -634,6 +641,7 @@ BEGIN
     v_salida:=0;
 END;
 
+/
 
 
 INSERT INTO ESTADO_RESERVA VALUES(1,'Agendada');
