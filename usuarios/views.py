@@ -38,6 +38,10 @@ def login_user(request):
                 return redirect (to='inicio-admin')
             if user.groups.filter(name='Cocina').exists():
                 return redirect (to='inicio-cocina')
+            if user.groups.filter(name='Totem').exists():
+                return redirect (to='mesas_totem')
+            if user.groups.filtar(name='Bodega').exists():
+                return redirect (to='bodega')
             else:
                 return redirect (to='home')
     return render(request,'registration/login.html',data) 
