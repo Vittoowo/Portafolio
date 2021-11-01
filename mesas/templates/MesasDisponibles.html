@@ -69,6 +69,13 @@
      
     </div>
 
+        {% if message %}
+        <script>
+            
+            alert('{{ message }}');
+            
+        </script>
+        {%endif%}
     <script>
       
       //Se obtienen todos los elementos con el nombre de clase filterDiv 4
