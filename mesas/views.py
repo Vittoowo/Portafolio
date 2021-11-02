@@ -53,5 +53,18 @@ def mesas_totem(request):
     #aqui la logica pues
     data ={
         'Mesas' : mesas.listado_mesa(),
+        'message':""
     }
+
+    if 'Reservar' in request.POST:
+        
+        estado_mesa=int(request.POST.get('estado'))
+        num_mesa=int(request.POST.get('numMesa'))
+        if estado_mesa==1:
+            mesas.modificar_estado_mesa(num_mesa,4)
+            data['Mesas']=mesas.listado_mesa()
+            return render (request,'./MesasDisponibles.html',data)
+        else:
+            data['message']="No puedes reservar una mesa que esta en este estado!"
+            return render (request,'./MesasDisponibles.html',data)
     return render (request,'./MesasDisponibles.html',data)

@@ -57,18 +57,40 @@
     </div>
 
     <div class="container">
+      
       {% for e in Mesas %}
-        <div class ="filterDiv {{ e.2 }}"> Mesa {{e.0}}</div>
+      <form action="" method="POST">
+      {% csrf_token %}
+        <input id="numMesa" name="numMesa" type="hidden" value="{{e.0}}">
+        <input id="estado" name="estado" type="hidden" value="{{e.2}}">
+        <button name='Reservar' class ="filterDiv {{ e.2 }}" > Mesa {{e.0}}</button>
+      </form>
       {% endfor %} 
+     
     </div>
 
+        {% if message %}
+        <script>
+            
+            alert('{{ message }}');
+            
+        </script>
+        {%endif%}
     <script>
       
       //Se obtienen todos los elementos con el nombre de clase filterDiv 4
       //El 4 significa que esta reservada(según la bdd)
       //Una vez se obtenidos, se les cambia el color mediante un ciclo for 
-      var a=document.getElementsByClassName("filterDiv 4");
-		  for (var i=0; i<a.length; i++) a[i].style.backgroundColor="red";
+      var reservadas=document.getElementsByClassName("filterDiv 4");
+		  for (var i=0; i<reservadas.length; i++) reservadas[i].style.backgroundColor="rgb(213,9,9)";
+
+      var por_limpiar=document.getElementsByClassName("filterDiv 3");
+		  for (var i=0; i<por_limpiar.length; i++) por_limpiar[i].style.backgroundColor="rgb(235,192,36)";
+
+
+      var enUso=document.getElementsByClassName("filterDiv 2");
+		  for (var i=0; i<enUso.length; i++) enUso[i].style.backgroundColor="rgb(239,116,10)";
+      
 
       filterSelection("all")
       function filterSelection(c) {
