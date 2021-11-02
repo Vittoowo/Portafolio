@@ -36,11 +36,11 @@ def login_user(request):
             #Obtenemos su grupo y segun esto, le redireccionamos a otra pagina
             if user.groups.filter(name='Administrador').exists():
                 return redirect (to='inicio-admin')
-            if user.groups.filter(name='Cocina').exists():
+            elif user.groups.filter(name='Cocina').exists():
                 return redirect (to='inicio-cocina')
-            if user.groups.filter(name='Totem').exists():
+            elif user.groups.filter(name='Totem').exists():
                 return redirect (to='mesas_totem')
-            if user.groups.filter(name='Bodega').exists():
+            elif user.groups.filter(name='Bodega').exists():
                 return redirect (to='bodega')
             else:
                 return redirect (to='home')
