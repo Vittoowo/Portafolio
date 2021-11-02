@@ -15,6 +15,7 @@ def Bodega(request):
         'Mensaje': "",
     }
 
+    #Metodo para captar el producto a ingresar
     if 'Guardar' in request.POST:
         ID_PRODUCTO = request.POST.get('IDProducto')
         NOM_PRODUCTO = request.POST.get('NombreProducto')
@@ -32,7 +33,7 @@ def Bodega(request):
             data['Mensaje'] = 'No se ha podido guardar'
         return render(request, 'Bodega.html', data)
 
-
+    #Metodo para captar el producto a modificar
     elif 'Modificar' in request.POST:
         ID_PRODUCTO = request.POST.get('IDProducto')
         NOM_PRODUCTO = request.POST.get('NombreProducto')
@@ -50,6 +51,7 @@ def Bodega(request):
             data['Mensaje'] = 'No se ha podido modificar'
         return render(request, 'Bodega.html', data)
 
+    #Metodo para captar el producto a eliminar
     elif 'Eliminar' in request.POST:
         ID_PRODUCTO = request.POST.get('IDProducto')
         salida = Producto.eliminar_producto(ID_PRODUCTO)
@@ -58,6 +60,35 @@ def Bodega(request):
             data['Producto'] = Producto.listar_productos()
         else:
             data['Mensaje'] = 'No se ha podido eliminar'
+        return render(request, 'Bodega.html', data)
+
+    #Metodo para captar el producto a buscar segun codigo de barras
+    elif 'btnBuscarProductoCodigo' in request.POST:
+        ID_PRODUCTO = request.POST.get('BuscarProductoPorCodigo')
+        data['Producto'] = Producto.buscar_productos_por_codigo(ID_PRODUCTO)
+        return render(request, 'Bodega.html', data)
+
+    #Metodo para captar el producto a buscar segun proveedor
+    elif 'btnBuscarProductoProveedor' in request.POST:
+        PROVEEDOR_ID_PROVEEDOR = request.POST.get('BuscarProductoPorProveedor')
+        data['Producto'] = Producto.buscar_productos_por_proveedor(PROVEEDOR_ID_PROVEEDOR)
+        return render(request, 'Bodega.html', data)
+    
+    #Metodo para captar el producto a buscar segun marca
+    elif 'btnBuscarProductoMarca' in request.POST:
+        MARCA_PRODUCTO_ID_MARCA = request.POST.get('BuscarProductoPorMarca')
+        data['Producto'] = Producto.buscar_productos_por_marca(MARCA_PRODUCTO_ID_MARCA)
+        return render(request, 'Bodega.html', data)
+
+    #Metodo para captar el producto a buscar segun stock
+    elif 'btnBuscarProductoStock' in request.POST:
+        STOCK = request.POST.get('BuscarProductoPorStock')
+        data['Producto'] = Producto.buscar_productos_por_stock(STOCK)
+        return render(request, 'Bodega.html', data)
+
+    #Metodo para captar todos los productos a traves de 1 boton
+    elif 'btnTodosLosProductos' in request.POST:
+        data['Producto'] = Producto.listar_productos()
         return render(request, 'Bodega.html', data)
     return render(request, 'Bodega.html', data)
     

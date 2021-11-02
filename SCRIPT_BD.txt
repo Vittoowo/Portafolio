@@ -78,7 +78,7 @@ CREATE TABLE informe_rendimiento
 
 CREATE TABLE formato_stock (
     id_formato_stock number(2) NOT NULL,
-    desc_formato_stock VARCHAR2 (15) NOT NULL
+    desc_formato_stock VARCHAR2 (25) NOT NULL
 );
 
 ALTER TABLE formato_stock ADD CONSTRAINT formato_stock_pk PRIMARY KEY ( id_formato_stock );
@@ -165,7 +165,7 @@ CREATE TABLE productos (
     marca_producto_id_marca   NUMBER(5) NOT NULL,
     stock                     NUMBER(3) NOT NULL,
     formato_stock_id_formato  NUMBER(2) NOT NULL,
-    medida_stock              NUMBER(5) NOT NULL,
+    medida_stock              number(5,2) NOT NULL,
     unidad_medida_id_unidad   NUMBER(1) NOT NULL
 );
 
@@ -308,7 +308,7 @@ ALTER TABLE reserva
         REFERENCES mesas ( id_mesa );
 
 --============================
-
+/
 -------------------- Procedimientos Yensy -----------------------
 
 CREATE OR REPLACE PROCEDURE SP_CREATE_MESAS
@@ -329,7 +329,7 @@ EXCEPTION WHEN OTHERS THEN
     v_salida:=0;
 
 END;
-
+/
 
 
 CREATE OR REPLACE PROCEDURE SP_R_ESTADO_MESA(estado out SYS_REFCURSOR)
@@ -337,14 +337,14 @@ IS
 BEGIN
     open estado for select*from estado_mesa;
 END;
-
+/
 
 CREATE OR REPLACE PROCEDURE SP_READ_MESAS(prc out sys_refcursor)
 AS
 BEGIN
     OPEN prc for SELECT * FROM MESAS;
 END;
-
+/
 
 create or replace PROCEDURE SP_UPDATE_MESAS(
     v_ID_Mesa in number,
@@ -361,7 +361,7 @@ BEGIN
     WHEN OTHERS THEN
     v_salida:=0;
 END;
-
+/
 
 CREATE OR REPLACE PROCEDURE SP_DELETE_MESAS(
     v_ID_Mesa in number,
@@ -378,7 +378,7 @@ BEGIN
     WHEN OTHERS THEN
     v_salida:=0;
 END;
-
+/
 
 -------------------------------------------
 -----Metodo de cambiar estado mesa------
@@ -400,7 +400,7 @@ BEGIN
     v_salida:=0;
 END;
 
-
+/
 
 -------------------------- Fin procedimientos Yensy ------------------------------
 
@@ -410,10 +410,24 @@ END;
 -------------Modulo de Bodega--------------
 -------------------------------------------
 
-INSERT INTO formato_stock VALUES (1,'Lata');
-INSERT INTO formato_stock VALUES (2,'Botella');
-INSERT INTO formato_stock VALUES (3,'Caja');
+INSERT INTO formato_stock VALUES (1,'Envases de Papel');
+INSERT INTO formato_stock VALUES (2,'Envases de Plastico');
+INSERT INTO formato_stock VALUES (3,'Envases de Aluminio');
+INSERT INTO formato_stock VALUES (4,'Envases de Carton');
+INSERT INTO formato_stock VALUES (5,'Bolsas de Papel');
+INSERT INTO formato_stock VALUES (6,'Bolsas de Plastico');
+INSERT INTO formato_stock VALUES (7,'Bolsas de Aluminio');
+INSERT INTO formato_stock VALUES (8,'Cajas Unitarias Carton');
+INSERT INTO formato_stock VALUES (9,'Cajas Unitarias Aluminio');
+INSERT INTO formato_stock VALUES (10,'Cajas de Madera (Huacal)');
+INSERT INTO formato_stock VALUES (11,'Botellas de Plastico');
+INSERT INTO formato_stock VALUES (12,'Botellas de Vidrio');
+INSERT INTO formato_stock VALUES (13,'Latas');
+INSERT INTO formato_stock VALUES (14,'Unidades');
+/
+-------- CRUD PRODUCTOS -----------------------
 
+------------ AGREGAR PRODUCTOS -----------------
 create or replace PROCEDURE SP_AGREGAR_PRODUCTO(
     v_ID_Producto in number,
     v_Nom_Producto in NVARCHAR2,
@@ -435,51 +449,8 @@ BEGIN
     WHEN OTHERS THEN
     v_salida:=0;
 END;
-
-
-
-create or replace PROCEDURE SP_ELIMINAR_PRODUCTO(
-    v_ID_PRODUCTO in number,
-    v_salida out number)
-IS
-BEGIN
-    DELETE FROM PRODUCTOS
-    WHERE ID_PRODUCTO = v_ID_PRODUCTO;
-    if sql%rowcount > 0 then
-    v_salida:=1;
-    end if;
-    commit;
-    EXCEPTION
-
-    WHEN OTHERS THEN
-    v_salida:=0;
-END;
-
-
-
-create or replace PROCEDURE SP_LISTAR_FORMATO_STOCK(formstock out SYS_REFCURSOR)
-IS 
-BEGIN
-    open formstock for select * from formato_stock;
-END;
-
-
-
-create or replace PROCEDURE SP_LISTAR_MARCAS(marcas out SYS_REFCURSOR)
-IS 
-BEGIN
-    open marcas for select * from marca_producto;
-END;
-
-
-
-create or replace PROCEDURE SP_LISTAR_MEDIDAS(uni_medidas out SYS_REFCURSOR)
-IS 
-BEGIN
-    open uni_medidas for select * from unidad_medida;
-END;
-
-
+/
+----------------- LEER (LISTAR) PRODUCTOS ---------------------------
 
 create or replace PROCEDURE SP_LISTAR_PRODUCTOS(produc out SYS_REFCURSOR)
 IS 
@@ -498,17 +469,10 @@ BEGIN
     join marca_producto mp on pd.marca_producto_id_marca = mp.id_marca
     join formato_stock fs on pd.formato_stock_id_formato = fs.id_formato_stock
     join unidad_medida ump on pd.unidad_medida_id_unidad = ump.id_unidad
-    order by pd.nom_producto;
+    order by pd.nom_producto asc;
 END;
-
-
-create or replace PROCEDURE SP_LISTAR_PROVEEDORES(proveedores out SYS_REFCURSOR)
-IS 
-BEGIN
-    open proveedores for select * from proveedor;
-END;
-
-
+/
+----------------- MODIFICAR PRODUCTOS -----------------------
 
 create or replace PROCEDURE SP_MODIFICAR_PRODUCTO(
     v_ID_Producto in number,
@@ -518,7 +482,7 @@ create or replace PROCEDURE SP_MODIFICAR_PRODUCTO(
     v_Stock in number,
     v_Formato_Stock in Nvarchar2,
     v_medida_stock in number,
-    v_Unidad_Medida in number,
+    v_Unidad_Medida in numeric,
     v_salida out number)
 IS
 BEGIN
@@ -537,14 +501,164 @@ BEGIN
     WHEN OTHERS THEN
     v_salida:=0;
 END;
+/
+-------------------- ELIMINAR PRODUCTOS -------------------------
 
+create or replace PROCEDURE SP_ELIMINAR_PRODUCTO(
+    v_ID_PRODUCTO in number,
+    v_salida out number)
+IS
+BEGIN
+    DELETE FROM PRODUCTOS
+    WHERE ID_PRODUCTO = v_ID_PRODUCTO;
+    if sql%rowcount > 0 then
+    v_salida:=1;
+    end if;
+    commit;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+/
+---------------- PROCEDIMIENTOS DE PRODUCTOS -----------------------
+
+
+create or replace PROCEDURE SP_LISTAR_FORMATO_STOCK(formstock out SYS_REFCURSOR)
+IS 
+BEGIN
+    open formstock for select * from formato_stock order by id_formato_stock;
+END;
+/
+
+create or replace PROCEDURE SP_LISTAR_MARCAS(marcas out SYS_REFCURSOR)
+IS 
+BEGIN
+    open marcas for select * from marca_producto order by marca asc;
+END;
+/
+
+create or replace PROCEDURE SP_LISTAR_MEDIDAS(uni_medidas out SYS_REFCURSOR)
+IS 
+BEGIN
+    open uni_medidas for select * from unidad_medida;
+END;
+/
+
+create or replace PROCEDURE SP_LISTAR_PROVEEDORES(proveedores out SYS_REFCURSOR)
+IS 
+BEGIN
+    open proveedores for select * from proveedor order by nombre_proveedor;
+END;
+/
+------------ FILTROS PARA BUSCAR PRODUCTOS SEGUN CODIGO DE BARRAS, PROVEEDOR, MARCA, STOCK -------------------------
+
+create or replace PROCEDURE SP_BUSCAR_PRODUCTOS_POR_CODIGO(
+    
+    v_ID_Producto in number,
+    productos out SYS_REFCURSOR)
+IS
+BEGIN
+    open productos for
+    select pd.id_producto,
+           pd.nom_producto,
+           pv.nombre_proveedor,
+           mp.marca,
+           pd.stock,
+           fs.desc_formato_stock,
+           pd.medida_stock,
+           ump.desc_unidad
+    from productos pd
+    join proveedor pv on pd.proveedor_id_proveedor = pv.id_proveedor
+    join marca_producto mp on pd.marca_producto_id_marca = mp.id_marca
+    join formato_stock fs on pd.formato_stock_id_formato = fs.id_formato_stock
+    join unidad_medida ump on pd.unidad_medida_id_unidad = ump.id_unidad
+    WHERE pd.id_producto = V_ID_PRODUCTO
+    order by pd.nom_producto asc;
+END;
+/
+
+create or replace PROCEDURE SP_BUSCAR_PRODUCTOS_POR_MARCA(
+    
+    v_ID_MARCA in number,
+    productos out SYS_REFCURSOR)
+IS
+BEGIN
+    open productos for
+    select pd.id_producto,
+           pd.nom_producto,
+           pv.nombre_proveedor,
+           mp.marca,
+           pd.stock,
+           fs.desc_formato_stock,
+           pd.medida_stock,
+           ump.desc_unidad
+    from productos pd
+    join proveedor pv on pd.proveedor_id_proveedor = pv.id_proveedor
+    join marca_producto mp on pd.marca_producto_id_marca = mp.id_marca
+    join formato_stock fs on pd.formato_stock_id_formato = fs.id_formato_stock
+    join unidad_medida ump on pd.unidad_medida_id_unidad = ump.id_unidad
+    WHERE pd.marca_producto_id_marca = V_ID_MARCA
+    order by pd.nom_producto asc;
+END;
+/
+
+create or replace PROCEDURE SP_BUSCAR_PRODUCTOS_POR_PROVEEDOR(
+    
+    v_ID_PROVEEDOR in number,
+    productos out SYS_REFCURSOR)
+IS
+BEGIN
+    open productos for
+    select pd.id_producto,
+           pd.nom_producto,
+           pv.nombre_proveedor,
+           mp.marca,
+           pd.stock,
+           fs.desc_formato_stock,
+           pd.medida_stock,
+           ump.desc_unidad
+    from productos pd
+    join proveedor pv on pd.proveedor_id_proveedor = pv.id_proveedor
+    join marca_producto mp on pd.marca_producto_id_marca = mp.id_marca
+    join formato_stock fs on pd.formato_stock_id_formato = fs.id_formato_stock
+    join unidad_medida ump on pd.unidad_medida_id_unidad = ump.id_unidad
+    WHERE pd.proveedor_id_proveedor = V_ID_PROVEEDOR
+    order by pd.nom_producto asc;
+END;
+/
+
+create or replace PROCEDURE SP_BUSCAR_PRODUCTOS_POR_STOCK(
+    
+    v_STOCK in number,
+    productos out SYS_REFCURSOR)
+IS
+BEGIN
+    open productos for
+    select pd.id_producto,
+           pd.nom_producto,
+           pv.nombre_proveedor,
+           mp.marca,
+           pd.stock,
+           fs.desc_formato_stock,
+           pd.medida_stock,
+           ump.desc_unidad
+    from productos pd
+    join proveedor pv on pd.proveedor_id_proveedor = pv.id_proveedor
+    join marca_producto mp on pd.marca_producto_id_marca = mp.id_marca
+    join formato_stock fs on pd.formato_stock_id_formato = fs.id_formato_stock
+    join unidad_medida ump on pd.unidad_medida_id_unidad = ump.id_unidad
+    WHERE pd.stock = V_STOCK
+    order by pd.nom_producto asc;
+END;
+/
 
 create or replace PROCEDURE SP_R_ESTADO_RESERVA(estado out SYS_REFCURSOR)
 IS 
 BEGIN
     open estado for select * from estado_reserva;
 END;
-
+/
 
 
 create or replace PROCEDURE SP_LISTAR_RESERVAS(reservas out SYS_REFCURSOR)
@@ -563,7 +677,7 @@ BEGIN
     on r.estado_reserva_id_est_reserva = e.id_est_reserva
     ORDER BY r.id_reserva;
 END;
-
+/
 
 
 create or replace PROCEDURE SP_AGREGAR_RESERVA(
@@ -586,7 +700,7 @@ BEGIN
     WHEN OTHERS THEN
     v_salida:=0;
 END;
-
+/
 
 
 create or replace PROCEDURE SP_ELIMINAR_RESERVA(
@@ -605,7 +719,7 @@ BEGIN
     WHEN OTHERS THEN
     v_salida:=0;
 END;
-
+/
 
 
 create or replace PROCEDURE SP_MODIFICAR_RESERVA(
@@ -633,16 +747,17 @@ BEGIN
     WHEN OTHERS THEN
     v_salida:=0;
 END;
-
+/
 
 
 INSERT INTO ESTADO_RESERVA VALUES(1,'Agendada');
 INSERT INTO ESTADO_RESERVA VALUES(2,'Finalizada');
 INSERT INTO ESTADO_RESERVA VALUES(3,'Cancelada');
-
+/
 ---------- Fin de Cristiancito -----------
 
 INSERT INTO ESTADO_MESA VALUES(1,'Disponible');
 INSERT INTO ESTADO_MESA VALUES(2,'En Uso');
 INSERT INTO ESTADO_MESA VALUES(3,'Por Limpiar');
 INSERT INTO ESTADO_MESA VALUES(4,'Reservada');
+/

@@ -32,8 +32,23 @@
                        <div class="col-12 user-img">
                            <img src= "{% static 'img/LogoRestorant.png' %}"/>
                        </div>
-                       <h2>Listado de Reservas</h2>
                        <table class="table table-dark table-striped">
+                       <h2>Listado de Reservas</h2>
+                       <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group">
+                          <div class="form-floating mb-3" id="user-group">
+                            <input style="width: 195px;" type="text" name="BuscarReservaRUT" class="form-control" id="floatingBuscarReserva" placeholder="Buscar Reserva Por RUT">
+                            <label for="floatingBuscarReserva">Buscar Reserva Por RUT</label>
+                            <input type="submit" class="btn btn-success" name='btnBuscarReservaPorRUT' value="Buscar Reserva Por RUT">
+                          </div>
+                        </div>
+                        <div class="form-floating mb-6" id="user-group" style="float: right;">
+                            <input type="submit" class="btn btn-success" name='btnTodasLasReserva' value="Mostrar Todas Las Reserva"> 
+                        </div>
+                        
+                       </form>
+                        <table class="table table-dark table-striped">
                             <tr>
                               <th>ID Reserva</th> 
                               <th>Estado de Reserva</th>
@@ -60,44 +75,7 @@
                         </table>
 
 
-                        <!-- Buscar Reservas 
-                          
-                        <table class="table table-dark table-striped">
-                          <form action="" method="POST">
-                            {% csrf_token %}
-                            <h4>Buscar Reserva Por Rut</h4>
-                            <input style="width: 200px;" type="text" name="BuscarRUTReserva" class="form-control" id="floatingId"
-                                    placeholder="Buscar Reserva Por RUT">
-                            <input type="submit" class="btn btn-success" name='BuscarReserva' value="Buscar Reserva">       
-                          </form>
-                            <tr>
-                              <th>ID Reserva</th> 
-                              <th>Estado de Reserva</th>
-                              <th>Rut Reserva</th>
-                              <th>Fecha Reserva</th>
-                              <th>Email</th>
-                              <th>Telefono</th>
-                              <th>Cantidad de Personas</th>
-                            </tr>
-                         
-                           
-                          {% for r in buscar_reservas %}
-                            <tr>
-                              <td>{{ r.0 }}</td>
-                              <td>{{ r.1 }}</td>
-                              <td>{{ r.2 }}</td>
-                              <td>{{ r.3 }}</td>
-                              <td>{{ r.4 }}</td>
-                              <td>{{ r.5 }}</td>
-                              <td>{{ r.6 }}</td>
-                            </tr>
-                         {% endfor %} 
-                         
-                        </table>
-                        -->
-    
-
-                    
+                        
                    </div>
                </div>
 
@@ -111,8 +89,7 @@
                         {% csrf_token %}
                         
                         <div class="form-floating mb-3" id="user-group">
-                          <input type="number" name="IDReserva" class="form-control" id="floatingId"
-                              placeholder="ID Reserva">
+                          <input type="number" name="IDReserva" class="form-control" id="floatingId" placeholder="ID Reserva">
                           <label for="floatingId">ID Reserva</label>
                         </div>
                         
