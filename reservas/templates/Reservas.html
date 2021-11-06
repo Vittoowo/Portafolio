@@ -1,174 +1,180 @@
 <!DOCTYPE html>
 {% load static %}
 
-<link
- rel="stylesheet"
- type="text/css"
- href="{% static 'Estilo/css/bootstrap.css' %}"
-/>
-<link
- rel="stylesheet"
- type="text/css"
- href="{% static 'Estilo/css/style.css' %}"
-/>
+<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/bootstrap.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}" />
 <html>
+
 <head>
 </head>
+
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <h3>Reservas</h3>
-          </a>
-        </div>
-      </nav>
-    
-    <main class="main-section p-4 text-center">
-        <div class=" text-center">
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <h3>Reservas</h3>
+      </a>
+    </div>
+  </nav>
 
-           
-               <div class="col-sm-18">
-                   <div class="modal-content">
-                       <div class="col-12 user-img">
-                           <img src= "{% static 'img/LogoRestorant.png' %}"/>
-                       </div>
-                       <table class="table table-dark table-striped">
-                       <h2>Listado de Reservas</h2>
-                       <form action="" method="POST">
-                        {% csrf_token %}
-                        <div class="input-group">
-                          <div class="form-floating mb-3" id="user-group">
-                            <input style="width: 195px;" type="text" name="BuscarReservaRUT" class="form-control" id="floatingBuscarReserva" placeholder="Buscar Reserva Por RUT">
-                            <label for="floatingBuscarReserva">Buscar Reserva Por RUT</label>
-                            <input type="submit" class="btn btn-success" name='btnBuscarReservaPorRUT' value="Buscar Reserva Por RUT">
-                          </div>
-                        </div>
-                        <div class="form-floating mb-6" id="user-group" style="float: right;">
-                            <input type="submit" class="btn btn-success" name='btnTodasLasReserva' value="Mostrar Todas Las Reserva"> 
-                        </div>
-                        
-                       </form>
-                        <table class="table table-dark table-striped">
-                            <tr>
-                              <th>ID Reserva</th> 
-                              <th>Estado de Reserva</th>
-                              <th>Rut Reserva</th>
-                              <th>Fecha Reserva</th>
-                              <th>Email</th>
-                              <th>Telefono</th>
-                              <th>Cantidad de Personas</th>
-                            </tr>
-                         
-                           
-                          {% for r in Reserva %}
-                            <tr>
-                              <td>{{ r.0 }}</td>
-                              <td>{{ r.1 }}</td>
-                              <td>{{ r.2 }}</td>
-                              <td>{{ r.3 }}</td>
-                              <td>{{ r.4 }}</td>
-                              <td>{{ r.5 }}</td>
-                              <td>{{ r.6 }}</td>
-                            </tr>
-                         {% endfor %} 
-                         
-                        </table>
+  <main class="main-section p-4 text-center">
+    <div class=" text-center">
 
 
-                        
-                   </div>
-               </div>
-
-           <!-- Formulario Reserva-->
-           <div class="modal-dialog text-center">
-            <div class="col-sm-18">
-                <div class="modal-content">
-                    
-                    <h2>Reservas</h2>
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        
-                        <div class="form-floating mb-3" id="user-group">
-                          <input type="number" name="IDReserva" class="form-control" id="floatingId" placeholder="ID Reserva">
-                          <label for="floatingId">ID Reserva</label>
-                        </div>
-                        
-                        <div class="form-floating">
-                          <select name="EstadoReserva" id="user-group" class="form-select">
-                              <option value="">Seleccionar</option>
-                              {% for e in Lista_Estado_Reserva %}
-                              <option value="{{ e.0 }}">{{e.1}}</option>
-                              {% endfor %}
-                          </select>
-                          <label for="estado">Estado de Reserva</label>
-                          <br>
-                        </div>
-
-                        <div class="form-floating mb-3" id="user-group">
-                          <div class="input-group">
-                            <input type="text" style="width: 200px;" name="RutReserva" class="form-control" id="floatingRut"
-                                placeholder="Rut Reserva">
-                            <h3> - </h3>
-                            <input type="text" name="DVRUTReserva" class="form-control" id="floatingDV"
-                                placeholder="DV">
-                          </div>
-                        </div> 
-
-                        <div class="form-floating mb-3" id="user-group">
-                          <input type="date" name="FechaReserva" class="form-control" id="floatingFecha"
-                              placeholder="Fecha Reserva">
-                          <label for="floatingReserva">Fecha Reserva</label>
-                        </div>  
-
-                        <div class="form-floating mb-3" id="user-group">
-                          <input type="time" name="HoraReserva" class="form-control" id="floatingFecha"
-                              placeholder="Hora Reserva">
-                          <label for="floatingReserva">Hora Reserva</label>
-                        </div>  
-
-                        <div class="form-floating mb-3" id="user-group">
-                          <input type="email" name="Email" class="form-control" id="floatingEmail"
-                              placeholder="Email">
-                          <label for="floatingEmail">Email</label>
-                        </div>  
-
-                        <div class="form-floating mb-3" id="user-group">
-                          <input type="text" name="Telefono" class="form-control" id="floatingTelefono"
-                              placeholder="Telefono">
-                          <label for="floatingTelefono">Telefono</label>
-                        </div>  
-
-                        <div class="form-floating mb-3" id="user-group">
-                          <input type="number" name="CantidadPersonas" class="form-control" id="floatingCantidad"
-                              placeholder="Cantidad de personas">
-                          <label for="floatingCantidad">Cantidad de personas</label>
-                        </div>  
-                        
-                        
-                        
-                        <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Reserva">
-                        
-                        <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Reserva">
-                        
-                        <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Reserva">
-                        <br>
-                        <br>
-
-                    </form>
-
-                    {{Mensaje}}
-                    <br>
-                    <br>
+      <div class="col-sm-18">
+        <div class="modal-content">
+          <div class="col-12 user-img">
+            <img src="{% static 'img/LogoRestorant.png' %}" />
+          </div>
+          <table class="table table-dark table-striped">
+            <h2>Listado de Reservas</h2>
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div class="input-group">
+                <div class="form-floating mb-3" id="user-group">
+                  <input style="width: 195px;" type="text" name="BuscarReservaRUT" class="form-control"
+                    id="floatingBuscarReserva" placeholder="Buscar Reserva Por RUT">
+                  <label for="floatingBuscarReserva">Buscar Reserva Por RUT</label>
+                  <input type="submit" class="btn btn-success" name='btnBuscarReservaPorRUT'
+                    value="Buscar Reserva Por RUT">
                 </div>
-            </div>
+              </div>
+              <div class="form-floating mb-6" id="user-group" style="float: right;">
+                <input type="submit" class="btn btn-success" name='btnTodasLasReserva'
+                  value="Mostrar Todas Las Reserva">
+              </div>
+
+            </form>
+            <table class="table table-dark table-striped">
+              <tr>
+                <th>ID Reserva</th>
+                <th>Mesa Reservada</th>
+                <th>Estado de Reserva</th>
+                <th>Rut Reserva</th>
+                <th>Fecha Reserva</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Cantidad de Personas</th>
+              </tr>
+
+
+              {% for r in Reserva %}
+              <tr>
+                <td>{{ r.0 }}</td>
+                <td>{{ r.7 }}</td>
+                <td>{{ r.1 }}</td>
+                <td>{{ r.2 }}</td>
+                <td>{{ r.3 }}</td>
+                <td>{{ r.4 }}</td>
+                <td>{{ r.5 }}</td>
+                <td>{{ r.6 }}</td>
+              </tr>
+              {% endfor %}
+
+            </table>
+
+
 
         </div>
-        <!-- Fin Formulario-->
-         </div>
+      </div>
 
-       </div>
+      <!-- Formulario Reserva-->
+      <div class="modal-dialog text-center">
+        <div class="col-sm-18">
+          <div class="modal-content">
 
-    </main>
+            <h2>Reservas</h2>
+            <form action="" method="POST">
+              {% csrf_token %}
+
+              <div class="form-floating mb-3" id="user-group">
+                <input type="number" name="IDReserva" class="form-control" id="floatingId" placeholder="ID Reserva">
+                <label for="floatingId">ID Reserva</label>
+              </div>
+
+              <div class="form-floating">
+                <select name="MesaReserva" id="MesaReserva" class="form-select">
+                  <option value="">Seleccionar</option>
+                  {% for m in Lista_Mesas %}
+                  <option value="{{ m.0 }}">Mesa {{m.0}}</option>
+                  {% endfor %}
+                </select>
+                <label for="Mesas">Mesas</label>
+                <br>
+              </div>
+              <div class="form-floating">
+                <select name="EstadoReserva" id="user-group" class="form-select">
+                  <option value="">Seleccionar</option>
+                  {% for e in Lista_Estado_Reserva %}
+                  <option value="{{ e.0 }}">{{e.1}}</option>
+                  {% endfor %}
+                </select>
+                <label for="estado">Estado de Reserva</label>
+                <br>
+              </div>
+
+              <div class="form-floating mb-3" id="user-group">
+                <div class="input-group">
+                  <input type="text" style="width: 200px;" name="RutReserva" class="form-control" id="floatingRut"
+                    placeholder="Rut Reserva">
+                  <h3> - </h3>
+                  <input type="text" name="DVRUTReserva" class="form-control" id="floatingDV" placeholder="DV">
+                </div>
+              </div>
+
+              <div class="form-floating mb-3" id="user-group">
+                <input type="date" name="FechaReserva" class="form-control" id="floatingFecha"
+                  placeholder="Fecha Reserva">
+                <label for="floatingReserva">Fecha Reserva</label>
+              </div>
+
+              <div class="form-floating mb-3" id="user-group">
+                <input type="time" name="HoraReserva" class="form-control" id="floatingFecha"
+                  placeholder="Hora Reserva">
+                <label for="floatingReserva">Hora Reserva</label>
+              </div>
+
+              <div class="form-floating mb-3" id="user-group">
+                <input type="email" name="Email" class="form-control" id="floatingEmail" placeholder="Email">
+                <label for="floatingEmail">Email</label>
+              </div>
+
+              <div class="form-floating mb-3" id="user-group">
+                <input type="text" name="Telefono" class="form-control" id="floatingTelefono" placeholder="Telefono">
+                <label for="floatingTelefono">Telefono</label>
+              </div>
+
+              <div class="form-floating mb-3" id="user-group">
+                <input type="number" name="CantidadPersonas" class="form-control" id="floatingCantidad"
+                  placeholder="Cantidad de personas">
+                <label for="floatingCantidad">Cantidad de personas</label>
+              </div>
+
+
+
+              <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Reserva">
+
+              <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Reserva">
+
+              <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Reserva">
+              <br>
+              <br>
+
+            </form>
+
+            {{Mensaje}}
+            <br>
+            <br>
+          </div>
+        </div>
+
+      </div>
+      <!-- Fin Formulario-->
+    </div>
+
+    </div>
+
+  </main>
 </body>
 
 

@@ -51,11 +51,11 @@ class Reservas():
         return lista
 
         #Guardar Reserva
-    def agregar_reserva(ID_RESERVA, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva):
+    def agregar_reserva(ID_RESERVA, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,num_mesa):
         django_cursor = connection.cursor()
         cursor = django_cursor.connection.cursor()
         salida = cursor.var(cx_Oracle.NUMBER)
-        cursor.callproc('SP_AGREGAR_RESERVA',[ID_RESERVA,estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva, salida])
+        cursor.callproc('SP_AGREGAR_RESERVA',[ID_RESERVA,estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,num_mesa, salida])
         return salida.getvalue()
 
 
@@ -68,9 +68,9 @@ class Reservas():
         return salida.getvalue()
 
         #Modificar Reserva
-    def modificar_reserva(ID_RESERVA, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva):
+    def modificar_reserva(ID_RESERVA, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,num_mesa):
         django_cursor = connection.cursor()
         cursor = django_cursor.connection.cursor()
         salida = cursor.var(cx_Oracle.NUMBER)
-        cursor.callproc('SP_MODIFICAR_RESERVA',[ID_RESERVA,estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva, salida])
+        cursor.callproc('SP_MODIFICAR_RESERVA',[ID_RESERVA,estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,num_mesa, salida])
         return salida.getvalue()

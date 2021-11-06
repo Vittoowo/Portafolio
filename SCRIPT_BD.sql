@@ -394,11 +394,12 @@ create or replace PROCEDURE SP_AGREGAR_RESERVA(
     v_email VARCHAR2,
     v_telefono_reserva varchar2,
     v_cantidad_personas_reserva number,
+    v_num_mesa number,
     v_salida out number)
 IS
 BEGIN
-    INSERT INTO RESERVA (ID_RESERVA, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva)
-    VALUES(v_ID_Reserva, v_ID_Estado_Mesa, v_Rut_Reserva, v_Fecha_Reserva, v_email, v_telefono_reserva, v_cantidad_personas_reserva);
+    INSERT INTO RESERVA (ID_RESERVA, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
+    VALUES(v_ID_Reserva, v_ID_Estado_Mesa, v_Rut_Reserva, v_Fecha_Reserva, v_email, v_telefono_reserva, v_cantidad_personas_reserva,v_num_mesa);
     commit;
     v_salida:=1;
     EXCEPTION
@@ -436,7 +437,8 @@ BEGIN
     r.fecha_reserva,
     r.email,
     r.telefono_reserva,
-    r.cantidad_personas_reserva     
+    r.cantidad_personas_reserva,
+    r.mesas_id_mesa     
     FROM RESERVA r
     JOIN estado_reserva e
     on r.estado_reserva_id_est_reserva = e.id_est_reserva
@@ -452,6 +454,7 @@ create or replace PROCEDURE SP_MODIFICAR_RESERVA(
     v_email VARCHAR2,
     v_telefono_reserva varchar2,
     v_cantidad_personas_reserva number,
+    v_num_mesa number,
     v_salida out number)
 IS
 BEGIN
@@ -460,7 +463,8 @@ BEGIN
                        FECHA_RESERVA = v_Fecha_Reserva,
                        EMAIL = v_Email,
                        TELEFONO_RESERVA = v_Telefono_Reserva,
-                       CANTIDAD_PERSONAS_RESERVA = v_cantidad_personas_reserva
+                       CANTIDAD_PERSONAS_RESERVA = v_cantidad_personas_reserva,
+                       mesas_id_mesa = v_num_mesa
     WHERE id_reserva = v_ID_Reserva;
     commit;
     v_salida:=1;

@@ -2,13 +2,15 @@ from django.shortcuts import render
 from django.db import connection
 from django.contrib.auth.decorators import login_required
 from reservas.models import Reservas as reservas
+from mesas.models import Mesas
 # Create your views here.
 
 @login_required
 def Reservas(request):
     data ={
         'Lista_Estado_Reserva':reservas.listar_estados(),
-        'Reserva':reservas.listado_reservas()
+        'Reserva':reservas.listado_reservas(),
+        'Lista_Mesas':Mesas.listado_mesa(),
     }
     
     if 'Guardar' in request.POST:
@@ -19,7 +21,8 @@ def Reservas(request):
         EMAIL = request.POST.get('Email')
         TELEFONO_RESERVA = request.POST.get('Telefono')
         CANTIDAD_PERSONAS_RESERVA = request.POST.get('CantidadPersonas')
-        salida = reservas.agregar_reserva(ID_RESERVA, ESTADO_RESERVA_ID_EST_RESERVA, RUT_RESERVA, FECHA_RESERVA, EMAIL, TELEFONO_RESERVA, CANTIDAD_PERSONAS_RESERVA)
+        NUM_MESA = request.POST.get('MesaReserva')
+        salida = reservas.agregar_reserva(ID_RESERVA, ESTADO_RESERVA_ID_EST_RESERVA, RUT_RESERVA, FECHA_RESERVA, EMAIL, TELEFONO_RESERVA, CANTIDAD_PERSONAS_RESERVA,NUM_MESA)
         if salida == 1:
             data['Mensaje'] = 'Reserva Agregada'
             data['Reserva'] = reservas.listado_reservas()
@@ -45,7 +48,8 @@ def Reservas(request):
         EMAIL = request.POST.get('Email')
         TELEFONO_RESERVA = request.POST.get('Telefono')
         CANTIDAD_PERSONAS_RESERVA = request.POST.get('CantidadPersonas')
-        salida = reservas.modificar_reserva(ID_RESERVA, ESTADO_RESERVA_ID_EST_RESERVA, RUT_RESERVA, FECHA_RESERVA, EMAIL, TELEFONO_RESERVA, CANTIDAD_PERSONAS_RESERVA)
+        NUM_MESA = request.POST.get('MesaReserva')
+        salida = reservas.modificar_reserva(ID_RESERVA, ESTADO_RESERVA_ID_EST_RESERVA, RUT_RESERVA, FECHA_RESERVA, EMAIL, TELEFONO_RESERVA,CANTIDAD_PERSONAS_RESERVA, NUM_MESA)
         if salida == 1:
             data['Mensaje'] = 'Reserva Modificada'
             data['Reserva'] = reservas.listado_reservas()
