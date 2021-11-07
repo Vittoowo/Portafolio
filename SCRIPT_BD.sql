@@ -409,6 +409,31 @@ BEGIN
 END;
 /
 
+create or replace PROCEDURE SP_BUSCAR_RESERVAS_POR_RUT(
+    
+    v_Rut_Reserva in NVARCHAR2,
+    reservas out SYS_REFCURSOR)
+IS
+BEGIN
+    open reservas for
+    SELECT r.id_reserva,
+    e.DESC_ESTD_RESERVA,
+    r.rut_reserva,
+    r.fecha_reserva,
+    r.email,
+    r.telefono_reserva,
+    r.cantidad_personas_reserva,
+    r.mesas_id_mesa     
+    FROM RESERVA r
+    JOIN estado_reserva e
+    on r.estado_reserva_id_est_reserva = e.id_est_reserva
+    where RUT_RESERVA = v_Rut_Reserva
+    order by fecha_reserva desc;
+END;
+
+
+/
+
 create or replace PROCEDURE SP_ELIMINAR_RESERVA(
     v_ID_Reserva in number,
     v_salida out number)
@@ -739,4 +764,18 @@ INSERT INTO ESTADO_MESA VALUES(2,'En Uso');
 INSERT INTO ESTADO_MESA VALUES(3,'Por Limpiar');
 INSERT INTO ESTADO_MESA VALUES(4,'Reservada');
 /
+
+
+INSERT INTO MARCA_PRODUCTO VALUES(1, 'Coca-Cola');
+INSERT INTO MARCA_PRODUCTO VALUES(2, 'Minuto Verde');
+INSERT INTO MARCA_PRODUCTO VALUES(3, 'Colun');
+INSERT INTO MARCA_PRODUCTO VALUES(4, 'Cousin n Co');
+INSERT INTO MARCA_PRODUCTO VALUES(5, 'Dolbeck');
+
+INSERT INTO PROVEEDOR VALUES(1, 'Coca-Loca');
+INSERT INTO PROVEEDOR VALUES(2, 'Frutos');
+INSERT INTO PROVEEDOR VALUES(3, 'Lactos');
+INSERT INTO PROVEEDOR VALUES(4, 'Jumbo');
+INSERT INTO PROVEEDOR VALUES(5, 'El Cielo');
+
 commit;
