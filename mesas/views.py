@@ -15,8 +15,8 @@ def Mesas(request):
         numeromesa = int(request.POST.get('idmesa'))
         cantidadpersonas=int(request.POST.get('capacidad'))
         estadomesa=int(request.POST.get('estado'))
-        mesa_c=mesas(numeromesa,cantidadpersonas,estadomesa) #creando el objeto
-        salida = mesa_c.agregar_mesa()#llamamos al metodo del models, creamos una variable y le asigna el valor que va a retornar
+        mesa_c=mesas(numeromesa,cantidadpersonas,estadomesa) 
+        salida = mesa_c.agregar_mesa()
         if salida==1:
             print 
             data['mensaje'] = 'Mesa agregada correctamente'
@@ -50,12 +50,10 @@ def Mesas(request):
     return render(request, 'Mesas.html', data)
 
 def mesas_totem(request):
-    #aqui la logica pues
     data ={
         'Mesas' : mesas.listado_mesa(),
         'message':""
     }
-
     if 'Reservar' in request.POST:
         
         estado_mesa=int(request.POST.get('estado'))

@@ -4,7 +4,7 @@ from django.db import connection
 from django.shortcuts import render
 import cx_Oracle
 
-#mesas
+#Mesas
 class Mesas():
     def __init__(self,id_mesa,cant_mesa,id_estado_mesa):
         self.id_mesa = id_mesa
@@ -59,7 +59,7 @@ class Mesas():
         cursor.callproc('SP_UPDATE_MESAS',[self.id_mesa, self.cant_mesa, self.id_estado_mesa,salida])
         return salida.getvalue()
     
-    #Modificar solamente estados
+    #Modificar solamente los estados de la mesa
     def modificar_estado_mesa(id_mesa,id_estado_mesa):
         django_cursor = connection.cursor()
         cursor = django_cursor.connection.cursor()

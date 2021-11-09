@@ -36,7 +36,6 @@
                                 <label for="idmesa">Número de Mesa</label>
                             </div>
 
-            
                             <div class="form-floating mb-3" id="user-group">
                                 <input type="number" name="capacidad" class="form-control"  placeholder="capacidadper" id="floatingPer">
                                 <label for="floatingPer">Capacidad de la Mesa</label>
@@ -57,30 +56,21 @@
                                 <input type="submit" name='Guardar' value= "Guardar Mesa" class="btn btn-success">
                             </div>
 
-                        </form>
-
-                        
+                        </form> 
                     </div>
                 </div>
-
             </div>
-        
-
-        
         {% if mensaje %}
         <script>
-            
+           
             alert('{{ mensaje }}');
             
         </script>
         {%endif%}
         
-    
 <!--  Listado de mesas -->
 
-    
         <div class="modal-dialog text-center">
-
             <div class="modal-dialog text-center">
                 <div class="col-sm-12">
                     <div class="modal-content">
@@ -107,11 +97,8 @@
             </div>
         </div>
         
-
     
 <!--  Formulario eliminar o modifacr Mesa -->
-    
-
         <div class="modal-dialog text-center">
             <div class="col-sm-12">
                 <div class="modal-content">
@@ -133,8 +120,6 @@
                             <label for="floatingCap">Capacidad Personas</label>
                         </div>
 
-
-                        
                         <div class="form-floating">
                             
                             <select name="estado" id="estado" class="form-select">
@@ -150,10 +135,11 @@
                         <input type="submit" name='Modificar' value= "Modificar Mesa" class="btn btn-primary">
                         <br>
                         <br>
+
                     </form>
 
     </main>
-</body>
 
+</body>
 
 </html>
