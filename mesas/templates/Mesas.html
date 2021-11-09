@@ -92,11 +92,11 @@
                            <th>Capacidad de la Mesa</th>
                            <th>Estado de la Mesa</th>
                          </tr>
-                         {% for e in Mesas %}
+                         {% for m in Mesas %}
                             <tr>
-                              <td>{{ e.0 }}</td>
-                              <td>{{ e.1 }}</td>
-                              <td>{{ e.2 }}</td>
+                              <td>{{ m.1 }}</td>
+                              <td>{{ m.2 }}</td>
+                              <td>{{ m.0 }}</td>
                             </tr>
                          {% endfor %}
                        </table>

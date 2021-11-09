@@ -340,10 +340,17 @@ BEGIN
 END;
 /
 
-CREATE OR REPLACE PROCEDURE SP_READ_MESAS(prc out sys_refcursor)
-AS
+CREATE OR REPLACE PROCEDURE SP_READ_MESAS(mesas out SYS_REFCURSOR)
+IS
 BEGIN
-    OPEN prc for SELECT * FROM MESAS;
+    OPEN mesas for 
+    SELECT 
+    e.DESC_ESTD_MESA,
+    m.id_mesa,
+    m.capacidad
+    FROM MESAS m
+    JOIN estado_mesa e
+    ON m.estado_mesa_id_est_mesa = e.id_est_mesa ;
 END;
 /
 
