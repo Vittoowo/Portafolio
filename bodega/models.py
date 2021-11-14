@@ -79,24 +79,24 @@ class Producto():
 
 
     #Metodo para llamar al procedimiento para agregar un producto
-    def agregar_producto(ID_PRODUCTO, NOM_PRODUCTO, PROVEEDOR_ID_PROVEEDOR, MARCA_PRODUCTO_ID_MARCA, STOCK, FORMATO_STOCK_ID_FORMATO, MEDIDA, UNIDAD_MEDIDA_ID_UNIDAD):
-        try:
+    def agregar_producto(ID_PRODUCTO,NOM_PRODUCTO,PROVEEDOR_ID_PROVEEDOR,STOCK,MARCA_PRODUCTO_ID_MARCA,UNIDAD_MEDIDA_ID_UNIDAD,FORMATO_STOCK_ID_FORMATO,MEDIDA):
+        try:          
             django_cursor = connection.cursor()
             cursor = django_cursor.connection.cursor()
             salida= cursor.var(cx_Oracle.NUMBER)
-            cursor.callproc ('SP_AGREGAR_PRODUCTO',[ID_PRODUCTO, NOM_PRODUCTO, PROVEEDOR_ID_PROVEEDOR, MARCA_PRODUCTO_ID_MARCA, STOCK, FORMATO_STOCK_ID_FORMATO, MEDIDA, UNIDAD_MEDIDA_ID_UNIDAD, salida])
+            cursor.callproc ('SP_AGREGAR_PRODUCTO',[ID_PRODUCTO,NOM_PRODUCTO,PROVEEDOR_ID_PROVEEDOR,STOCK,MARCA_PRODUCTO_ID_MARCA,UNIDAD_MEDIDA_ID_UNIDAD,FORMATO_STOCK_ID_FORMATO,MEDIDA,salida])
             return salida.getvalue()
         except Exception as e:
             raise e.__str__()
     
 
     #Metodo para llamar al procedimiento para modificar un producto
-    def modificar_producto(ID_PRODUCTO, NOM_PRODUCTO, PROVEEDOR_ID_PROVEEDOR, MARCA_PRODUCTO_ID_MARCA, STOCK, FORMATO_STOCK_ID_FORMATO, MEDIDA, UNIDAD_MEDIDA_ID_UNIDAD):
+    def modificar_producto(ID_PRODUCTO,NOM_PRODUCTO,PROVEEDOR_ID_PROVEEDOR,STOCK,MARCA_PRODUCTO_ID_MARCA,UNIDAD_MEDIDA_ID_UNIDAD,FORMATO_STOCK_ID_FORMATO,MEDIDA):
         try:
             django_cursor = connection.cursor()
             cursor = django_cursor.connection.cursor()
             salida= cursor.var(cx_Oracle.NUMBER)
-            cursor.callproc ('SP_MODIFICAR_PRODUCTO',[ID_PRODUCTO, NOM_PRODUCTO, PROVEEDOR_ID_PROVEEDOR, MARCA_PRODUCTO_ID_MARCA, STOCK, FORMATO_STOCK_ID_FORMATO, MEDIDA, UNIDAD_MEDIDA_ID_UNIDAD, salida])
+            cursor.callproc ('SP_MODIFICAR_PRODUCTO',[ID_PRODUCTO,NOM_PRODUCTO,PROVEEDOR_ID_PROVEEDOR,STOCK,MARCA_PRODUCTO_ID_MARCA,UNIDAD_MEDIDA_ID_UNIDAD,FORMATO_STOCK_ID_FORMATO,MEDIDA, salida])
             return salida.getvalue()
         except Exception as e:
             raise e.__str__()
@@ -158,3 +158,6 @@ class Producto():
         for fila in out_cur:
             lista.append(fila)
         return lista
+
+
+

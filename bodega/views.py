@@ -25,7 +25,7 @@ def Bodega(request):
         FORMATO_STOCK_ID_FORMATO = request.POST.get('FormatoStockProducto')
         MEDIDA = request.POST.get('MedidaProducto')
         UNIDAD_MEDIDA_ID_UNIDAD = request.POST.get('UnidadMedidaProducto')
-        salida = Producto.agregar_producto(ID_PRODUCTO, NOM_PRODUCTO, PROVEEDOR_ID_PROVEEDOR, MARCA_PRODUCTO_ID_MARCA, STOCK, FORMATO_STOCK_ID_FORMATO, MEDIDA, UNIDAD_MEDIDA_ID_UNIDAD)
+        salida = Producto.agregar_producto(ID_PRODUCTO,NOM_PRODUCTO,PROVEEDOR_ID_PROVEEDOR,STOCK,MARCA_PRODUCTO_ID_MARCA,UNIDAD_MEDIDA_ID_UNIDAD,FORMATO_STOCK_ID_FORMATO,MEDIDA)
         if salida == 1:
             data['Mensaje'] = 'Producto Agregado'
             data['Producto'] = Producto.listar_productos()
@@ -43,7 +43,7 @@ def Bodega(request):
         FORMATO_STOCK_ID_FORMATO = request.POST.get('FormatoStockProducto')
         MEDIDA = request.POST.get('MedidaProducto')
         UNIDAD_MEDIDA_ID_UNIDAD = request.POST.get('UnidadMedidaProducto')
-        salida = Producto.modificar_producto(ID_PRODUCTO, NOM_PRODUCTO, PROVEEDOR_ID_PROVEEDOR, MARCA_PRODUCTO_ID_MARCA, STOCK, FORMATO_STOCK_ID_FORMATO, MEDIDA, UNIDAD_MEDIDA_ID_UNIDAD)
+        salida = Producto.modificar_producto(ID_PRODUCTO,NOM_PRODUCTO,PROVEEDOR_ID_PROVEEDOR,STOCK,MARCA_PRODUCTO_ID_MARCA,UNIDAD_MEDIDA_ID_UNIDAD,FORMATO_STOCK_ID_FORMATO,MEDIDA)
         if salida == 1:
             data['Mensaje'] = 'Producto Modificado'
             data['Producto'] = Producto.listar_productos()

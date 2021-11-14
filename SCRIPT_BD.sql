@@ -1,9 +1,3 @@
--- Generado por Oracle SQL Developer Data Modeler 18.1.0.082.1035
---   en:        2021-11-09 21:45:52 CLST
---   sitio:      Oracle Database 12c
---   tipo:      Oracle Database 12c
-
-
 
 DROP TABLE boleta CASCADE CONSTRAINTS;
 
@@ -94,7 +88,7 @@ CREATE TABLE informe_rendimiento
 ;
 
 CREATE TABLE insumo (
-    id_insumo                        NUMBER(4) NOT NULL,
+    id_insumo                        NUMBER(20) NOT NULL,
     nom_insumo                       VARCHAR2(50) NOT NULL,
     stock                            NUMBER NOT NULL,
     proveedor_id_proveedor           NUMBER(2) NOT NULL,
@@ -171,13 +165,14 @@ ALTER TABLE platos_orden ADD CONSTRAINT platos_orden_pk PRIMARY KEY ( plato_id_p
                                                                       orden_id_orden );
 
 CREATE TABLE productos (
-    id_producto                      NUMBER(4) NOT NULL,
+    id_producto                      NUMBER(20) NOT NULL,
     nom_producto                     VARCHAR2(50) NOT NULL,
     proveedor_id_proveedor           NUMBER(2) NOT NULL,
     stock                            NUMBER NOT NULL,
     marca_producto_id_marca          NUMBER(5) NOT NULL,
     unidad_medida_id_unidad          NUMBER(1) NOT NULL,
-    formato_stock_id_formato_stock   NUMBER(2) NOT NULL
+    formato_stock_id_formato_stock   NUMBER(2) NOT NULL,
+    medida_stock                     NUMBER NOT NULL
 );
 
 ALTER TABLE productos ADD CONSTRAINT productos_pk PRIMARY KEY ( id_producto );
@@ -342,3 +337,4 @@ ALTER TABLE reserva
 ALTER TABLE reserva
     ADD CONSTRAINT reserva_mesas_fk FOREIGN KEY ( mesas_id_mesa )
         REFERENCES mesas ( id_mesa );
+
