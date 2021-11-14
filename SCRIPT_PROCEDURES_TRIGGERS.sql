@@ -45,7 +45,6 @@ BEGIN
     open estado for select*from estado_mesa;
 END;
 /
-
 CREATE OR REPLACE PROCEDURE SP_READ_MESAS(mesas out SYS_REFCURSOR)
 IS
 BEGIN
@@ -53,7 +52,8 @@ BEGIN
     SELECT 
     e.DESC_ESTD_MESA,
     m.id_mesa,
-    m.capacidad
+    m.capacidad,
+    m.ESTADO_MESA_ID_EST_MESA
     FROM MESAS m
     JOIN estado_mesa e
     ON m.estado_mesa_id_est_mesa = e.id_est_mesa ;
