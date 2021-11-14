@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login Usuarios</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <!-- Estilos propios -->
+  <link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}">
+  
+</head>
+<body>
+<nav class="navbar navbar-expand navbar-primary navbar-dark">      
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <h1> <img src="{% static 'img/LogoRestorant.png' %}" alt="" width="40" height="40" class="d-inline-block aling-items-center">
+        Restaurante Siglo XXI</h1>
+      </a>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-menu-item"><a href="#" class="nav-menu-link nav-link nav_menu_link_active">Inicio</a></li>
+        <li class="nav-menu-item"><a href="#" class="nav-menu-link nav-link">Sobre Nosotros</a></li>
+        <li class="nav-menu-item"><a href="#" class="nav-menu-link nav-link">Nuestra Carta</a></li>
+        <li class="nav-menu-item"><a href="#" class="nav-menu-link nav-link">Reservas</a></li>
+        <li class="nav-menu-item"><a href="#" class="nav-menu-link nav-link">Contactenos</a></li>
+        <li class="nav-menu-item">
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" style="color: rgb(255, 255, 255)" class="fas fa-sign-in-alt">Cerrar sesion</a>       
+        {% else %}
+        <a href="{% url 'login' %}" style="color: rgb(255, 255, 255)" class="fas fa-sign-in-alt">Iniciar sesion</a>
+        {% endif %}
+        </li>
+    </ul>
+    </div>
+  </nav>
+</body>
+
+
+
+{% block content %}
+
+{% endblock %}
+
+
+
+<footer class="footerpg bg-dark text-white">
+      
+      
+    <div class="container">
+    <nav class="row">
+      <a href="" class="col-3 text-reset text-uppercase d-flex align-items-center">
+        <img src="{% static 'img/LogoRestorant.png' %}" alt="Logo restaurante siglo XXI" width="40" height="40" class="img-logo mr-2">
+        Restaurante Siglo XXI
+      </a>
+      <ul class="col-3 list-unstyled">
+        <li class="text-reset">Copyright © 2021 </li>
+        <li class="text-reset">Todos los derechos reservados</li>
+      </ul>
+      <ul class="col-3 list-unstyled">
+        <li class="font-weihgt-bold text-uppercase">Contactanos</li>
+        <li class="text-reset">Mail: Contacto@sigloxxi.cl</li>
+        <li class="text-reset">Numero: +56 9 98923459</li>
+
+      </ul>
+      <ul class="col-3 list-unstyled">
+        <li class="font-weihgt-bold text-uppercase"> Dirección</li>
+        <li class="text-reset">Av. ???? #???</li>
+
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+
+
+
+
+    <!-- jQuery -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/adminlte.min.js"></script>
+    </body>
+    </html>

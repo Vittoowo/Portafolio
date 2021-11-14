@@ -1,90 +1,80 @@
 <!DOCTYPE html>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/bootstrap.css' %}" />
-
-
-<!-- BOOTSTRAP PARA PASSWORD-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- JAVASCRIP -->
-<script type="text/javascript">
-  function mostrarPassword(){
-      var cambio = document.getElementById("txtPassword");
-      if(cambio.type == "password"){
-        cambio.type = "text";
-        $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-      }else{
-        cambio.type = "password";
-        $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-      }
-    } 
-    
-    $(document).ready(function () {
-    //CheckBox mostrar contraseña
-    $('#ShowPassword').click(function () {
-      $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
-    });
-  });
-  </script>
-<!-- javascrip -->
-<html>
-
+<html lang="en">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login Usuarios</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <!-- estilos propios-->
+  <link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}"
+ />
 </head>
+<body class="hold-transition login-page" >
 
-<body>
-  <nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <h3>Ingresa tus credenciales</h3>
-      </a>
-    </div>
-  </nav>
+    <div class="login-box">
+      <div class="login-logo">
+        <!-- <a href="../../index2.html"> --> <b>Restaurante Siglo</b>XXI</a>
+      </div>
+      <!-- /.login-logo -->
+      <div class="card">
+        <div class="card-body login-card-body">
+          <p class="login-box-msg">Iniciar Secion</p>
+    
+          <form action="" method="POST">
+            {% csrf_token %}
 
-  <main class="main-section p-4 text-center">
-    <div class="modal-dialog text-center">
-
-      <div class="modal-dialog text-center">
-        <div class="col-sm-8">
-          <div class="modal-content">
-            <div class="col-12 user-img">
-              <img src="{% static 'img/LogoRestorant.png' %}" />
-            </div>
-            <form action="" method="POST">
-              {% csrf_token %}
-
-              <div class="form-floating mb-3" id="user-group">
-                <input type="text" name="username" class="form-control" id="floatingUsuario" placeholder="Usuario">
-                <label for="floatingUsuario">Nombre de Usuario</label>
-              </div>
-              <div class="input-group mb-3">                    
-                <input type="password" name="password1" class="form-control" placeholder="Contraseña" id="txtPassword">                                                 
-
-                <div class="input-group-append">
-                <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()">
-                <span class="fa fa-eye-slash icon"></span> </button>
-
-                       </div>                
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" name="username" placeholder="Usuario">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user"></span>
                 </div>
-
-              <input type="submit" name="Ingresar" value="Ingresar" class="btn btn-success"><br></br>
-            
-            </form>
-          </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="password" name="password1" class="form-control" placeholder="Password">
+              <div class="input-group-append">
+                <div class="input-group-text">                    
+                    <button id="show_password" class="btn btn-block btn-primary btn-sm" type="button" onclick="mostrarPassword()">
+                  <span class="fa fa-eye"></span></button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              
+              <div class="col-4">
+                <input type="submit" name="Ingresar" value="Ingresar" class="btn btn-block btn-primary btn-sm"><br></br>
+              </div>
+              <!-- /.col -->
+            </div>
+          </form>
         </div>
+        <!-- /.login-card-body -->
       </div>
     </div>
-</div>
+    <!-- /.login-box -->
+
+    <!-- Si la session esta iniciada -->
+
+        <!-- termina if-->
 {% if message %}
   <script>
     alert('{{ message }}');
             
   </script>
 {%endif%}
-        
-  </main>
-  
-</body>
-</html>
+    <!-- jQuery -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/adminlte.min.js"></script>
+    </body>
+    </html>

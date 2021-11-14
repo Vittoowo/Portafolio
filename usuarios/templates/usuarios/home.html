@@ -1,81 +1,9 @@
-<!DOCTYPE html>
-{% load static %}
-
-<html>
-<head>  
-  <link
-  rel="stylesheet"
-  type="text/css"
-  href="{% static 'Estilo/css/style.css' %}"
- />
-  <link
-  rel="stylesheet"
-  type="text/css"
-  href="{% static 'Estilo/css/bootstrap.css' %}"
- />
- 
- <!--  Responsive tag de bootstap -->
- <meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
-<body>
-    <nav class="navbar navbar-light" style="background-color: #6fe4f3;">      
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <h1> <img src="{% static 'img/LogoRestorant.png' %}" alt="" width="40" height="40" class="d-inline-block aling-items-center">
-          Restaurante Siglo XXI</h1>
-        </a>
-        <form class="d-flex">
-        {% if user.is_authenticated %}
-       <a href="{% url 'logout' %}" class="btn btn-outline-success">Cerrar sesion</a>       
-       {% else %}
-       <a href="{% url 'login' %}" class="btn btn-outline-success">Iniciar sesion</a>
-       <a href="{% url 'registro' %}" class="btn btn-outline-success">Registrarse</a>
-       {% endif %}
-        </form>
-      </div>
-      </nav>
-<!-- Header.html-->
-<title>Login Usuarios</title>
-
-    <main class="main-section p-4 text-center">
-        <div class="modal-dialog text-center">
-
-           <div class="modal-dialog text-center">
-               <div class="col-sm-8">
-                   <div class="modal-content">
-                       <div class="col-12 user-img">
-                           <img src= "{% static 'img/LogoRestorant.png' %}"/>
-                       </div>
-     {% if user.is_authenticated %}
-    <a href="{% url 'logout' %}" name="logout" class="btn btn-primary">Cerrar sesion</a>
-    </br>
-    {% else %}
-    <a href="{% url 'login' %}" name="login" class="btn btn-primary">Iniciar sesion</a>
-    </br>
-    <a href="{% url 'registro' %}" name="registrar"class="btn btn-primary">Registrarse</a>
-    </br>
-    {% endif %}
-  
-                   </div>
-               </div>
-
-           </div>
-         </div>
-
-       
-
-        {% if message %}
-        <script>
-            
-            alert('{{ message }}');
-            
-        </script>
-        {%endif%}
-        
-    </main>
-    
-</body>
+{% extends "Base-Generic.html" %}
 
 
-</html>
+
+
+{% block content %}
+
+
+{% endblock %}
