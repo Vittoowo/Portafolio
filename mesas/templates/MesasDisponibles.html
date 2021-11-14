@@ -45,22 +45,15 @@
 
     <h2>Mesas Restaurant Siglo XXI</h2>
 
-    <div id="contenedor">
-      <button class="btn active" onclick="filterSelection('all')"> Todas las mesas</button>
-      <button class="btn" onclick="filterSelection('1')"> Disponibles</button>
-      <button class="btn" onclick="filterSelection('2')"> En Uso</button>
-      <button class="btn" onclick="filterSelection('3')"> Por Limpiar</button>
-      <button class="btn" onclick="filterSelection('4')"> Reservadas</button>
-    </div>
 
     <div class="container">
       
       {% for e in Mesas %}
       <form action="" method="POST">
       {% csrf_token %}
-        <input id="numMesa" name="numMesa" type="hidden" value="{{e.0}}">
-        <input id="estado" name="estado" type="hidden" value="{{e.2}}">
-        <button name='Reservar' class ="filterDiv {{ e.2 }}" > Mesa {{e.0}}</button>
+        <input id="numMesa" name="numMesa" type="hidden" value="{{e.1}}">
+        <input id="estado" name="estado" type="hidden" value="{{e.3}}">
+        <button name='Reservar' class ="filterDiv {{ e.3 }}" > Mesa {{e.1}}</button>
       </form>
       {% endfor %} 
      
