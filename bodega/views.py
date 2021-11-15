@@ -1,16 +1,16 @@
 from django.shortcuts import render
 from django.db import connection
 from django.contrib.auth.decorators import login_required
-from bodega.models import Producto
+from bodega.models import *
 # Create your views here.
 
 @login_required
-def Bodega(request):
+def Productos(request):
     data ={
         'Producto': Producto.listar_productos(),
-        'Listado_Proveedores': Producto.listar_proveedores(),
-        'Listado_Marcas': Producto.listar_marcas(),
-        'Listado_Formato_Stock': Producto.listar_formato_stock(),
+        'Listado_Proveedores': Bodega.listar_proveedores(),
+        'Listado_Marcas': Bodega.listar_marcas(),
+        'Listado_Formato_Stock': Bodega.listar_formato_stock(),
         'Listado_Unidades_Medida': Producto.listar_unidades_medida(), 
         'Mensaje': "",
     }
@@ -92,3 +92,80 @@ def Bodega(request):
         return render(request, 'Bodega.html', data)
     return render(request, 'Bodega.html', data)
     
+
+
+
+
+@login_required
+def Insumos(request):
+    data ={
+        'Insumos': Insumo.listar_insumos(),
+        'Listado_Proveedores': Bodega.listar_proveedores(),
+        'Listado_Formato_Stock': Bodega.listar_formato_stock(),
+        'Mensaje': "",
+    }
+
+    #Metodo para captar el Insumo a ingresar
+    if 'Guardar' in request.POST:
+        ID_INSUMO = request.POST.get('IDInsumo')
+        NOM_INSUMO = request.POST.get('NombreInsumo')
+        STOCK = request.POST.get('StockInsumo')
+        PROVEEDOR_ID_PROVEEDOR = request.POST.get('ProveedorInsumo')
+        FORMATO_STOCK_ID_FORMATO = request.POST.get('FormatoStockInsumo')
+        salida = Insumo.agregar_insumo(ID_INSUMO,NOM_INSUMO, STOCK, PROVEEDOR_ID_PROVEEDOR, FORMATO_STOCK_ID_FORMATO)
+        if salida == 1:
+            data['Mensaje'] = 'Insumo Agregado'
+            data['Insumos'] = Insumo.listar_insumos()
+        else:
+            data['Mensaje'] = 'No se ha podido guardar'
+        return render(request, 'Insumos.html', data)
+
+    #Metodo para captar el Insumo a modificar
+    elif 'Modificar' in request.POST:
+        ID_INSUMO = request.POST.get('IDInsumo')
+        NOM_INSUMO = request.POST.get('NombreInsumo')
+        STOCK = request.POST.get('StockInsumo')
+        PROVEEDOR_ID_PROVEEDOR = request.POST.get('ProveedorInsumo')
+        FORMATO_STOCK_ID_FORMATO = request.POST.get('FormatoStockInsumo')
+        salida = Insumo.modificar_insumo(ID_INSUMO,NOM_INSUMO, STOCK, PROVEEDOR_ID_PROVEEDOR, FORMATO_STOCK_ID_FORMATO)
+        if salida == 1:
+            data['Mensaje'] = 'Insumo Modificado'
+            data['Insumos'] = Insumo.listar_insumos()
+        else:
+            data['Mensaje'] = 'No se ha podido modificar'
+        return render(request, 'Insumos.html', data)
+
+    #Metodo para captar el insumo a eliminar
+    elif 'Eliminar' in request.POST:
+        ID_INSUMO = request.POST.get('IDInsumo')
+        salida = Insumo.eliminar_insumo(ID_INSUMO)
+        if salida == 1:
+            data['Mensaje'] = 'Insumo Eliminado'
+            data['Insumos'] = Insumo.listar_insumos()
+        else:
+            data['Mensaje'] = 'No se ha podido eliminar'
+        return render(request, 'Insumos.html', data)
+
+    #Metodo para captar el insumo a buscar segun codigo de barras
+    elif 'btnBuscarInsumoCodigo' in request.POST:
+        ID_INSUMO = request.POST.get('BuscarInsumoPorCodigo')
+        data['Insumos'] = Insumo.buscar_insumos_por_codigo(ID_INSUMO)
+        return render(request, 'Insumos.html', data)
+
+    #Metodo para captar el insumo a buscar segun proveedor
+    elif 'btnBuscarInsumoProveedor' in request.POST:
+        PROVEEDOR_ID_PROVEEDOR = request.POST.get('BuscarInsumoPorProveedor')
+        data['Insumos'] = Insumo.buscar_insumos_por_proveedor(PROVEEDOR_ID_PROVEEDOR)
+        return render(request, 'Insumos.html', data)
+
+    #Metodo para captar el insumo a buscar segun stock
+    elif 'btnBuscarInsumoStock' in request.POST:
+        STOCK = request.POST.get('BuscarInsumoPorStock')
+        data['Insumos'] = Insumo.buscar_insumos_por_stock(STOCK)
+        return render(request, 'Insumos.html', data)
+
+    #Metodo para captar todos los insumos a traves de 1 boton
+    elif 'btnTodosLosInsumos' in request.POST:
+        data['Insumos'] = Insumo.listar_insumos()
+        return render(request, 'Insumos.html', data)
+    return render(request, 'Insumos.html', data)

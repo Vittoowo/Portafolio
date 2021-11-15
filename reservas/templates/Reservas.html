@@ -61,7 +61,7 @@
               {% for r in Reserva %}
               <tr>
                 <td>{{ r.0 }}</td>
-                <td>{{ r.7 }}</td>
+                <td>Mesa {{ r.7 }}</td>
                 <td>{{ r.1 }}</td>
                 <td>{{ r.2 }}</td>
                 <td>{{ r.3 }}</td>
@@ -96,7 +96,7 @@
                 <select name="MesaReserva" id="MesaReserva" class="form-select">
                   <option value="">Seleccionar</option>
                   {% for m in Lista_Mesas %}
-                  <option value="{{ m.0 }}">Mesa {{m.0}}</option>
+                  <option value="{{ m.1 }}">Mesa {{m.1}}</option>
                   {% endfor %}
                 </select>
                 <label for="Mesas">Mesas</label>
