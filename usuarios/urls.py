@@ -13,6 +13,7 @@ urlpatterns = [
     path('bodega/',include('bodega.urls')),
     path('Administrador/home',inicioAdmin,name="inicio-admin"),
     path('Cocina/home',inicioCocina,name="inicio-cocina"),
+    path('Bodega/home',inicioBodega,name="inicio-bodega"),
     path('Cocina/',include('cocina.urls')),
     #path('Administrador/Mesas',mv.Mesas,name="mesas"),#modificar con include
     #path('Administrador/Reservas',rv.Reservas,name="reservas"), #modificar con include
