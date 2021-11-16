@@ -99,8 +99,26 @@ END;
 --------------------------
 
 
+DROP SEQUENCE reservas_seq;
+CREATE SEQUENCE reservas_seq
+ START WITH     1
+ INCREMENT BY   1;
+ 
+/
+CREATE OR REPLACE TRIGGER trigger_reserva_id
+BEFORE INSERT ON reserva 
+FOR EACH ROW
+
+BEGIN
+  SELECT reservas_seq.NEXTVAL
+  INTO   :new.id_reserva
+  FROM   dual;
+END;
+/
+
+
+
 create or replace PROCEDURE SP_AGREGAR_RESERVA(
-    v_ID_Reserva number,
     v_ID_Estado_Mesa number,
     v_Rut_Reserva NVARCHAR2,
     v_Fecha_Reserva date,
@@ -111,8 +129,8 @@ create or replace PROCEDURE SP_AGREGAR_RESERVA(
     v_salida out number)
 IS
 BEGIN
-    INSERT INTO RESERVA (ID_RESERVA, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
-    VALUES(v_ID_Reserva, v_ID_Estado_Mesa, v_Rut_Reserva, v_Fecha_Reserva, v_email, v_telefono_reserva, v_cantidad_personas_reserva,v_num_mesa);
+    INSERT INTO RESERVA ( estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
+    VALUES(v_ID_Estado_Mesa, v_Rut_Reserva, v_Fecha_Reserva, v_email, v_telefono_reserva, v_cantidad_personas_reserva,v_num_mesa);
     commit;
     v_salida:=1;
     EXCEPTION

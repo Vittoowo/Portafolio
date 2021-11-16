@@ -14,7 +14,7 @@ def Reservas(request):
     }
     
     if 'Guardar' in request.POST:
-        ID_RESERVA = request.POST.get('IDReserva')
+       
         ESTADO_RESERVA_ID_EST_RESERVA = request.POST.get('EstadoReserva')
         RUT_RESERVA = request.POST.get('RutReserva') + " - " + request.POST.get('DVRUTReserva')
         FECHA_RESERVA = request.POST.get('FechaReserva') + " " + request.POST.get('HoraReserva')
@@ -22,7 +22,7 @@ def Reservas(request):
         TELEFONO_RESERVA = request.POST.get('Telefono')
         CANTIDAD_PERSONAS_RESERVA = request.POST.get('CantidadPersonas')
         NUM_MESA = request.POST.get('MesaReserva')
-        salida = reservas.agregar_reserva(ID_RESERVA, ESTADO_RESERVA_ID_EST_RESERVA, RUT_RESERVA, FECHA_RESERVA, EMAIL, TELEFONO_RESERVA, CANTIDAD_PERSONAS_RESERVA,NUM_MESA)
+        salida = reservas.agregar_reserva( ESTADO_RESERVA_ID_EST_RESERVA, RUT_RESERVA, FECHA_RESERVA, EMAIL, TELEFONO_RESERVA, CANTIDAD_PERSONAS_RESERVA,NUM_MESA)
         if salida == 1:
             data['Mensaje'] = 'Reserva Agregada'
             data['Reserva'] = reservas.listado_reservas()

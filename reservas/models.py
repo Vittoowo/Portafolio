@@ -51,11 +51,11 @@ class Reservas():
         return lista
 
         #Guardar Reserva
-    def agregar_reserva(ID_RESERVA, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,num_mesa):
+    def agregar_reserva( estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,num_mesa):
         django_cursor = connection.cursor()
         cursor = django_cursor.connection.cursor()
         salida = cursor.var(cx_Oracle.NUMBER)
-        cursor.callproc('SP_AGREGAR_RESERVA',[ID_RESERVA,estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,num_mesa, salida])
+        cursor.callproc('SP_AGREGAR_RESERVA',[estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,num_mesa, salida])
         return salida.getvalue()
 
 

@@ -53,6 +53,8 @@ def login_user(request):
                 return redirect (to='mesas_totem')
             elif user.groups.filter(name='Bodega').exists():
                 return redirect (to='inicio-bodega')
+            elif user.groups.filter(name='Recepcion').exists():
+                return redirect (to='reservas')
             else:
                 return redirect (to='home')
     return render(request,'registration/login.html',data) 
