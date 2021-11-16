@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load static %}
+<link
+ rel="stylesheet"
+ type="text/css"
+ href="{% static 'Estilo/css/style.css' %}"
+/>
+<link
+ rel="stylesheet"
+ type="text/css"
+ href="{% static 'Estilo/css/bootstrap.css' %}"
+/>
+
+<html>
+<head>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <h3>Administrador</h3>
+          </a>
+        </div>
+      </nav>
+    
+    <main class="main-section p-4 text-center">
+        <div class="modal-dialog text-center">
+
+           <div class="modal-dialog text-center">
+               <div class="col-sm-8">
+                   <div class="modal-content">
+                      <div class="col-12 user-img">
+                        <img src= "{% static 'img/LogoRestorant.png' %}"/>
+                      </div>
+
+                      <form action="{% url 'insumos' %}">
+                        <div class="form-floating mb-3">
+                          <input type="submit"   value="Gestionar Insumos" class="btn btn-success">
+                        </div>
+                      </form>
+                      <form action="{% url 'productos' %}">
+                        <div class="form-floating mb-3">
+                          <input type="submit"   value="Gestionar Productos" class="btn btn-success">
+                        </div>
+                      </form>
+                      
+                   </div>
+               </div>
+
+           </div>
+         </div>
+
+       </div>
+
+        {% if message %}
+        <script>
+            
+            alert('{{ message }}');
+            
+        </script>
+        {%endif%}
+        
+    </main>
+        
+</body>
+
+
+</html>
