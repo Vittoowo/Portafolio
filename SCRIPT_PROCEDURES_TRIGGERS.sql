@@ -452,4 +452,153 @@ BEGIN
 END;
 /
 
+------------------------------------------
+--------Procedimientos Insumos------------
+------------------------------------------
+create or replace PROCEDURE SP_AGREGAR_INSUMO(
+    v_ID_INSUMO in number,
+    v_NOM_INSUMO in NVARCHAR2,
+    v_STOCK in number,
+    v_PROVEEDOR_ID_PROVEEDOR NVARCHAR2,
+    v_FORMATO_STOCK_ID_FORMATO in number,
+    v_salida out number) 
+IS
+BEGIN
+
+    INSERT INTO INSUMO 
+    VALUES(v_ID_INSUMO, v_NOM_INSUMO, v_STOCK, v_PROVEEDOR_ID_PROVEEDOR, v_FORMATO_STOCK_ID_FORMATO);
+    commit;
+    v_salida:=1;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+/
+create or replace PROCEDURE SP_ELIMINAR_INSUMO(
+    v_ID_INSUMO in number,
+    v_salida out number)
+IS
+BEGIN
+    DELETE FROM INSUMO
+    WHERE ID_INSUMO = v_ID_INSUMO;
+    if sql%rowcount > 0 then
+    v_salida:=1;
+    end if;
+    commit;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+/
+
+create or replace PROCEDURE SP_LISTAR_INSUMOS(insum out SYS_REFCURSOR)
+IS 
+BEGIN
+    open insum for
+    select ins.id_insumo,
+           ins.nom_insumo,
+           ins.stock,
+           pv.nombre_proveedor,
+           fs.desc_formato_stock
+    from insumo ins
+    join proveedor pv on ins.proveedor_id_proveedor = pv.id_proveedor
+    join formato_stock fs on ins.FORMATO_STOCK_ID_FORMATO_STOCK = fs.id_formato_stock
+    order by ins.nom_insumo asc;
+END;
+
+/
+
+create or replace PROCEDURE SP_MODIFICAR_INSUMO(
+    v_ID_INSUMO in number,
+    v_NOM_INSUMO in NVARCHAR2,
+    v_STOCK in number,
+    v_PROVEEDOR_ID_PROVEEDOR NVARCHAR2,
+    v_FORMATO_STOCK_ID_FORMATO in number,
+    v_salida out number)  
+IS
+BEGIN
+    UPDATE INSUMO SET nom_insumo = v_Nom_Insumo,
+                      proveedor_id_proveedor = v_PROVEEDOR_ID_PROVEEDOR,
+                      stock = v_Stock,
+                      FORMATO_STOCK_ID_FORMATO_STOCK = v_FORMATO_STOCK_ID_FORMATO
+    WHERE id_Insumo = v_ID_Insumo;
+    if sql%rowcount > 0 then
+    v_salida:=1;
+    end if;
+    commit;
+    
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+/
+create or replace PROCEDURE SP_BUSCAR_INSUMOS_POR_CODIGO(
+        
+    v_ID_INSUMO in number,
+    insum out SYS_REFCURSOR)
+IS 
+BEGIN
+    open insum for
+    select ins.id_insumo,
+           ins.nom_insumo,
+           ins.stock,
+           pv.nombre_proveedor,
+           fs.desc_formato_stock
+    from insumo ins
+    join proveedor pv on ins.proveedor_id_proveedor = pv.id_proveedor
+    join formato_stock fs on ins.FORMATO_STOCK_ID_FORMATO_STOCK = fs.id_formato_stock
+    where ins.id_insumo = v_ID_INSUMO
+    order by ins.nom_insumo asc;
+END;
+
+/
+create or replace PROCEDURE SP_BUSCAR_INSUMOS_POR_PROVEEDOR(
+        
+    v_ID_PROVEEDOR in number,
+    insum out SYS_REFCURSOR)
+IS 
+BEGIN
+    open insum for
+    select ins.id_insumo,
+           ins.nom_insumo,
+           ins.stock,
+           pv.nombre_proveedor,
+           fs.desc_formato_stock
+    from insumo ins
+    join proveedor pv on ins.proveedor_id_proveedor = pv.id_proveedor
+    join formato_stock fs on ins.FORMATO_STOCK_ID_FORMATO_STOCK = fs.id_formato_stock
+    where ins.proveedor_id_proveedor = v_ID_PROVEEDOR
+    order by ins.nom_insumo asc;
+END;
+
+/
+
+create or replace PROCEDURE SP_BUSCAR_INSUMOS_POR_STOCK(
+        
+    v_STOCK in number,
+    insum out SYS_REFCURSOR)
+IS 
+BEGIN
+    open insum for
+    select ins.id_insumo,
+           ins.nom_insumo,
+           ins.stock,
+           pv.nombre_proveedor,
+           fs.desc_formato_stock
+    from insumo ins
+    join proveedor pv on ins.proveedor_id_proveedor = pv.id_proveedor
+    join formato_stock fs on ins.FORMATO_STOCK_ID_FORMATO_STOCK = fs.id_formato_stock
+    where ins.stock = v_STOCK
+    order by ins.nom_insumo asc;
+END;
+/
+
+
+
 COMMIT;
