@@ -20,108 +20,64 @@
   <main class="main-section p-4 text-center">
     <div class=" text-center">
 
-
-      <div class="col-sm-18">
-        <div class="modal-content">
-          <div class="col-12 user-img">
-            <img src="{% static 'img/LogoRestorant.png' %}" />
-          </div>
-          <table class="table table-dark table-striped">
-            <h2>Listado de Reservas</h2>
-            <form action="" method="POST">
-              {% csrf_token %}
-              <div class="input-group">
-                <div class="form-floating mb-3" id="user-group">
-                  <input style="width: 195px;" type="text" name="BuscarReservaRUT" class="form-control"
-                    id="floatingBuscarReserva" placeholder="Buscar Reserva Por RUT">
-                  <label for="floatingBuscarReserva">Buscar Reserva Por RUT</label>
-                  <input type="submit" class="btn btn-success" name='btnBuscarReservaPorRUT'
-                    value="Buscar Reserva Por RUT">
-                </div>
-              </div>
-              <div class="form-floating mb-6" id="user-group" style="float: right;">
-                <input type="submit" class="btn btn-success" name='btnTodasLasReserva'
-                  value="Mostrar Todas Las Reserva">
-              </div>
-
-            </form>
-            <table class="table table-dark table-striped">
-              <tr>
-                <th>ID Reserva</th>
-                <th>Mesa Reservada</th>
-                <th>Estado de Reserva</th>
-                <th>Rut Reserva</th>
-                <th>Fecha Reserva</th>
-                <th>Email</th>
-                <th>Telefono</th>
-                <th>Cantidad de Personas</th>
-              </tr>
-
-
-              {% for r in Reserva %}
-              <tr>
-                <td>{{ r.0 }}</td>
-                <td>Mesa {{ r.7 }}</td>
-                <td>{{ r.1 }}</td>
-                <td>{{ r.2 }}</td>
-                <td>{{ r.3 }}</td>
-                <td>{{ r.4 }}</td>
-                <td>{{ r.5 }}</td>
-                <td>{{ r.6 }}</td>
-                <td><a href="{%url 'modificar-reservas' r.0 %}">Modificar</a></td>
-              </tr>
-              {% endfor %}
-
-            </table>
-
-
-
-        </div>
-      </div>
-
       <!-- Formulario Reserva-->
       <div class="modal-dialog text-center">
         <div class="col-sm-18">
           <div class="modal-content">
-
-            <h2>Reservas</h2>
-            <form action="" method="POST">
+             
+            <h2>Editar reserva </h2>
+            <form action="{%url 'reservas'%}" method="POST">
               {% csrf_token %}
-
+              <div class="form-floating mb-3" id="user-group">
+                            <input type="number" readonly name="ID_RESERVA" class="form-control" id="ID_RESERVA"
+                                placeholder="ID de la reserva" value="{{reserva.0}}">
+                            <label for="idmesa">ID de la Reserva</label>
+                        </div>
 
               <div class="form-floating">
                 <select name="MesaReserva" id="MesaReserva" class="form-select">
                   <option value="">Seleccionar</option>
                   {% for m in Lista_Mesas %}
-                  <option value="{{ m.1 }}">Mesa {{m.1}}</option>
+
+                  {% if m.1 == mesaR %}
+                  <option value="{{ m.1 }}" selected>{{m.1}}</option>
+                  {% else %}
+                  <option value="{{ m.1 }}">{{m.1}}</option>
+                  {% endif %}
+
                   {% endfor %}
                 </select>
-                <label for="Mesas">Mesas</label>
+                <label for="Mesas">Mesa asignada</label>
                 <br>
               </div>
+
               <div class="form-floating">
                 <select name="EstadoReserva" id="user-group" class="form-select">
                   <option value="">Seleccionar</option>
                   {% for e in Lista_Estado_Reserva %}
+                   {% if e.0 == estadoR %}
+                  <option value="{{ e.0 }}" selected>{{e.1}}</option>
+                  {% else %}
                   <option value="{{ e.0 }}">{{e.1}}</option>
+                  {% endif %}
                   {% endfor %}
                 </select>
-                <label for="estado">Estado de Reserva</label>
+                <label for="estado">Estado de la reserva</label>
                 <br>
               </div>
 
               <div class="form-floating mb-3" id="user-group">
                 <div class="input-group">
                   <input type="text" style="width: 200px;" name="RutReserva" class="form-control" id="floatingRut"
-                    placeholder="Rut Reserva">
+                    placeholder="Rut Reserva" value="{{reserva.2}}">
                   <h3> - </h3>
-                  <input type="text" name="DVRUTReserva" class="form-control" id="floatingDV" placeholder="DV">
+                  <input type="text" name="DVRUTReserva" class="form-control" id="floatingDV" placeholder="DV" value="{{reserva.3}}">
                 </div>
               </div>
 
               <div class="form-floating mb-3" id="user-group">
                 <input type="date" name="FechaReserva" class="form-control" id="floatingFecha"
-                  placeholder="Fecha Reserva">
+                  placeholder="Fecha Reserva" value="{{reserva.4}}">
                 <label for="floatingReserva">Fecha Reserva</label>
               </div>
 
@@ -132,24 +88,20 @@
               </div>
 
               <div class="form-floating mb-3" id="user-group">
-                <input type="email" name="Email" class="form-control" id="floatingEmail" placeholder="Email">
+                <input type="email" name="Email" class="form-control" id="floatingEmail" placeholder="Email"  value="{{reserva.5}}">
                 <label for="floatingEmail">Email</label>
               </div>
 
               <div class="form-floating mb-3" id="user-group">
-                <input type="text" name="Telefono" class="form-control" id="floatingTelefono" placeholder="Telefono">
+                <input type="text" name="Telefono" class="form-control" id="floatingTelefono" placeholder="Telefono" value="{{reserva.6}}">
                 <label for="floatingTelefono">Telefono</label>
               </div>
 
               <div class="form-floating mb-3" id="user-group">
                 <input type="number" name="CantidadPersonas" class="form-control" id="floatingCantidad"
-                  placeholder="Cantidad de personas">
+                  placeholder="Cantidad de personas"  value="{{reserva.7}}">
                 <label for="floatingCantidad">Cantidad de personas</label>
               </div>
-
-
-
-              <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Reserva">
 
               <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Reserva">
 

@@ -69,8 +69,19 @@ class Reservas():
 
         #Modificar Reserva
     def modificar_reserva(ID_RESERVA, estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,num_mesa):
+        
         django_cursor = connection.cursor()
         cursor = django_cursor.connection.cursor()
         salida = cursor.var(cx_Oracle.NUMBER)
         cursor.callproc('SP_MODIFICAR_RESERVA',[ID_RESERVA,estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,num_mesa, salida])
         return salida.getvalue()
+    
+    def buscar_reservas_por_id(ID_RESERVA):
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        out_cur = django_cursor.connection.cursor()
+        cursor.callproc("SP_BUSCAR_RESERVAS_POR_ID", [ID_RESERVA, out_cur])
+        lista = []
+        for fila in out_cur:
+            lista.append(fila)
+        return lista

@@ -4,12 +4,12 @@ from mesas import views as mv
 from reservas import views as rv
 
 urlpatterns = [
-    path('', home,name='home'),
+    #path('', home,name='home'),
     path('registro/',RegistroUsuario,name="registro"),
-    path('login/',login_user,name='login'),
+    path('',login_user,name='login'),
     path('logout/',logout_def,name='logout'),
     path('mesas/', include('mesas.urls')),
-    path('/',include('reservas.urls')),
+    path('reservas/',include('reservas.urls')),
     path('bodega/',include('bodega.urls')),
     path('Administrador/home',inicioAdmin,name="inicio-admin"),
     path('Cocina/home',inicioCocina,name="inicio-cocina"),

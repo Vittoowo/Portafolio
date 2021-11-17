@@ -140,6 +140,30 @@ BEGIN
 END;
 /
 
+
+create or replace PROCEDURE SP_BUSCAR_RESERVAS_POR_ID(
+    
+    v_id_Reserva in NVARCHAR2,
+    reserva out SYS_REFCURSOR)
+IS
+BEGIN
+    open reserva for
+    SELECT r.id_reserva,
+    e.ID_EST_RESERVA,
+    TRIM(SUBSTR(r.RUT_RESERVA,0,INSTR(r.rut_reserva,' ',1,1))) AS RUT, 
+    TRIM(SUBSTR(r.RUT_RESERVA,INSTR(r.rut_reserva,' ',1,2),INSTR(r.rut_reserva,' ',1,2)+1)) as DV,
+    to_char(r.fecha_reserva,'YYYY-MM-DD') as fecha,
+    r.email,
+    r.telefono_reserva,
+    r.cantidad_personas_reserva,
+    r.mesas_id_mesa     
+    FROM RESERVA r
+    JOIN estado_reserva e
+    on r.estado_reserva_id_est_reserva = e.id_est_reserva
+    where id_reserva = v_id_Reserva;
+END;
+/
+
 create or replace PROCEDURE SP_BUSCAR_RESERVAS_POR_RUT(
     
     v_Rut_Reserva in NVARCHAR2,
