@@ -66,3 +66,13 @@ def mesas_totem(request):
             data['message']="No puedes reservar una mesa que esta en este estado!"
             return render (request,'./MesasDisponibles.html',data)
     return render (request,'./MesasDisponibles.html',data)
+
+def mesas_modificar(request,num_mesa,capacidad,estado):
+    data={
+        'num_mesaM':num_mesa,
+        'capacidadM':capacidad,
+        'estadoM': int(estado),
+        'lista_estado':mesas.listar_estados(),
+        
+    }
+    return render (request,'./Mesas-modificar.html',data)
