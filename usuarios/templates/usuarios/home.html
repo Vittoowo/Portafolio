@@ -4,6 +4,72 @@
 
 
 {% block content %}
+  {%load static %}
+<main class="container main-container">
+    <div class="carousel">
+        <div class="carousel-contenedor">
+            <button aria-label="Anterior" class="carousel-anterior"><i class="fas fa-chevron-left"></i></button>
+            
+            
+            <div class="carousel-lista">
+                <div class="carousel-elemento">
+                    <img class="carousel-img" src="{% static 'img/nosotros.jpg' %}" alt="Sobre nosotros">
+                    <div class="txtCarousel">
+                        
+                            <h1>
+                                Sobre nosotros
+                            </h1>
+                            <p>
+                                ¿Quieres saber mas acerca de nosotros?
+                            </p>
+                            
+                            <a class="btnCarousel" href="#">Saber más</a>
+                       
+                    </div>
+                </div>
+                <div class="carousel-elemento">
+                    <img class="carousel-img" src="{% static 'img/menu1.jpg' %}" alt="Menu">
+                    <div class="txtCarousel">
+                        
+                        <h1>
+                            Menú
+                        </h1>
+                        <p>
+                            Revisa nuestro menú
+                        </p>
+                        
+                        <a class="btnCarousel" href="#">Ver</a>
+                   
+                    </div>
+                </div>
+                <div class="carousel-elemento">
+                    <img class="carousel-img" src="{% static 'img/reservahora.jpg' %}" alt="Reserva tu hora">
+                    <div class="txtCarousel">
+                        
+                        <h1>
+                            Reservas
+                        </h1>
+                        <p>
+                            Reserva tu hora con antelación
+                        </p>
+                        
+                        <a class="btnCarousel" href="#">Reservar</a>
+                   
+                    </div>
+                </div>
+            </div>
 
+
+
+            <button aria-label="Siguiente" class="carousel-siguiente"><i class="fas fa-chevron-right"></i></button>
+
+        </div>
+
+        <div role="tablist" class="carousel-indicadores"></div>
+        </div>
+    </div>
+
+
+</main>
 
 {% endblock %}
