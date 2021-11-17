@@ -197,12 +197,14 @@ header{
     box-shadow: 0px 0px 6px black;
     border-radius: 50%;
 }
-
+ /*Estilos del footer */
+ 
 .footerpg{
     bottom: 0;
-    position: absolute;
+    position: fixed;
     width: 100%;
-    background-color: #333;
+    background-color: #E8E1C9;
+    color: rgb(136, 106, 61);;;
     
 }
 
