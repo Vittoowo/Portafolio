@@ -52,6 +52,7 @@
                 <th>Estado de Reserva</th>
                 <th>Rut Reserva</th>
                 <th>Fecha Reserva</th>
+                <th>Hora Reserva</th>
                 <th>Email</th>
                 <th>Telefono</th>
                 <th>Cantidad de Personas</th>
@@ -61,13 +62,14 @@
               {% for r in Reserva %}
               <tr>
                 <td>{{ r.0 }}</td>
-                <td>Mesa {{ r.7 }}</td>
-                <td>{{ r.1 }}</td>
+                <td>Mesa {{ r.1 }}</td>
                 <td>{{ r.2 }}</td>
                 <td>{{ r.3 }}</td>
                 <td>{{ r.4 }}</td>
                 <td>{{ r.5 }}</td>
                 <td>{{ r.6 }}</td>
+                <td>{{ r.7 }}</td>
+                <td>{{ r.8 }}</td>
                 <td><a href="{%url 'modificar-reservas' r.0 %}">Modificar</a></td>
               </tr>
               {% endfor %}

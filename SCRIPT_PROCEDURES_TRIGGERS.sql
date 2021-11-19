@@ -213,19 +213,22 @@ IS
 BEGIN
     open reservas for
     SELECT r.id_reserva,
+    r.mesas_id_mesa,
     e.DESC_ESTD_RESERVA,
     r.rut_reserva,
-    r.fecha_reserva,
+    to_char(r.fecha_reserva,'DD-MM-YYYY'),
+    rh.rango_hora,
     r.email,
     r.telefono_reserva,
-    r.cantidad_personas_reserva,
-    r.mesas_id_mesa     
+    r.cantidad_personas_reserva    
     FROM RESERVA r
     JOIN estado_reserva e
     on r.estado_reserva_id_est_reserva = e.id_est_reserva
+    JOIN RANGO_HORA rh on rh.ID_RANGO = r.RANGO_HORA_ID_RANGO 
     ORDER BY r.id_reserva;
 END;
 /
+
 
 create or replace PROCEDURE SP_MODIFICAR_RESERVA(
     v_ID_Reserva number,
