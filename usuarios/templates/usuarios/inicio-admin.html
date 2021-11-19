@@ -1,92 +1,136 @@
-<!DOCTYPE html>
-{% load static %}
-<link
- rel="stylesheet"
- type="text/css"
- href="{% static 'Estilo/css/style.css' %}"
-/>
-<link
- rel="stylesheet"
- type="text/css"
- href="{% static 'Estilo/css/bootstrap.css' %}"
-/>
+{% extends "base-generic.html" %}
 
-<html>
-<head>
-</head>
-<body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <h3>Administrador</h3>
-          </a>
+{% block content %}
+<!-- body-->
+
+<section class="content">
+  <div class="container-fluid">
+    <h4 class="card-title w-100">Menu Administrador</h4>
+  </br>
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-info"><i class="far fa-calendar-alt"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Reservas</span>
+            <form action="{% url 'reservas' %}">
+              <div class="form">
+                <input type="submit"   value="Gestionar Reservas" class="btn btn-success">
+              </div>
+            </form>
+          </div>
+          <!-- /.info-box-content -->
         </div>
-      </nav>
-    
-    <main class="main-section p-4 text-center">
-        <div class="modal-dialog text-center">
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-info"> <i class="fa-regular fa-eye"></i></span>
 
-           <div class="modal-dialog text-center">
-               <div class="col-sm-8">
-                   <div class="modal-content">
-                      <div class="col-12 user-img">
-                        <img src= "{% static 'img/LogoRestorant.png' %}"/>
-                      </div>
+          <div class="info-box-content">
+            <span class="info-box-text">Mesas</span>
+            <form action="{% url 'mesas' %}">
+              <div class="form">
+                <input type="submit"   value="Gestionar Mesas" class="btn btn-success">
+              </div>
+            </form>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-info"><i class="fas fa-user-plus"></i></span>
 
-                      <form action="{% url 'reservas' %}">
-                        <div class="form-floating mb-3">
-                          <input type="submit"   value="Gestionar Reservas" class="btn btn-success">
-                        </div>
-                      </form>
-                      <form action="{% url 'mesas' %}">
-                        <div class="form-floating mb-3">
-                          <input type="submit"   value="Gestionar Mesas" class="btn btn-success">
-                        </div>
-                      </form>
+          <div class="info-box-content">
+            <span class="info-box-text">Registro</span>
+            <form action="{% url 'registro' %}">
+              <div class="form">
+                <input type="submit"   value="Gestion de Usuarios" class="btn btn-success">
+              </div>
+            </form>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-info"><i class="fas fa-shopping-cart"></i></span>
 
-                      <form action="{% url 'registro' %}">
-                        <div class="form-floating mb-3">
-                          <input type="submit"   value="Gestion de Usuarios" class="btn btn-success">
-                        </div>
-                      </form>
+          <div class="info-box-content">
+            <span class="info-box-text">Bodega</span>
+            <form action="{% url 'inicio-bodega' %}">
+              <div class="form">
+                <input type="submit"   value="Gestion de Bodega" class="btn btn-success">
+              </div>
+            </form>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!--  Segunda fila  -->
 
-                      <form action="{% url 'inicio-bodega' %}">
-                        <div class="form-floating mb-3">
-                          <input type="submit"   value="Gestion de Bodega" class="btn btn-success">
-                        </div>
-                      </form>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-info"><i class="fa-solid fa-utensils"></i></span>
 
-                      <form action="">
-                        <div class="form-floating mb-3">
-                          <input type="submit"   value="Gestion de Cocina" class="btn btn-success">
-                        </div>
-                      </form>
+          <div class="info-box-content">
+            <span class="info-box-text">Cocina</span>
+            <form action="">
+              <div class="form">
+                <input type="submit"   value="Gestion de Cocina" class="btn btn-success">
+              </div>
+            </form>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-info"><i class="fas fa-chart-pie"></i></span>
 
-                      <form action="#">
-                        <div class="form-floating mb-3">
-                          <input type="submit"   value="Informes" class="btn btn-success">
-                        </div>
-                      </form>
-                      
-                   </div>
-               </div>
+          <div class="info-box-content">
+            <span class="info-box-text">Informes</span>
+            <form action="#">
+              <div class="form">
+                <input type="submit"   value="Informes" class="btn btn-success">
+              </div>
+            </form>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+</section>
 
-           </div>
-         </div>
-
-       </div>
-
-        {% if message %}
-        <script>
-            
-            alert('{{ message }}');
-            
-        </script>
-        {%endif%}
-        
-    </main>
-        
-</body>
+      {% if message %}
+      <script>
+          
+          alert('{{ message }}');
+          
+      </script>
+      {%endif%}
 
 
-</html>
+{%load static %}
+
+
+
+{% endblock %}
