@@ -119,9 +119,10 @@ END;
 
 
 create or replace PROCEDURE SP_AGREGAR_RESERVA(
-    v_ID_Estado_Mesa number,
+    v_ID_Estado_Reserva number,
     v_Rut_Reserva NVARCHAR2,
     v_Fecha_Reserva date,
+    v_hora_reserva number,
     v_email VARCHAR2,
     v_telefono_reserva varchar2,
     v_cantidad_personas_reserva number,
@@ -129,8 +130,8 @@ create or replace PROCEDURE SP_AGREGAR_RESERVA(
     v_salida out number)
 IS
 BEGIN
-    INSERT INTO RESERVA ( estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
-    VALUES(v_ID_Estado_Mesa, v_Rut_Reserva, v_Fecha_Reserva, v_email, v_telefono_reserva, v_cantidad_personas_reserva,v_num_mesa);
+    INSERT INTO RESERVA( estado_reserva_id_est_reserva, rut_reserva, fecha_reserva,rango_hora_id_rango, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
+    VALUES(v_ID_Estado_Reserva, v_Rut_Reserva, v_Fecha_Reserva,v_hora_reserva, v_email, v_telefono_reserva, v_cantidad_personas_reserva,v_num_mesa);
     commit;
     v_salida:=1;
     EXCEPTION

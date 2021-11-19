@@ -33,6 +33,8 @@ DROP TABLE productos_receta CASCADE CONSTRAINTS;
 
 DROP TABLE proveedor CASCADE CONSTRAINTS;
 
+DROP TABLE rango_hora CASCADE CONSTRAINTS;
+
 DROP TABLE receta CASCADE CONSTRAINTS;
 
 DROP TABLE relation_20 CASCADE CONSTRAINTS;
@@ -193,6 +195,13 @@ CREATE TABLE proveedor (
 
 ALTER TABLE proveedor ADD CONSTRAINT proveedor_pk PRIMARY KEY ( id_proveedor );
 
+CREATE TABLE rango_hora (
+    id_rango     NUMBER(2) NOT NULL,
+    rango_hora   VARCHAR2(12) NOT NULL
+);
+
+ALTER TABLE rango_hora ADD CONSTRAINT rango_hora_pk PRIMARY KEY ( id_rango );
+
 CREATE TABLE receta (
     plato_id_plato   NUMBER(4) NOT NULL,
     id_receta        NUMBER(4) NOT NULL,
@@ -222,7 +231,8 @@ CREATE TABLE reserva (
     email                           VARCHAR2(50),
     telefono_reserva                VARCHAR2(12) NOT NULL,
     cantidad_personas_reserva       NUMBER(2) NOT NULL,
-    mesas_id_mesa                   NUMBER(3) NOT NULL
+    mesas_id_mesa                   NUMBER(3) NOT NULL,
+    rango_hora_id_rango             NUMBER(2) NOT NULL
 );
 
 ALTER TABLE reserva ADD CONSTRAINT reserva_pk PRIMARY KEY ( id_reserva );
@@ -281,10 +291,6 @@ ALTER TABLE pedido_proveedor
     ADD CONSTRAINT pedido_proveedor_proveedor_fk FOREIGN KEY ( proveedor_id_proveedor )
         REFERENCES proveedor ( id_proveedor );
 
-ALTER TABLE plato
-    ADD CONSTRAINT plato_receta_fk FOREIGN KEY ( receta_id_receta )
-        REFERENCES receta ( id_receta );
-
 ALTER TABLE platos_orden
     ADD CONSTRAINT platos_orden_orden_fk FOREIGN KEY ( orden_id_orden )
         REFERENCES orden ( id_orden );
@@ -317,10 +323,6 @@ ALTER TABLE productos
     ADD CONSTRAINT productos_unidad_medida_fk FOREIGN KEY ( unidad_medida_id_unidad )
         REFERENCES unidad_medida ( id_unidad );
 
-ALTER TABLE receta
-    ADD CONSTRAINT receta_plato_fk FOREIGN KEY ( plato_id_plato )
-        REFERENCES plato ( id_plato );
-
 ALTER TABLE relation_20
     ADD CONSTRAINT relation_20_insumo_fk FOREIGN KEY ( insumo_id_insumo )
         REFERENCES insumo ( id_insumo );
@@ -337,4 +339,8 @@ ALTER TABLE reserva
 ALTER TABLE reserva
     ADD CONSTRAINT reserva_mesas_fk FOREIGN KEY ( mesas_id_mesa )
         REFERENCES mesas ( id_mesa );
+
+ALTER TABLE reserva
+    ADD CONSTRAINT reserva_rango_hora_fk FOREIGN KEY ( rango_hora_id_rango )
+        REFERENCES rango_hora ( id_rango );
 

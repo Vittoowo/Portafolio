@@ -125,10 +125,15 @@
                 <label for="floatingReserva">Fecha Reserva</label>
               </div>
 
-              <div class="form-floating mb-3" id="user-group">
-                <input type="time" name="HoraReserva" class="form-control" id="floatingFecha"
-                  placeholder="Hora Reserva">
-                <label for="floatingReserva">Hora Reserva</label>
+              <div class="form-floating">
+                <select name="HoraReserva" id="HoraReserva" class="form-select">
+                  <option value="">Seleccionar</option>
+                  {% for h in Lista_Rangos %}
+                  <option value="{{ h.0 }}">{{h.1}}</option>
+                  {% endfor %}
+                </select>
+                <label for="estado">Hora Reserva</label>
+                <br>
               </div>
 
               <div class="form-floating mb-3" id="user-group">

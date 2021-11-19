@@ -24,6 +24,15 @@ class Reservas():
         for fila in out_cur:
             lista.append(fila)
         return lista
+    def listar_rangos():
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        out_cur = django_cursor.connection.cursor()
+        cursor.callproc("SP_R_RANGO_HORA",[out_cur])
+        lista=[]
+        for fila in out_cur:
+            lista.append(fila)
+        return lista
 
 
         #Listado de Reservas
@@ -51,13 +60,16 @@ class Reservas():
         return lista
 
         #Guardar Reserva
-    def agregar_reserva( estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,num_mesa):
+    def agregar_reserva( estado_reserva_id_est_reserva, rut_reserva, 
+                        fecha_reserva,RANGO_HORA, email, telefono_reserva, 
+                        cantidad_personas_reserva,num_mesa):
         django_cursor = connection.cursor()
         cursor = django_cursor.connection.cursor()
         salida = cursor.var(cx_Oracle.NUMBER)
-        cursor.callproc('SP_AGREGAR_RESERVA',[estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,num_mesa, salida])
+        cursor.callproc('SP_AGREGAR_RESERVA',[estado_reserva_id_est_reserva, 
+                                              rut_reserva, fecha_reserva,RANGO_HORA, email, telefono_reserva,
+                                              cantidad_personas_reserva,num_mesa, salida])
         return salida.getvalue()
-
 
         #Eliminar Reserva
     def eliminar_reserva(ID_RESERVA):
