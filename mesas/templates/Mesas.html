@@ -1,31 +1,24 @@
-<!DOCTYPE html>
-{% load static %}
+{% extends "base-generic.html" %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/bootstrap.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}" />
-<html>
 
-<head>
-</head>
 
-<body class="aling-items-center">
-    <nav class="navbar navbar-light bg-light">
+
+{% block content %}
+  {% load static %}
+    <nav class="navbar-titulo">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="titulo-pagina" href="#">
                 <h3>Gestion de Mesas Restaurant Siglo XXI</h3>
             </a>
         </div>
     </nav>
 
-    <main class="main-section p-12 text-center">
+    <main class="contenedor-mesas p-12 text-center">
 
         <!--  Formulario Agregar Mesa -->
-        <div class="modal-dialog text-center">
-            <div class="col-sm-12">
-                <div class="modal-content text-center">
-                    <div class="col-12 user-img">
-                       
-                    </div>
+        <div class="contenedor-formmesa text-center">
+            
+                <div class="formulario-mesa text-center">
                     <form action="" method="POST">
                         {% csrf_token %}
                         <h2>Agregar Mesas</h2>
@@ -59,16 +52,16 @@
 
                     </form>
                 </div>
-            </div>
+            
         </div>
 
 
         <!--  Listado de mesas -->
 
-        <div class="modal-dialog text-center">
-            <div class="modal-dialog text-center">
-                <div class="col-sm-12">
-                    <div class="modal-content">
+        
+            <div class="contenedor-list">
+                
+                    <div class="tabla-listado">
 
                         <h2>Listado de Mesas del Restaurant</h2>
                         <table class="table table-dark table-striped">
@@ -84,7 +77,7 @@
                                 <td>{{ m.1 }}</td>
                                 <td>{{ m.2 }}</td>
                                 <td>{{ m.0 }}</td>
-                                <td><a href='{%url 'mesasModificar' m.1 m.2 m.3 %}'>Modificar</a> </td>
+                                <td><a href='{%url 'mesasModificar' m.1 m.2 m.3 %}' class="btn-xs btn-success">Modificar</a> </td>
                             </tr>
 
                             {% endfor %}
@@ -92,9 +85,9 @@
                         <br>
                         <br>
                     </div>
-                </div>
+                
             </div>
-        </div>
+        
 
         {% if mensaje %}
         <script>
@@ -103,6 +96,4 @@
         {%endif%}
     </main>
 
-</body>
-
-</html>
+{% endblock %}

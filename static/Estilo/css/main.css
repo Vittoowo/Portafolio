@@ -351,3 +351,51 @@ body{
 	opacity: 0;
 }
 
+/* Estilos Mesas*/
+
+.contenedor-mesas{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.formulario-mesa{
+    background-color: #E8E1C9;
+    padding: 10px 10px;
+    margin: 10px;
+    border-radius: 5px;
+    height: 100%;
+    
+}
+
+
+/* Estilos Mesas */
+.contenedor-formmesa
+{
+    width: 100%;
+}
+
+.tabla-listado{
+    background-color: #E8E1C9;
+    padding: 10px 10px;
+    border-radius: 5px;
+    margin: 10px;
+    height: 100%;
+}
+
+.navbar-titulo{
+    width: 40%;
+    border-radius: 5px 0px;
+    padding: 3px 20px;
+    background-color: #E8E1C9;
+    color: black;
+    text-decoration: none;
+    
+}
+.titulo-pagina{
+    color: rgb(136, 106, 61);
+}
+
+.titulo-pagina:hover{
+    color: black;
+}
+
