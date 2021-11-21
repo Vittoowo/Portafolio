@@ -118,6 +118,14 @@ END;
 
 
 
+create or replace PROCEDURE SP_R_RANGO_HORA(rango out SYS_REFCURSOR)
+IS 
+BEGIN
+    open rango for select * from rango_hora;
+END;
+/
+
+
 create or replace PROCEDURE SP_AGREGAR_RESERVA(
     v_ID_Estado_Reserva number,
     v_Rut_Reserva NVARCHAR2,
@@ -130,7 +138,7 @@ create or replace PROCEDURE SP_AGREGAR_RESERVA(
     v_salida out number)
 IS
 BEGIN
-    INSERT INTO RESERVA( estado_reserva_id_est_reserva, rut_reserva, fecha_reserva,rango_hora_id_rango, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
+    INSERT INTO RESERVA ( estado_reserva_id_est_reserva, rut_reserva, fecha_reserva,rango_hora_id_rango, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
     VALUES(v_ID_Estado_Reserva, v_Rut_Reserva, v_Fecha_Reserva,v_hora_reserva, v_email, v_telefono_reserva, v_cantidad_personas_reserva,v_num_mesa);
     commit;
     v_salida:=1;
