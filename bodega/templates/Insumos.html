@@ -1,187 +1,178 @@
-<!DOCTYPE html>
-{% load static %}
+{% extends "base-generic.html" %}
 
-<link
- rel="stylesheet"
- type="text/css"
- href="{% static 'Estilo/css/bootstrap.css' %}"
-/>
-<link
- rel="stylesheet"
- type="text/css"
- href="{% static 'Estilo/css/style.css' %}"
-/>
-<html>
-<head>
-</head>
-<body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <h3>Bodega - Insumos</h3>
-          </a>
-        </div>
-    </nav>
-    
-    <main class="main-section p-4 text-center">
-        <div class=" text-center">
+{% block content %}
 
-           
-            <div class="col-sm-18">
-                <div class="modal-content">
-                    <div class="col-12 user-img">
-                        <img src= "{% static 'img/LogoRestorant.png' %}"/>
+</br>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- -------------------------- COLUMNA IZQUIERDA ------------------------------ -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">Buscar Insumos</h3>
                     </div>
-                    <h2>Listado de Insumos</h2>
+                    <!-- /.card-header -->
+                    <!-- form start -->
                     <form action="" method="POST">
-                    {% csrf_token %}
-                    <!-- Buscar Insumo Por Codigo De Barra -->
-                    
-                    <div class="form-floating mb-3" id="user-group">
-                        <input style="width: 230px;" type="text" name="BuscarInsumoPorCodigo" class="form-control" id="floatingIdInsumo"
-                                placeholder="Buscar Insumo Por Codigo">
-                        <label for="floatingIdInsumo">Buscar Insumo Por Codigo</label>
-                    </div>
-                        <input type="submit" class="btn btn-success" name='btnBuscarInsumoCodigo' value="Buscar Insumo Por Codigo">
-                    <!------------------------------------------------------------------------------------>
+                        {% csrf_token %}
+                        <!-- Buscar Insumo Por Codigo De Barra -->
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="Insumotxt">Buscar Insumo por Codigo</label>
+                                    <div class="col-11">
+                                        <input type="number" class="form-control" id="Insumotxt"
+                                            placeholder="Ingrese codigo" name="BuscarInsumoPorCodigo">
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="submit" class="btn btn-success" name='btnBuscarInsumoCodigo'
+                                            value="Buscar">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ------------------------------------------------ -->
+                            <!-- buscar insumo por proveedor -->
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="ProveedorSelect">Buscar por Proveedor</label>
+                                    <div class="col-11">
+                                        <select name="BuscarInsumoPorProveedor" id="user-group" class="form-select">
+                                            <option value="">Seleccionar</option>
+                                            {% for e in Listado_Proveedores %}
+                                            <option value="{{ e.0 }}">{{e.1}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="submit" class="btn btn-success" name='btnBuscarInsumoProveedor'
+                                            value="Buscar">
+                                    </div>
+                                </div>
+                            </div>
 
-                    <!-- Buscar Insumo Por Proveedor -->
-                    <div class="form-floating">
-                        <select name="BuscarInsumoPorProveedor" id="user-group" class="form-select">
-                            <option value="">Seleccionar</option>
-                            {% for e in Listado_Proveedores %}
-                            <option value="{{ e.0 }}">{{e.1}}</option>
-                            {% endfor %}
-                        </select>
-                        <label for="ProveedorInsumo">Proveedor Insumo</label>
-                        <br>
-                    </div>
-                        <input type="submit" class="btn btn-success" name='btnBuscarInsumoProveedor' value="Buscar Insumo Por Proveedor">
-                    <!------------------------------------------------------------------------------------>
-
-                    <!-- Buscar Insumo Por Stock -->
-                    <div class="form-floating mb-3" id="user-group">
-                        <input style="width: 250px;" type="text" name="BuscarInsumoPorStock" class="form-control" id="floatingBuscarPorStock"
-                                placeholder="Buscar Insumo Por Stock">
-                        <label for="floatingBuscarPorStock">Buscar Insumo Por Stock</label>
-                    </div>
-                        <input type="submit" class="btn btn-success" name='btnBuscarInsumoStock' value="Buscar Insumo Por Stock">
-
-                    <!------------------------------------------------------------------------------------>
-                    
-                    <!-- Boton para mostrar todos los Insumos -->
-                    <br>
-                    <br>
-                    <input type="submit" class="btn btn-success" name='btnTodosLosInsumos' value="Mostrar Todos Los Insumos">     
+                            <!-- ------------------------------------------------- -->
+                            <!-- Buscar insumo por Stock -->
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="BuscarPorStock">Buscar Insumo por Stock</label>
+                                    <div class="col-11">
+                                        <input type="number" name="BuscarInsumoPorStock" class="form-control"
+                                            id="BuscarPorStock" placeholder="Buscar Insumo Por Stock">
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="submit" class="btn btn-success" name='btnBuscarInsumoStock'
+                                            value="Buscar">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ------------------------------------------------- -->
+                        </div>
+                        <!-- /.card-body -->
                     </form>
-
-                    <!------------------------------------------------------------------------------------>
-                    
-                    <!-- Tabla de listado de Insumos -->
-                    <table class="table table-dark table-striped">
-                        <tr>
-                            <th>Codigo de Barra</th> 
-                            <th>Nombre Insumo</th>
-                            <th>Proveedor</th>
-                            <th>Stock</th>
-                        </tr>
-                    
-                        {% for r in Insumos %}
-                        <tr>
-                            <td>{{ r.0 }}</td>
-                            <td>{{ r.1 }}</td>
-                            <td>{{ r.3 }}</td>
-                            <td>{{ r.2 }} {{r.4}}</td>
-                        </tr>
-                        {% endfor %} 
-                        
-                    </table>
-                    <!-- Fin de Tabla de listado de Insumos -->
                 </div>
+                <!-- /.card -->
             </div>
+            <!-- .col izquierda-->
+            <!-- ------------------------------------------------COLUMNA DERECHA------------------------------------- -->
+            <div class="col-md-6">
+                <!-- Form Element sizes -->
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Manejar Insumos</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <form action="" method="POST">
+                                {% csrf_token %}
 
-                    <!-- Formulario Reserva-->
-           <div class="modal-dialog text-center">
-                <div class="col-sm-18">
-                    <div class="modal-content">
-                        
-                        <h2>Agregar Insumo</h2>
-                        <form action="" method="POST">
-                            {% csrf_token %}
-                            
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="number" name="IDInsumo" class="form-control" id="floatingIdInsumo"
+                                <label for="IdInsumo">Codigo de Barra</label>
+                                <input type="number" name="IDInsumo" class="form-control" id="IdInsumo"
                                     placeholder="Codigo de Barra">
-                                <label for="floatingIdInsumo">Codigo de Barra</label>
-                            </div>
-                            
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="text" name="NombreInsumo" class="form-control" id="floatingNomInsumo"
-                                    placeholder="Nombre Insumo">
-                                <label for="floatingNomInsumo">Nombre Insumo</label>
-                            </div>
 
-                            <div class="form-floating">
+
+
+                                <label for="NomInsumo">Nombre Insumo</label>
+                                <input type="text" name="NombreInsumo" class="form-control" id="NomInsumo"
+                                    placeholder="Nombre Insumo">
+
+                                <label for="ProvInsumo">Proveedor Insumo</label>
                                 <select name="ProveedorInsumo" id="user-group" class="form-select">
                                     <option value="">Seleccionar</option>
                                     {% for e in Listado_Proveedores %}
                                     <option value="{{ e.0 }}">{{e.1}}</option>
                                     {% endfor %}
                                 </select>
-                                <label for="ProveedorInsumo">Proveedor Insumo</label>
-                                <br>
-                            </div>
 
-                            
-                            <div class="form-floating mb-3" id="user-group">
+                                <label for="StockInsumo">Stock insumo</label>
                                 <input type="number" name="StockInsumo" class="form-control" id="floatingStockInsumo"
-                                    placeholder="Stock">
-                                <label for="floatingStockInsumo">Stock</label>
-                            </div>  
+                                    placeholder="Ingrese numero de Stock">
 
-                            <div class="form-floating">
+
+                                <label for="FormatoInsumo">Formato insumo</label>
                                 <select name="FormatoStockInsumo" id="user-group" class="form-select">
                                     <option value="">Seleccionar</option>
                                     {% for e in Listado_Formato_Stock %}
                                     <option value="{{ e.0 }}">{{e.1}}</option>
                                     {% endfor %}
                                 </select>
-                                <label for="FormatoStockInsumo">Formato Stock Insumo</label>
-                                <br>
-                            </div>   
-                            
-                            
-                            
-                            <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Insumo">
-                            
-                            <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Insumo">
-                            
-                            <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Insumo">
-                            <br>
-                            <br>
+                                </br>
+                                <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Insumo">
 
+                                <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Insumo">
+
+                                <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Insumo">
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+        <main class="main-section p-4 text-center">
+            <div class="text-center">
+                <div class="col-sm-18">
+                    <div class="modal-content">
+                        <h2>Listado de Insumos</h2>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <!-- Boton para mostrar todos los Insumos -->
+                            </br>
+                            <input type="submit" class="btn btn-success" name='btnTodosLosInsumos'
+                                value="Mostrar Todos Los Insumos">
                         </form>
+                        </br>
+                        <!------------------------------------------------------------------------------------>
 
-                        <!-- Fin Formulario-->
-                        {{Mensaje}}
-                        <br>
-                        <br>
+                        <!-- Tabla de listado de Insumos -->
+                        <table class="table table-dark table-striped">
+                            <tr>
+                                <th>Codigo de Barra</th>
+                                <th>Nombre Insumo</th>
+                                <th>Proveedor</th>
+                                <th>Stock</th>
+                            </tr>
 
+                            {% for r in Insumos %}
+                            <tr>
+                                <td>{{ r.0 }}</td>
+                                <td>{{ r.1 }}</td>
+                                <td>{{ r.3 }}</td>
+                                <td>{{ r.2 }} {{r.4}}</td>
+                            </tr>
+                            {% endfor %}
+
+                        </table>
+                        <!-- Fin de Tabla de listado de Insumos -->
                     </div>
                 </div>
-
-                    
-                
             </div>
+            <!-- Fin Formulario-->
+            {{Mensaje}}
+        </main>
+    </div>
+</section>
+{%load static %}
 
-        </div>
-        
-        
-
-       </div>
-
-    </main>
-</body>
-
-
-</html>
+{% endblock %}
