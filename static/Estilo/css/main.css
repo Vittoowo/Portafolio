@@ -11,6 +11,8 @@ body{
     min-height: 100vh;
     margin: 0;
     bottom: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -245,12 +247,6 @@ body{
 
 
 /* Estilo del login */
- 
-header{
-     width: 100%;
- }
-
-
 .bg-dark{
     position: fixed;
     z-index: 20;
@@ -258,7 +254,7 @@ header{
 }
 
 
-.main-section{
+/* .main-section{
     margin: 0 auto;
     margin-top: 5%;
     padding: 0;
@@ -281,7 +277,11 @@ header{
     height: 100px;
     box-shadow: 0px 0px 6px black;
     border-radius: 50%;
-}
+} 
+
+*/
+
+
  /*Estilos del footer */
 
 .footerpg{
@@ -289,7 +289,7 @@ header{
     position: fixed;
     width: 100%;
     background-color: #E8E1C9;
-    color: rgb(136, 106, 61);;;
+    color: rgb(136, 106, 61);
     
 }
 
@@ -347,4 +347,51 @@ header{
 	transition: .3s ease all;
 	transform: scale(0.7);
 	opacity: 0;
+}
+
+
+/* Estilos Mesas*/
+
+.contenedor-mesas{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.formulario-mesa{
+    background-color: #E8E1C9;
+    padding: 10px 10px;
+    margin: 10px;
+    border-radius: 5px;
+    height: 100%;
+    
+}
+
+.contenedor-formmesa
+{
+    width: 100%;
+}
+
+.tabla-listado{
+    background-color: #E8E1C9;
+    padding: 10px 10px;
+    border-radius: 5px;
+    margin: 10px;
+    height: 100%;
+}
+
+.navbar-titulo{
+    width: 40%;
+    border-radius: 5px 0px;
+    padding: 3px 20px;
+    background-color: #E8E1C9;
+    color: black;
+    text-decoration: none;
+    
+}
+.titulo-pagina{
+    color: rgb(136, 106, 61);
+}
+
+.titulo-pagina:hover{
+    color: black;
 }
