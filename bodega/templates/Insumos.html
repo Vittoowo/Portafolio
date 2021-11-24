@@ -119,11 +119,13 @@
                                 </select>
                                 </br>
                                 <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Insumo">
-
-                                <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Insumo">
-
-                                <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Insumo">
+                                <br>
+                                <br>
                             </form>
+                            <br>
+                            <br>
+                            <br>
+                            <label for="Mensaje">{{Mensaje}}</label>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -160,6 +162,7 @@
                                 <td>{{ r.1 }}</td>
                                 <td>{{ r.3 }}</td>
                                 <td>{{ r.2 }} {{r.4}}</td>
+                                <td><a href="{%url 'modificar-insumo' r.0 %}" class="btn-xs btn-success">Modificar/Eliminar</a> </td>
                             </tr>
                             {% endfor %}
 
@@ -169,7 +172,7 @@
                 </div>
             </div>
             <!-- Fin Formulario-->
-            {{Mensaje}}
+            
         </main>
     </div>
 </section>

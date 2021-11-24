@@ -168,4 +168,26 @@ def Insumos(request):
     elif 'btnTodosLosInsumos' in request.POST:
         data['Insumos'] = Insumo.listar_insumos()
         return render(request, 'Insumos.html', data)
+
+    
+    elif 'Cancelar' in request.POST:
+        return render(request, 'Insumos.html', data)
+
     return render(request, 'Insumos.html', data)
+
+    
+
+
+
+def insumosModificar(request,ID_INSUMO):
+    
+    ins=Insumo.buscar_insumos_por_codigo(ID_INSUMO)
+    data ={
+        'Listado_Proveedores': Bodega.listar_proveedores(),
+        'Listado_Formato_Stock': Bodega.listar_formato_stock(),
+        'Insumo':ins[0],
+        'proveedorIns':ins[0][3],
+        'formStockIns':ins[0][4],
+    }
+    
+    return render(request,'Insumos-Modificar.html', data)
