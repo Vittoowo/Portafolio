@@ -176,7 +176,22 @@ def Insumos(request):
     return render(request, 'Insumos.html', data)
 
     
-
+def productosModificar(request,ID_PRODUCTO):
+    
+    pro=Producto.buscar_productos_por_codigo(ID_PRODUCTO)
+    data ={
+        'Listado_Proveedores': Bodega.listar_proveedores(),
+        'Listado_Marcas': Bodega.listar_marcas(),
+        'Listado_Unidades_Medida': Producto.listar_unidades_medida(),
+        'Listado_Formato_Stock': Bodega.listar_formato_stock(),
+        'Producto':pro[0],
+        'proveedorPro':pro[0][2],
+        'marcaPro':pro[0][4],
+        'unidadMedidaPro':pro[0][5],
+        'formStockPro':pro[0][6]
+    }
+    
+    return render(request,'Bodega-Modificar.html', data)
 
 
 def insumosModificar(request,ID_INSUMO):

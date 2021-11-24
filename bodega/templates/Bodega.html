@@ -18,7 +18,7 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <h3>Bodega</h3>
+            <h3>Bodega - Productos</h3>
           </a>
         </div>
     </nav>
@@ -110,7 +110,7 @@
                             <td>{{ r.3 }}</td>
                             <td>{{ r.4 }} {{ r.5 }}</td>
                             <td>{{ r.6 }} {{ r.7 }} c/u</td>
-                            <td><a href='{%url 'productosModifcar' r.0 r.1 r.2 r.3 r.4 r.5 r.6 r.7 %}' class="btn-xs btn-success">Modificar</a> </td>
+                            <td><a href="{% url 'modificar-producto' r.0 %}" class="btn-xs btn-success">Modificar/Eliminar</a> </td>
                         </tr>
                         {% endfor %} 
                         
@@ -201,16 +201,13 @@
                             
                             <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Producto">
                             
-                            <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Producto">
-                            
-                            <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Producto">
                             <br>
                             <br>
 
                         </form>
 
                         <!-- Fin Formulario-->
-                        {{Mensaje}}
+                        <label for="Mensaje">{{Mensaje}}</label>
                         <br>
                         <br>
 
