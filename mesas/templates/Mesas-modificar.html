@@ -1,97 +1,72 @@
-<!DOCTYPE html>
-{% load static %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/bootstrap.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}" />
-<html>
-
-<head>
-</head>
-
-<body class="aling-items-center">
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <h3>Gestion de Mesas Restaurant Siglo XXI</h3>
-            </a>
-        </div>
-    </nav>
-
-    <main class="main-section p-12 text-center">
-
-        <!--  Formulario Agregar Mesa -->
-        <div class="modal-dialog text-center">
-            <div class="col-sm-12">
-                <div class="modal-content text-center">
-                    <div class="col-12 user-img">
-
-                    </div>
-                </div>
-            </div>
-        </div>
+{% extends "base-generic.html" %}
 
 
-        <!--  Formulario eliminar o modifacr Mesa -->
-        <div class="modal-dialog text-center">
+
+
+{% block content %}
+  {% load static %}
+
+    <main class="main-section p-12">
+
+        
+
+
+        <div class="modal-dialog">
             <div class="col-sm-12">
                 <div class="modal-content">
+                     <!-- general form elements -->
+        <div class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title">Eliminar y/o Modificar mesa</h3>
+             </div>
+            <!-- /.card-header -->
+             <!-- form start -->
+            <form action="{%url 'mesas'%}" method="POST">
+             {% csrf_token %}
+                 <div class="card-body">
+                 <div class="form-group">
+                   <label for="numeroMesa">Numero de mesa</label>
+                   <input type="number" name="idmesa" class="form-control" id="idmesa" placeholder="Ingrese numero de mesa" value="{{num_mesaM}}" readonly="readonly">
+                 </div>
+                 <div class="form-group">
+                   <label for="capacidad">Capacidad de la mesa</label>
+                   <input type="number" name="capacidad" class="form-control" id="capacidad" placeholder="Ingrese capacidad de la mesa" value="{{capacidadM}}" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="estado">Estado de la mesa</label>
+                     <select name="estado" id="estado" class="custom-select">
+                        <option value="">Seleccionar</option>
+                        {% for e in lista_estado %}
 
-                    <h2>Sección de Eliminar y/o Modificar</h2>
-                    <h9>Para eliminar, solo debe ingresar el número de la mesa y seleccionar "Eliminar"</h9>
-                    <form action="{%url 'mesas'%}" method="POST">
-                        {% csrf_token %}
-
-                        <div class="form-floating mb-3" id="user-group">
-                            <input type="number" name="idmesa" class="form-control" id="idmesa"
-                                placeholder="Numero de la mesa" value="{{num_mesaM}}">
-                            <label for="idmesa">Número de Mesa</label>
-                        </div>
-
-                        <div class="form-floating mb-3" id="user-group">
-                            <input type="number" name="capacidad" class="form-control" id="floatingCap"
-                                placeholder="Capacidad de personas" value="{{capacidadM}}">
-                            <label for="floatingCap">Capacidad Personas</label>
-                        </div>
-
-                        <div class="form-floating">
-
-                            <select name="estado" id="estado" class="form-select">
-                                <option value="">Seleccionar</option>
-                                {% for e in lista_estado %}
-
-                                {% if e.0 == estadoM %}
-                                <option value="{{ e.0 }}" selected>{{e.1}}</option>
-                                {% else %}
-                                <option value="{{ e.0 }}">{{e.1}}</option>
-                                {% endif %}
-                                {% endfor %}
-                            </select>
-                            <label for="estado">Estado de la Mesa</label>
-                        </div>
-                        
-
-                        
-                        
-
-
-                        <br>
-                        <input type="submit" name='Eliminar' value="Eliminar Mesa" class="btn btn-danger">
-                        <input type="submit" name='Modificar' value="Modificar Mesa" class="btn btn-primary">
-                        <br>
-                        <br>
-
-                    </form>
+                        {% if e.0 == estadoM %}
+                        <option value="{{ e.0 }}" selected>{{e.1}}</option>
+                        {% else %}
+                        <option value="{{ e.0 }}">{{e.1}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                   </div>
+               
+               <!-- /.card-body -->
+               
+               <div class="card-footer text-center">
+                <input type="submit" name='Eliminar' value="Eliminar Mesa" class="btn btn-danger">
+                        <input type="submit" name='Modificar' value="Modificar Mesa" class="btn btn-primary"> 
+               </div>
+             </form>
+           </div>
                 </div>
             </div>
         </div>
+
         {% if mensaje %}
         <script>
             alert('{{ mensaje }}');
         </script>
         {%endif%}
+       
 
     </main>
 
-</body>
-
-</html>
+    
+    {% endblock %}

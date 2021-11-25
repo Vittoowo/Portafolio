@@ -351,7 +351,12 @@ body{
 	opacity: 0;
 }
 
-/* Estilos Mesas*/
+
+.content{
+    padding: 20px 10px;
+}
+
+/* Estilos Mesas
 
 .contenedor-mesas{
     display: grid;
@@ -367,8 +372,6 @@ body{
     
 }
 
-
-/* Estilos Mesas */
 .contenedor-formmesa
 {
     width: 100%;
@@ -398,4 +401,4 @@ body{
 .titulo-pagina:hover{
     color: black;
 }
-
+ */

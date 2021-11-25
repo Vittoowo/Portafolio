@@ -5,95 +5,105 @@
 
 {% block content %}
   {% load static %}
-    <nav class="navbar-titulo">
-        <div class="container-fluid">
-            <a class="titulo-pagina" href="#">
-                <h3>Gestion de Mesas Restaurant Siglo XXI</h3>
-            </a>
-        </div>
-    </nav>
-
-    <main class="contenedor-mesas p-12 text-center">
-
-        <!--  Formulario Agregar Mesa -->
-        <div class="contenedor-formmesa text-center">
-            
-                <div class="formulario-mesa text-center">
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        <h2>Agregar Mesas</h2>
-
-                        <div class="form-floating mb-3" id="user-group">
-                            <input type="number" name="idmesa" class="form-control" id="idmesa"
-                                placeholder="numeromesa">
-                            <label for="idmesa">Número de Mesa</label>
-                        </div>
-
-                        <div class="form-floating mb-3" id="user-group">
-                            <input type="number" name="capacidad" class="form-control" placeholder="capacidadper"
-                                id="floatingPer">
-                            <label for="floatingPer">Capacidad de la Mesa</label>
-                        </div>
-
-                        <div class="form-floating">
-                            <select name="estado" id="estado" class="form-select">
-                                <option value="">Seleccionar</option>
-                                {% for e in lista_estado %}
-                                <option value="{{ e.0 }}">{{e.1}}</option>
-                                {% endfor %}
-                            </select>
-                            <label for="estado">Estado de la mesa</label>
-                            <br>
-                        </div>
-
-                        <div class="form-floating mb-3">
-                            <input type="submit" name='Guardar' value="Guardar Mesa" class="btn btn-success">
-                        </div>
-
-                    </form>
+    <main class="main-section p-12">
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                    <!-- general form elements -->
+                     <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Agregar Mesas</h3>
+                         </div>
+                        <!-- /.card-header -->
+                         <!-- form start -->
+                        <form action="" method="post">
+                         {% csrf_token %}
+                             <div class="card-body">
+                             <div class="form-group">
+                               <label for="numeroMesa">Numero de mesa</label>
+                               <input type="number" name="idmesa" class="form-control" id="idmesa" placeholder="Ingrese numero de mesa" required>
+                             </div>
+                             <div class="form-group">
+                               <label for="capacidad">Capacidad de la mesa</label>
+                               <input type="number" name="capacidad" class="form-control" id="capacidad" placeholder="Ingrese capacidad de la mesa" required>
+                             </div>
+                             <div class="form-group">
+                                 <label for="estado">Estado de la mesa</label>
+                                 <select name="estado" id="estado" class="custom-select" required>
+                                     <option value="">Seleccionar</option>
+                                     {% for e in lista_estado %}
+                                     <option value="{{ e.0 }}">{{e.1}}</option>
+                                     {% endfor %}
+                                 </select>
+                               </div>
+                           
+                           <!-- /.card-body -->
+                           
+                           <div class="card-footer">
+                            <input type="submit" name='Guardar' value="Guardar Mesa" class="btn btn-block btn-success btn-sm col-3"> 
+                           </div>
+                         </form>
+                       </div>
+                       <!-- /.card -->
+                     </div>
                 </div>
-            
-        </div>
 
+
+
+
+
+
+
+       
+   
 
         <!--  Listado de mesas -->
 
-        
-            <div class="contenedor-list">
-                
-                    <div class="tabla-listado">
-
-                        <h2>Listado de Mesas del Restaurant</h2>
-                        <table class="table table-dark table-striped">
-                            <tr>
-                                <th>Numero de Mesa</th>
-                                <th>Capacidad de la Mesa</th>
-                                <th>Estado de la Mesa</th>
-                                <th>Editar</th>
-                            </tr>
-
-                            {% for m in Mesas %}
-                            <tr>
-                                <td>{{ m.1 }}</td>
-                                <td>{{ m.2 }}</td>
-                                <td>{{ m.0 }}</td>
-                                <td><a href='{%url 'mesasModificar' m.1 m.2 m.3 %}' class="btn-xs btn-success">Modificar</a> </td>
-                            </tr>
-
-                            {% endfor %}
-                        </table>
-                        <br>
-                        <br>
-                    </div>
-                
+        <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Listado de mesas del restaurant</h3>
             </div>
-        
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Numero de mesa</th>
+                    <th>Capacidad de la mesa</th>
+                    <th>Estado de la mesa</th>
+                    <th>Editar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for m in Mesas %}
+                    <tr>
+                        <td>{{ m.1 }}</td>
+                        <td>{{ m.2 }}</td>
+                        <td>{{ m.0 }}</td>
+                        <td><a href='{%url 'mesasModificar' m.1 m.2 m.3 %}' class="btn-xs btn-success">Modificar</a> </td>
+                    </tr>
 
-        {% if mensaje %}
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+
+          {% if mensaje %}
         <script>
             alert('{{ mensaje }}');
         </script>
         {%endif%}
+        
+
+       
+
+
+            
+            </div>
+        </section>
     </main>
 
 {% endblock %}
