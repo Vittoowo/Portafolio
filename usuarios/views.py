@@ -12,6 +12,7 @@ def home(request):
 @login_required
 def inicioAdmin(request):
     if request.user.groups.filter(name='Administrador').exists():
+        print(request.user.groups.get(),"=",len("Administrador"))
         return render(request,'usuarios/inicio-admin.html')
     else:
         data = {'message':'Usted no tiene permisos para ingresar a este apartado'}
@@ -46,13 +47,14 @@ def login_user(request):
             login(request,user)
             #Obtenemos su grupo y segun esto, le redireccionamos a otra pagina
             if user.groups.filter(name='Administrador').exists():
-                return redirect (to='inicio-admin')
+                
+                return redirect (to='Administrador')
             elif user.groups.filter(name='Cocina').exists():
-                return redirect (to='inicio-cocina')
+                return redirect (to='Cocina')
             elif user.groups.filter(name='Totem').exists():
                 return redirect (to='mesas_totem')
             elif user.groups.filter(name='Bodega').exists():
-                return redirect (to='inicio-bodega')
+                return redirect (to='Bodega')
             elif user.groups.filter(name='Recepcion').exists():
                 return redirect (to='reservas')
             else:
@@ -63,7 +65,7 @@ def login_user(request):
 #Lo que hace simplemente es terminar la sesion y redirigir al home
 def logout_def(request):
     logout(request)
-    return redirect (to='home')
+    return redirect (to='login')
 
 @login_required
 def RegistroUsuario(request):
