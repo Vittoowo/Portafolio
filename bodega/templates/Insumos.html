@@ -132,48 +132,53 @@
                 </div>
             </div>
         </div>
-        <main class="main-section p-4 text-center">
-            <div class="text-center">
-                <div class="col-sm-18">
-                    <div class="modal-content">
-                        <h2>Listado de Insumos</h2>
-                        <form action="" method="POST">
-                            {% csrf_token %}
-                            <!-- Boton para mostrar todos los Insumos -->
-                            </br>
-                            <input type="submit" class="btn btn-success" name='btnTodosLosInsumos'
-                                value="Mostrar Todos Los Insumos">
-                        </form>
-                        </br>
-                        <!------------------------------------------------------------------------------------>
+        <!------------------------------------------------------------------------------------>
 
-                        <!-- Tabla de listado de Insumos -->
-                        <table class="table table-dark table-striped">
-                            <tr>
-                                <th>Codigo de Barra</th>
-                                <th>Nombre Insumo</th>
-                                <th>Proveedor</th>
-                                <th>Stock</th>
-                            </tr>
+        <!-- Tabla de listado de Insumos -->
+        <div class="row">
+            <div class="card">                
+                <div class="card-header">                                      
+                    <h3 class="card-title" >Listado de mesas del restaurant</h3>  
+                    <br>
+                          
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <!-- Boton para mostrar todos los Insumos -->                       
+                        <input type="submit" class="btn btn-success btn-sm" name='btnTodosLosInsumos' value="Mostrar Todos Los Insumos">
+                    </form>
+                 
+                </div>                
 
-                            {% for r in Insumos %}
-                            <tr>
-                                <td>{{ r.0 }}</td>
-                                <td>{{ r.1 }}</td>
-                                <td>{{ r.3 }}</td>
-                                <td>{{ r.2 }} {{r.4}}</td>
-                                <td><a href="{%url 'modificar-insumo' r.0 %}" class="btn-xs btn-success">Modificar/Eliminar</a> </td>
-                            </tr>
-                            {% endfor %}
 
-                        </table>
-                        <!-- Fin de Tabla de listado de Insumos -->
-                    </div>
-                </div>
-            </div>
-            <!-- Fin Formulario-->
-            
-        </main>
+            <table class="table table-striped">
+                <tr>
+                    <th>Codigo de Barra</th>
+                    <th>Nombre Insumo</th>
+                    <th>Proveedor</th>
+                    <th>Stock</th>
+                    <th>Modificar/Eliminar</th>
+                </tr>
+                {% for r in Insumos %}
+                <tr>
+                    <td>{{ r.0 }}</td>
+                    <td>{{ r.1 }}</td>
+                    <td>{{ r.3 }}</td>
+                    <td>{{ r.2 }} {{r.4}}</td>
+                    <td><a href="{%url 'modificar-insumo' r.0 %}" class="btn-xs btn-success">Modificar/Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+            <!-- Fin de Tabla de listado de Insumos -->
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- Fin Formulario-->
+
+    </main>
     </div>
 </section>
 {%load static %}
