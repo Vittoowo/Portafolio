@@ -1,231 +1,220 @@
-<!DOCTYPE html>
-{% load static %}
+{% extends "base-generic.html" %}
 
-<link
- rel="stylesheet"
- type="text/css"
- href="{% static 'Estilo/css/bootstrap.css' %}"
-/>
-<link
- rel="stylesheet"
- type="text/css"
- href="{% static 'Estilo/css/style.css' %}"
-/>
-<html>
-<head>
-</head>
-<body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <h3>Bodega - Productos</h3>
-          </a>
-        </div>
-    </nav>
-    
-    <main class="main-section p-4 text-center">
-        <div class=" text-center">
-
-           
-            <div class="col-sm-18">
-                <div class="modal-content">
-                    <div class="col-12 user-img">
-                        <img src= "{% static 'img/LogoRestorant.png' %}"/>
+{% block content %}
+</br>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- -------------------------- COLUMNA IZQUIERDA ------------------------------ -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">Buscar Productos</h3>
                     </div>
-                    <h2>Listado de Productos</h2>
+                    <!-- /.card-header -->
+                    <!-- form start -->
                     <form action="" method="POST">
-                    {% csrf_token %}
-                    <!-- Buscar Producto Por Codigo De Barra -->
-                    
-                    <div class="form-floating mb-3" id="user-group">
-                        <input style="width: 230px;" type="text" name="BuscarProductoPorCodigo" class="form-control" id="floatingIdProducto"
-                                placeholder="Buscar Producto Por Codigo">
-                        <label for="floatingIdProducto">Buscar Producto Por Codigo</label>
-                    </div>
-                        <input type="submit" class="btn btn-success" name='btnBuscarProductoCodigo' value="Buscar Producto Por Codigo">
-                    <!------------------------------------------------------------------------------------>
+                        {% csrf_token %}
+                        <!-- Buscar producto Por Codigo De Barra -->
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="Productotxt">Buscar Producto por Codigo</label>
+                                    <div class="col-11">
+                                        <input type="number" class="form-control" id="Productotxt"
+                                            placeholder="Ingrese codigo" name="BuscarProductoPorCodigo">
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="submit" class="btn btn-success" name='btnBuscarProductoCodigo'
+                                            value="Buscar">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ------------------------------------------------ -->
+                            <!-- buscar Producto por proveedor -->
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="BuscarProductoPorProveedor">Buscar por Proveedor</label>
+                                    <div class="col-11">
+                                        <select name="BuscarProductoPorProveedor" id="user-group" class="form-select">
+                                            <option value="">Seleccionar</option>
+                                            {% for e in Listado_Proveedores %}
+                                            <option value="{{ e.0 }}">{{e.1}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="submit" class="btn btn-success" name='btnBuscarProductoProveedor'
+                                            value="Buscar">
+                                    </div>
+                                </div>
+                            </div>
 
-                    <!-- Buscar Producto Por Proveedor -->
-                    <div class="form-floating">
-                        <select name="BuscarProductoPorProveedor" id="user-group" class="form-select">
-                            <option value="">Seleccionar</option>
-                            {% for e in Listado_Proveedores %}
-                            <option value="{{ e.0 }}">{{e.1}}</option>
-                            {% endfor %}
-                        </select>
-                        <label for="ProveedorProducto">Proveedor Producto</label>
-                        <br>
-                    </div>
-                        <input type="submit" class="btn btn-success" name='btnBuscarProductoProveedor' value="Buscar Producto Por Proveedor">
-                    <!------------------------------------------------------------------------------------>
-
-                    <!-- Buscar Producto Por Marca -->
-                    <div class="form-floating">
-                        <select name="BuscarProductoPorMarca" id="user-group" class="form-select">
-                            <option value="">Seleccionar</option>
-                            {% for e in Listado_Marcas %}
-                            <option value="{{ e.0 }}">{{e.1}}</option>
-                            {% endfor %}
-                        </select>
-                        <label for="BuscarPorductorPorMarca">Buscar Producto Por Marca</label>
-                        <br>
-                    </div>
-                    <input type="submit" class="btn btn-success" name='btnBuscarProductoMarca' value="Buscar Producto Por Marca">
-                    <!------------------------------------------------------------------------------------>
-
-                    <!-- Buscar Producto Por Stock -->
-                    <div class="form-floating mb-3" id="user-group">
-                        <input style="width: 250px;" type="text" name="BuscarProductoPorStock" class="form-control" id="floatingBuscarPorStock"
-                                placeholder="Buscar Producto Por Stock">
-                        <label for="floatingBuscarPorStock">Buscar Producto Por Stock</label>
-                    </div>
-                        <input type="submit" class="btn btn-success" name='btnBuscarProductoStock' value="Buscar Producto Por Stock">
-
-                    <!------------------------------------------------------------------------------------>
-                    
-                    <!-- Boton para mostrar todos los productos -->
-                    <br>
-                    <br>
-                    <input type="submit" class="btn btn-success" name='btnTodosLosProductos' value="Mostrar Todos Los Productos">     
+                            <!-- ------------------------------------------------- -->
+                            <!-- Buscar insumo por Marca -->
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="BuscarProductoPorMarca">Buscar Insumo por Marca</label>
+                                    <div class="col-11">
+                                        <select name="BuscarProductoPorMarca" id="user-group" class="form-select">
+                                            <option value="">Seleccionar</option>
+                                            {% for e in Listado_Marcas %}
+                                            <option value="{{ e.0 }}">{{e.1}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="submit" class="btn btn-success" name='btnBuscarProductoMarca'
+                                            value="Buscar">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ------------------------------------------------- -->
+                            <!-- Buscar producto stock -->
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="BuscarProductoPorStock">Buscar Producto por Stock</label>
+                                    <div class="col-11">
+                                        <input type="number" class="form-control" id="Productotxt"
+                                            placeholder="Ingrese codigo" name="BuscarProductoPorStock">
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="submit" class="btn btn-success" name='btnBuscarProductoStock'
+                                            value="Buscar">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ------------------------------------------------- -->
+                        </div>
+                        <!-- /.card-body -->
                     </form>
-
-                    <!------------------------------------------------------------------------------------>
-                    
-                    <!-- Tabla de listado de Productos -->
-                    <table class="table table-dark table-striped">
-                        <tr>
-                            <th>Codigo de Barra</th> 
-                            <th>Nombre Producto</th>
-                            <th>Proveedor</th>
-                            <th>Marca</th>
-                            <th>Stock</th>
-                            <th>Unidad de Medida Unitaria</th>
-                        </tr>
-                    
-                        {% for r in Producto %}
-                        <tr>
-                            <td>{{ r.0 }}</td>
-                            <td>{{ r.1 }}</td>
-                            <td>{{ r.2 }}</td>
-                            <td>{{ r.3 }}</td>
-                            <td>{{ r.4 }} {{ r.5 }}</td>
-                            <td>{{ r.6 }} {{ r.7 }} c/u</td>
-                            <td><a href="{% url 'modificar-producto' r.0 %}" class="btn-xs btn-success">Modificar/Eliminar</a> </td>
-                        </tr>
-                        {% endfor %} 
-                        
-                    </table>
-                    <!-- Fin de Tabla de listado de Productos -->
                 </div>
+                <!-- /.card -->
             </div>
-
-                    <!-- Formulario Reserva-->
-           <div class="modal-dialog text-center">
-                <div class="col-sm-18">
-                    <div class="modal-content">
-                        
-                        <h2>Agregar Producto</h2>
-                        <form action="" method="POST">
-                            {% csrf_token %}
-                            
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="number" name="IDProducto" class="form-control" id="floatingIdProducto"
+            <!-- .col izquierda-->
+            <!-- ------------------------------------------------COLUMNA DERECHA------------------------------------- -->
+            <div class="col-md-6">
+                <!-- Form Element sizes -->
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Manejar Productos</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <label for="IDProducto">Codigo de Barra</label>
+                                <input type="number" name="IDProducto" class="form-control" id="IDProducto"
                                     placeholder="Codigo de Barra">
-                                <label for="floatingIdProducto">Codigo de Barra</label>
-                            </div>
-                            
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="text" name="NombreProducto" class="form-control" id="floatingNomProducto"
-                                    placeholder="Nombre Producto">
-                                <label for="floatingNomProducto">Nombre Producto</label>
-                            </div>
 
-                            <div class="form-floating">
+                                <label for="NombreProducto">Nombre Producto</label>
+                                <input type="text" name="NombreProducto" class="form-control" id="NombreProducto"
+                                    placeholder="Nombre Producto">
+
+                                <label for="ProveedorProducto">Proveedor Producto</label>
                                 <select name="ProveedorProducto" id="user-group" class="form-select">
                                     <option value="">Seleccionar</option>
                                     {% for e in Listado_Proveedores %}
                                     <option value="{{ e.0 }}">{{e.1}}</option>
                                     {% endfor %}
                                 </select>
-                                <label for="ProveedorProducto">Proveedor Producto</label>
-                                <br>
-                            </div>
 
-                            <div class="form-floating">
+                                <label for="MarcaProducto">Marca Producto</label>
                                 <select name="MarcaProducto" id="user-group" class="form-select">
                                     <option value="">Seleccionar</option>
                                     {% for e in Listado_Marcas %}
                                     <option value="{{ e.0 }}">{{e.1}}</option>
                                     {% endfor %}
                                 </select>
-                                <label for="MarcaProducto">Marca Producto</label>
-                                <br>
-                            </div>
 
-                            
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="number" name="StockProducto" class="form-control" id="floatingStockProducto"
+                                <label for="StockProducto">Stock Producto</label>
+                                <input type="number" name="StockProducto" class="form-control" id="StockProducto"
                                     placeholder="Stock">
-                                <label for="floatingStockProducto">Stock</label>
-                            </div>  
 
-                            <div class="form-floating">
+                                <label for="FormatoStockProducto">Formato Stock Producto</label>
                                 <select name="FormatoStockProducto" id="user-group" class="form-select">
                                     <option value="">Seleccionar</option>
                                     {% for e in Listado_Formato_Stock %}
                                     <option value="{{ e.0 }}">{{e.1}}</option>
                                     {% endfor %}
                                 </select>
-                                <label for="FormatoStockProducto">Formato Stock Producto</label>
-                                <br>
-                            </div> 
 
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="number" step="any" name="MedidaProducto" class="form-control" id="floatingMedidaProducto"
-                                    placeholder="Medida Producto">
-                                <label for="floatingMedidaProducto">Medida De Producto</label>
-                            </div>  
 
-                            <div class="form-floating">
+                                <label for="MedidaProducto">Medida Stock Producto</label>
+                                <input type="number" step="any" name="MedidaProducto" class="form-control"
+                                    id="MedidaProducto" placeholder="Medida Producto">
+
+
+
+                                <label for="UnidadMedidaProducto">Unidad Medida Stock Producto</label>
                                 <select name="UnidadMedidaProducto" id="user-group" class="form-select">
                                     <option value="">Seleccionar</option>
                                     {% for e in Listado_Unidades_Medida %}
                                     <option value="{{ e.0 }}">{{e.1}}</option>
                                     {% endfor %}
                                 </select>
-                                <label for="UnidadMedidaProducto">Unidad de Medida del Producto</label>
+                                </br>
+                                <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Producto">
                                 <br>
-                            </div>  
-                            
-                            
-                            
-                            <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Producto">
-                            
-                            <br>
-                            <br>
+                                <br>
 
-                        </form>
-
-                        <!-- Fin Formulario-->
-                        <label for="Mensaje">{{Mensaje}}</label>
-                        <br>
-                        <br>
-
+                            </form>
+                                                <!-- Fin Formulario-->
+                    {{Mensaje}}
+                        </div>
                     </div>
+                    <!-- /.card-body -->
                 </div>
-
-                    
-                
             </div>
-
         </div>
-        
-        
-
-       </div>
-
-    </main>
-</body>
+    </div>
+</section>
 
 
-</html>
+<main class="main-section p-4 text-center">
+    <div class=" text-center">
+        <div class="col-sm-18">
+            <div class="modal-content">
+                <!------------------------------------------------------------------------------------>
+                <!-- Boton para mostrar todos los productos -->
+                <form action="" method="POST">
+                    {% csrf_token %}
+                <br>
+                <br>
+                <input type="submit" class="btn btn-success" name='btnTodosLosProductos'
+                    value="Mostrar Todos Los Productos">
+                </form>
+                <!------------------------------------------------------------------------------------>
+                <!-- Tabla de listado de Productos -->
+                <table class="table table-dark table-striped">
+                    <tr>
+                        <th>Codigo de Barra</th>
+                        <th>Nombre Producto</th>
+                        <th>Proveedor</th>
+                        <th>Marca</th>
+                        <th>Stock</th>
+                        <th>Unidad de Medida Unitaria</th>
+                    </tr>
+
+                    {% for r in Producto %}
+                    <tr>
+                        <td>{{ r.0 }}</td>
+                        <td>{{ r.1 }}</td>
+                        <td>{{ r.2 }}</td>
+                        <td>{{ r.3 }}</td>
+                        <td>{{ r.4 }} {{ r.5 }}</td>
+                        <td>{{ r.6 }} {{ r.7 }} c/u</td>
+                        <td><a href="{% url 'modificar-producto' r.0 %}" class="btn-xs btn-success">Modificar/Eliminar</a> </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <!-- Fin de Tabla de listado de Productos -->
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+{%load static %}
+
+{% endblock %}
