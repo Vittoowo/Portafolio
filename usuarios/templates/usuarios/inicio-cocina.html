@@ -1,51 +1,54 @@
-{% extends base-generic.html %}
+{% extends "base-generic.html" %}
 
 {% block content %}
-{% load static%}
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <h3>Cocina</h3>
-          </a>
+<body>
+</br>
+  <div class="row">
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-info"><i class="fa-solid fa-utensils"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Gestion de Platos</span>
+          <form action="">
+            <div class="form">
+              <input type="submit"   value="Gestion de Platos" class="btn btn-success">
+            </div>
+          </form>
         </div>
-      </nav>
-    
-    <main class="main-section p-4 text-center">
-        <div class="modal-dialog text-center">
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-info"><i class="fa-solid fa-cart-plus"></i></span>
 
-           <div class="modal-dialog text-center">
-               <div class="col-sm-8">
-                   <div class="modal-content">
-                      <div class="col-12 user-img">
-                        <img src= "{% static 'img/LogoRestorant.png' %}"/>
-                      </div>
+        <div class="info-box-content">
+          <span class="info-box-text">Gestion de Pedidos</span>
+          <form action="">
+            <div class="form">
+              <input type="submit"   value="Gestion de Pedidos" class="btn btn-success">
+            </div>
+          </form>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
 
-                      <form action="{% url 'reservas' %}">
-                        <div class="form-floating mb-3">
-                          <input type="submit"   value="Platos" class="btn btn-success">
-                        </div>
-                      </form>
-                      <form action="{% url 'mesas' %}">
-                        <div class="form-floating mb-3">
-                          <input type="submit"   value="Visualizador" class="btn btn-success">
-                        </div>
-                      </form>
-                      
-                   </div>
-               </div>
+      {% if message %}
+      <script>
+          
+          alert('{{ message }}');
+          
+      </script>
+      {%endif%}
+      
+  </main>
+      
+</body>
+{%load static %}
 
-           </div>
-         </div>
-
-       </div>
-
-        {% if message %}
-        <script>
-            
-            alert('{{ message }}');
-            
-        </script>
-        {%endif%}
-        
-    </main>
-{% endcontent %}
+{% endblock %}
