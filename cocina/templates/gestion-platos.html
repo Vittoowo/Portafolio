@@ -50,45 +50,36 @@
                                         <div class="modal-content">
                                             <h2>Ingredientes</h2>
                                             <form action="">
-                                            <table class="table table-dark table-striped">
-                                                <tr>
-                                                    <th>Nombre Producto</th> 
-                                                    <th>Cantidad</th>
-                                                    <th>Añadir</th> 
-                                                </tr>
-                                                <tr>
-                                                    <td>Papas</td>
-                                                    <td><input type="number" value="0"></td>
-                                                    <td><input type="submit"></td>
-                                                </tr>
-                                                <!--{% for e in Mesas %}
-                                                <tr>
-                                                      <td>Papas</td>
-                                                      <td><input type="number" value="0"></td>
-                                                      <td><input type="submit"></td>
-                                                </tr>
-                                                {% endfor %}-->
-                                            </table>
-
-                                            <table class="table table-dark table-striped">
-                                                <tr>
-                                                    <th>Nombre Producto</th> 
-                                                    <th>Cantidad</th>
-                                                    <th>Quitar</th> 
-                                                </tr>
-                                                <tr>
-                                                    <td>Papas</td>
-                                                    <td><input type="number" value="0"></td>
-                                                    <td><input type="submit"></td>
-                                                </tr>
-                                                <!--{% for e in Mesas %}
-                                                <tr>
-                                                      <td>Papas</td>
-                                                      <td><input type="number" value="0"></td>
-                                                      <td><input type="submit"></td>
-                                                </tr>
-                                                {% endfor %}-->
-                                            </table>
+                                            <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Listado de productos</h3>
+                    <!-- Boton para mostrar todos los productos -->
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-success btn-sm" name='btnTodosLosProductos' value="Mostrar Todos Los Productos">
+                    </form>
+                </div>
+                <!------------------------------------------------------------------------------------>
+                <!-- Tabla de listado de Productos -->
+                <table class="table table-striped">
+                    <tr>
+                        <th>Codigo de Barra</th>
+                        <th>Nombre Producto</th>
+                        
+                    </tr>
+        
+                    {% for r in Producto %}
+                    <tr>
+                        <td>{{ r.0 }}</td>
+                        <td>{{ r.1 }}</td>
+                        <td><a href="{% url 'modificar-producto' r.0 %}" class="btn-xs btn-success">Modificar/Eliminar</a> </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <!-- Fin de Tabla de listado de Productos -->
+            </div>
+        </div>
                                             <div class="form-floating mb-3" id="user-group">
                                                 <textarea name="instrucciones" class="form-control" id="instrucciones"
                                                     placeholder="Instrucciones"></textarea>
