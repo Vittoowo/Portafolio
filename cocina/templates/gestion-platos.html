@@ -1,119 +1,134 @@
-<!DOCTYPE html>
+{% extends "base-generic.html" %}
+{% block content %}
 {% load static %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/bootstrap.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}" />
-<html>
-
-<head>
-</head>
-
-<body class="aling-items-center">
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <h3>Gestion de Platos</h3>
-            </a>
-        </div>
-    </nav>
-
-    <main class="main-section p-12 text-center">
-        
-    <!--  Formulario Agregar Mesa -->
-            <div class="modal-dialog text-center">
-                <div class="col-sm-12">
-                    <div class="modal-content text-center">
-                        <div class="col-12 user-img">
-                            <img src="{% static 'img/LogoRestorant.png' %}" />
-                        </div>
-                        <form action="" method="POST">
-                            {% csrf_token %}
-                            <h2>Ingresar Plato</h2>
-                            
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="text" name="nom_plato" class="form-control" id="nom_plato"
-                                    placeholder="numeromesa">
-                                <label for="nom_plato">Nombre del Plato</label>
-                            </div>
-                        
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="number" name="precio" class="form-control"  placeholder="precio" id="precio">
-                                <label for="precio">Precio</label>
-                            </div>
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="file" name="img_plato" class="form-control" id="img_plato">
-                                <label for="img_plato">Imagen</label>
-                            </div>
-                            <div class="modal-dialog text-center">
-                                <div class="modal-dialog text-center">
-                                    <div class="col-sm-12">
-                                        <div class="modal-content">
-                                            <h2>Ingredientes</h2>
-                                            <form action="">
-                                            <div class="row">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Listado de productos</h3>
-                    <!-- Boton para mostrar todos los productos -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- -------------------------- COLUMNA IZQUIERDA ------------------------------ -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">Ingresar Platos</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
                     <form action="" method="POST">
                         {% csrf_token %}
-                        <input type="submit" class="btn btn-success btn-sm" name='btnTodosLosProductos' value="Mostrar Todos Los Productos">
+                        <div class="card-body">
+                            <label for="nom_plato">Nombre del Plato</label>
+                            <input type="text" name="nom_plato" class="form-control" id="nom_plato"
+                                placeholder="Nombre Plato">
+
+
+
+                            <label for="precio">Precio</label>
+                            <input type="number" name="precio" class="form-control" placeholder="precio" id="precio">
+
+                            <label for="img_plato">Imagen</label>
+                            <input type="file" name="img_plato" class="form-control" id="img_plato">
+
+                            <label for="instrucciones">Instrucciones</label>
+                            <textarea name="instrucciones" class="form-control" id="instrucciones"
+                                placeholder="Instrucciones"></textarea>
+
+                            <br>
+                            <input type="submit" name='Guardar' value="Ingresar Plato" class="btn btn-success">
+
+                            <label for="Mensaje">{{Mensaje}}</label>
+                        </div>
                     </form>
                 </div>
-                <!------------------------------------------------------------------------------------>
-                <!-- Tabla de listado de Productos -->
-                <table class="table table-striped">
-                    <tr>
-                        <th>Codigo de Barra</th>
-                        <th>Nombre Producto</th>
-                        
-                    </tr>
-        
-                    {% for r in Producto %}
-                    <tr>
-                        <td>{{ r.0 }}</td>
-                        <td>{{ r.1 }}</td>
-                        <td><a href="{% url 'modificar-producto' r.0 %}" class="btn-xs btn-success">Modificar/Eliminar</a> </td>
-                    </tr>
-                    {% endfor %}
-                </table>
-                <!-- Fin de Tabla de listado de Productos -->
+                <!-- /.card -->
             </div>
+            <!-- .col izquierda-->
         </div>
-                                            <div class="form-floating mb-3" id="user-group">
-                                                <textarea name="instrucciones" class="form-control" id="instrucciones"
-                                                    placeholder="Instrucciones"></textarea>
-                                                <label for="instrucciones">Instrucciones</label>
-                                            </div>
-                                            <div class="form-floating mb-3">
-                                                <input type="submit" name='Guardar' value= "Ingresar Plato" class="btn btn-success">
-                                            </div>
-                                        </form>
-                                            <br>
-                                            <br>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <!------------------------------------------------------------------------------------>
+        <!-- Tabla  -->
+        <div class= "card">
+        <div class="row">
+            
+                <!-- tabla izq-->
+                <div class="col-md-6">
+                    <div class="card-header">
+                        <h3 class="card-title">Listado de productos</h3>
+                        <br>
+
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-success btn-sm" name='btnTodosLosProductos'
+                                value="Mostrar Todos Los Productos">
                         </form>
                     </div>
+                    <!------------------------------------------------------------------------------------>
+                    <!-- Tabla de listado de Productos -->
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Codigo de Barra</th>
+                            <th>Nombre Producto</th>
+                            <TH>Agregar a tabla</TH>
+
+                        </tr>
+
+                        {% for r in Producto %}
+                        <tr>
+                            <td>{{ r.0 }}</td>
+                            <td>{{ r.1 }}</td>
+                            <td><a href="{% url 'modificar-producto' r.0 %}" class="btn-xs btn-success">Agregar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <!-- Fin de Tabla de listado de Insumos -->
                 </div>
-            </div>
-        
+                <!-- fin tabla izq-->
+                <!-- tabla derecha-->
+                <div class="col-md-6">
+                    <div class="card-header">
+                        <h3 class="card-title">Listado de productos</h3>
+                        <br>
 
-        
-        {% if mensaje %}
-        <script>
-            
-            alert('{{ mensaje }}');
-            
-        </script>
-        {%endif%}
-        
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-success btn-sm" name='btnTodosLosProductos'
+                                value="Mostrar Todos Los Productos">
+                        </form>
+                    </div>
 
+                    <!------------------------------------------------------------------------------------>
+                    <!-- Tabla de listado de Productos -->
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Codigo de Barra</th>
+                            <th>Nombre Producto</th>
+                            <TH>Agregar a tabla</TH>
 
-    </main>
-</body>
+                        </tr>
 
+                        {% for r in Producto %}
+                        <tr>
+                            <td>{{ r.0 }}</td>
+                            <td>{{ r.1 }}</td>
+                            <td><a href="{% url 'modificar-producto' r.0 %}" class="btn-xs btn-success">Agregar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <!-- Fin de Tabla de listado de Insumos -->
+                </div>
+                <!-- din tabla derecha-->            
+        </div>
+    </div>
+    </div>
+    <!-- Fin Formulario-->
+    </div>
+    {% if mensaje %}
+    <script>
 
-</html>
+        alert('{{ mensaje }}');
+
+    </script>
+    {%endif%}
+</section>
+
+{% endblock %}
