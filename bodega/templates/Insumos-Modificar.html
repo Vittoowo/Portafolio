@@ -32,7 +32,12 @@
                                 <select name="ProveedorInsumo" id="user-group" class="form-select">
                                     <option value="">Seleccionar</option>
                                     {% for e in Listado_Proveedores %}
+
+                                    {% if e.1 == proveedorIns %}
                                     <option value="{{ e.0 }}" selected>{{e.1}}</option>
+                                    {% else %}
+                                    <option value="{{ e.0 }}" >{{e.1}}</option>
+                                    {% endif %}
                                     {% endfor %}
                                 </select>
 
@@ -45,7 +50,12 @@
                                 <select name="FormatoStockInsumo" id="user-group" class="form-select">
                                     <option value="">Seleccionar</option>
                                     {% for e in Listado_Formato_Stock %}
+
+                                    {% if e.1 == formStockIns%}
                                     <option value="{{ e.0 }}" selected>{{e.1}}</option>
+                                    {% else %}
+                                    <option value="{{ e.0 }}" >{{e.1}}</option>
+                                    {% endif %}
                                     {% endfor %}
                                 </select>
                                 </br>
