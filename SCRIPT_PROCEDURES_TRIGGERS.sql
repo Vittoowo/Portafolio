@@ -136,18 +136,28 @@ create or replace PROCEDURE SP_AGREGAR_RESERVA(
     v_cantidad_personas_reserva number,
     v_num_mesa number,
     v_salida out number)
-IS
+AS
+v_verificar NUMBER;
 BEGIN
+    
+    SELECT COUNT(*) INTO v_verificar FROM RESERVA WHERE fecha_reserva = v_fecha_reserva AND rango_hora_id_rango = v_hora_reserva AND mesas_id_mesa = v_num_mesa;
+    
+    IF v_verificar=0 then
+
     INSERT INTO RESERVA ( estado_reserva_id_est_reserva, rut_reserva, fecha_reserva,rango_hora_id_rango, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
     VALUES(v_ID_Estado_Reserva, v_Rut_Reserva, v_Fecha_Reserva,v_hora_reserva, v_email, v_telefono_reserva, v_cantidad_personas_reserva,v_num_mesa);
     commit;
     v_salida:=1;
+    ELSE 
+    v_salida:=0;
+    END IF;
     EXCEPTION
 
     WHEN OTHERS THEN
     v_salida:=0;
 END;
 /
+COMMIT;
 
 
 create or replace PROCEDURE SP_BUSCAR_RESERVAS_POR_ID(
