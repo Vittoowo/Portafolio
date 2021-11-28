@@ -19,6 +19,8 @@ DROP TABLE mesas CASCADE CONSTRAINTS;
 
 DROP TABLE orden CASCADE CONSTRAINTS;
 
+DROP TABLE pedido_insumo CASCADE CONSTRAINTS;
+
 DROP TABLE pedido_producto CASCADE CONSTRAINTS;
 
 DROP TABLE pedido_proveedor CASCADE CONSTRAINTS;
@@ -26,6 +28,8 @@ DROP TABLE pedido_proveedor CASCADE CONSTRAINTS;
 DROP TABLE plato CASCADE CONSTRAINTS;
 
 DROP TABLE platos_orden CASCADE CONSTRAINTS;
+
+DROP TABLE producto_receta CASCADE CONSTRAINTS;
 
 DROP TABLE productos CASCADE CONSTRAINTS;
 
@@ -36,8 +40,6 @@ DROP TABLE proveedor CASCADE CONSTRAINTS;
 DROP TABLE rango_hora CASCADE CONSTRAINTS;
 
 DROP TABLE receta CASCADE CONSTRAINTS;
-
-DROP TABLE relation_20 CASCADE CONSTRAINTS;
 
 DROP TABLE reserva CASCADE CONSTRAINTS;
 
@@ -124,6 +126,14 @@ CREATE TABLE orden (
 
 ALTER TABLE orden ADD CONSTRAINT orden_pk PRIMARY KEY ( id_orden );
 
+CREATE TABLE pedido_insumo (
+    pedido_proveedor_id_pedido   NUMBER(10) NOT NULL,
+    insumo_id_insumo             NUMBER(4) NOT NULL
+);
+
+ALTER TABLE pedido_insumo ADD CONSTRAINT relation_20_pk PRIMARY KEY ( pedido_proveedor_id_pedido,
+                                                                      insumo_id_insumo );
+
 CREATE TABLE pedido_producto (
     pedido_proveedor_id_pedido   NUMBER(10) NOT NULL,
     productos_id_producto        NUMBER(4) NOT NULL,
@@ -146,7 +156,7 @@ CREATE TABLE plato (
     id_plato           NUMBER(4) NOT NULL,
     receta_id_receta   NUMBER(4) NOT NULL,
     nombre_plato       NVARCHAR2(50) NOT NULL,
-    img_plato          BLOB NOT NULL,
+    descripcion        VARCHAR2(300) NOT NULL,
     precio_plato       NUMBER(6) NOT NULL
 );
 
@@ -165,6 +175,13 @@ CREATE TABLE platos_orden (
 
 ALTER TABLE platos_orden ADD CONSTRAINT platos_orden_pk PRIMARY KEY ( plato_id_plato,
                                                                       orden_id_orden );
+
+CREATE TABLE producto_receta (
+    cantidad                  NUMBER NOT NULL,
+    receta_id_receta          NUMBER(4) NOT NULL,
+    productos_id_producto     NUMBER(20) NOT NULL,
+    unidad_medida_id_unidad   NUMBER(1) NOT NULL
+);
 
 CREATE TABLE productos (
     id_producto                      NUMBER(20) NOT NULL,
@@ -214,14 +231,6 @@ CREATE UNIQUE INDEX receta__idx ON
     ASC );
 
 ALTER TABLE receta ADD CONSTRAINT receta_pk PRIMARY KEY ( id_receta );
-
-CREATE TABLE relation_20 (
-    pedido_proveedor_id_pedido   NUMBER(10) NOT NULL,
-    insumo_id_insumo             NUMBER(4) NOT NULL
-);
-
-ALTER TABLE relation_20 ADD CONSTRAINT relation_20_pk PRIMARY KEY ( pedido_proveedor_id_pedido,
-                                                                    insumo_id_insumo );
 
 CREATE TABLE reserva (
     id_reserva                      NUMBER(10) NOT NULL,
@@ -299,6 +308,19 @@ ALTER TABLE platos_orden
     ADD CONSTRAINT platos_orden_plato_fk FOREIGN KEY ( plato_id_plato )
         REFERENCES plato ( id_plato );
 
+ALTER TABLE producto_receta
+    ADD CONSTRAINT producto_receta_productos_fk FOREIGN KEY ( productos_id_producto )
+        REFERENCES productos ( id_producto );
+
+ALTER TABLE producto_receta
+    ADD CONSTRAINT producto_receta_receta_fk FOREIGN KEY ( receta_id_receta )
+        REFERENCES receta ( id_receta );
+
+--  ERROR: FK name length exceeds maximum allowed length(30) 
+ALTER TABLE producto_receta
+    ADD CONSTRAINT producto_receta_unidad_medida_fk FOREIGN KEY ( unidad_medida_id_unidad )
+        REFERENCES unidad_medida ( id_unidad );
+
 ALTER TABLE productos
     ADD CONSTRAINT productos_formato_stock_fk FOREIGN KEY ( formato_stock_id_formato_stock )
         REFERENCES formato_stock ( id_formato_stock );
@@ -323,12 +345,12 @@ ALTER TABLE productos
     ADD CONSTRAINT productos_unidad_medida_fk FOREIGN KEY ( unidad_medida_id_unidad )
         REFERENCES unidad_medida ( id_unidad );
 
-ALTER TABLE relation_20
+ALTER TABLE pedido_insumo
     ADD CONSTRAINT relation_20_insumo_fk FOREIGN KEY ( insumo_id_insumo )
         REFERENCES insumo ( id_insumo );
 
 --  ERROR: FK name length exceeds maximum allowed length(30) 
-ALTER TABLE relation_20
+ALTER TABLE pedido_insumo
     ADD CONSTRAINT relation_20_pedido_proveedor_fk FOREIGN KEY ( pedido_proveedor_id_pedido )
         REFERENCES pedido_proveedor ( id_pedido );
 
@@ -343,4 +365,5 @@ ALTER TABLE reserva
 ALTER TABLE reserva
     ADD CONSTRAINT reserva_rango_hora_fk FOREIGN KEY ( rango_hora_id_rango )
         REFERENCES rango_hora ( id_rango );
+
 
