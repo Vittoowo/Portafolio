@@ -186,9 +186,9 @@ def productosModificar(request,ID_PRODUCTO):
         'Listado_Formato_Stock': Bodega.listar_formato_stock(),
         'Producto':pro[0],
         'proveedorPro':pro[0][2],
-        'marcaPro':pro[0][4],
-        'unidadMedidaPro':pro[0][5],
-        'formStockPro':pro[0][6]
+        'marcaPro':pro[0][3],
+        'formStockPro':pro[0][5],
+        'unidadMedidaPro':pro[0][7]
     }
     
     return render(request,'Bodega-Modificar.html', data)
