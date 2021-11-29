@@ -1,3 +1,5 @@
+DROP TABLE RELATION_20 CASCADE CONSTRAINTS;
+DROP TABLE RANGO_HORA CASCADE CONSTRAINTS;
 
 DROP TABLE boleta CASCADE CONSTRAINTS;
 
@@ -241,7 +243,8 @@ CREATE TABLE reserva (
     telefono_reserva                VARCHAR2(12) NOT NULL,
     cantidad_personas_reserva       NUMBER(2) NOT NULL,
     mesas_id_mesa                   NUMBER(3) NOT NULL,
-    rango_hora_id_rango             NUMBER(2) NOT NULL
+    rango_hora_id_rango             NUMBER(2) NOT NULL,
+    hora_reserva                    DATE NOT NULL
 );
 
 ALTER TABLE reserva ADD CONSTRAINT reserva_pk PRIMARY KEY ( id_reserva );
@@ -300,6 +303,10 @@ ALTER TABLE pedido_proveedor
     ADD CONSTRAINT pedido_proveedor_proveedor_fk FOREIGN KEY ( proveedor_id_proveedor )
         REFERENCES proveedor ( id_proveedor );
 
+ALTER TABLE plato
+    ADD CONSTRAINT plato_receta_fk FOREIGN KEY ( receta_id_receta )
+        REFERENCES receta ( id_receta );
+
 ALTER TABLE platos_orden
     ADD CONSTRAINT platos_orden_orden_fk FOREIGN KEY ( orden_id_orden )
         REFERENCES orden ( id_orden );
@@ -344,6 +351,10 @@ ALTER TABLE productos_receta
 ALTER TABLE productos
     ADD CONSTRAINT productos_unidad_medida_fk FOREIGN KEY ( unidad_medida_id_unidad )
         REFERENCES unidad_medida ( id_unidad );
+
+ALTER TABLE receta
+    ADD CONSTRAINT receta_plato_fk FOREIGN KEY ( plato_id_plato )
+        REFERENCES plato ( id_plato );
 
 ALTER TABLE pedido_insumo
     ADD CONSTRAINT relation_20_insumo_fk FOREIGN KEY ( insumo_id_insumo )

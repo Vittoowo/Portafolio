@@ -13,7 +13,7 @@ INSERT INTO formato_stock VALUES (12,'Botellas de Vidrio');
 INSERT INTO formato_stock VALUES (13,'Latas');
 INSERT INTO formato_stock VALUES (14,'Unidades');
 /
-INSERT INTO ESTADO_RESERVA VALUES(1,'Agendada');
+INSERT INTO ESTADO_RESERVA VALUES(1,'Iniciada');
 INSERT INTO ESTADO_RESERVA VALUES(2,'Finalizada');
 INSERT INTO ESTADO_RESERVA VALUES(3,'Cancelada');
 /
@@ -45,12 +45,6 @@ insert into unidad_medida values (3, 'Mililitros' );
 insert into unidad_medida values (4, 'Litros' );
 
 
-
-INSERT INTO RANGO_HORA VALUES(1,'09:00-11:00');
-INSERT INTO RANGO_HORA VALUES(2,'11:30-13:30');
-INSERT INTO RANGO_HORA VALUES(3,'14:00-16:00');
-INSERT INTO RANGO_HORA VALUES(4,'16:30-18:30');
-INSERT INTO RANGO_HORA VALUES(5,'19:00-21:00');
 
 
 INSERT INTO MESAS VALUES(1,3,1);

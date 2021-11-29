@@ -113,6 +113,8 @@ BEGIN
   SELECT reservas_seq.NEXTVAL
   INTO   :new.id_reserva
   FROM   dual;
+  
+  SELECT id_est_reserva INTO :NEW.estado_reserva_id_est_reserva FROM estado_reserva WHERE id_est_reserva = 1;
 END;
 /
 
@@ -127,10 +129,8 @@ END;
 
 
 create or replace PROCEDURE SP_AGREGAR_RESERVA(
-    v_ID_Estado_Reserva number,
     v_Rut_Reserva NVARCHAR2,
-    v_Fecha_Reserva date,
-    v_hora_reserva number,
+    v_Fecha_Hora_Reserva VARCHAR2,
     v_email VARCHAR2,
     v_telefono_reserva varchar2,
     v_cantidad_personas_reserva number,
@@ -138,14 +138,15 @@ create or replace PROCEDURE SP_AGREGAR_RESERVA(
     v_salida out number)
 AS
 v_verificar NUMBER;
+
 BEGIN
-    
-    SELECT COUNT(*) INTO v_verificar FROM RESERVA WHERE fecha_reserva = v_fecha_reserva AND rango_hora_id_rango = v_hora_reserva AND mesas_id_mesa = v_num_mesa;
+   
+    SELECT COUNT(*) INTO v_verificar FROM RESERVA WHERE fecha_Hora_reserva = v_Fecha_Hora_Reserva  AND mesas_id_mesa = v_num_mesa;
     
     IF v_verificar=0 then
-
-    INSERT INTO RESERVA ( estado_reserva_id_est_reserva, rut_reserva, fecha_reserva,rango_hora_id_rango, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
-    VALUES(v_ID_Estado_Reserva, v_Rut_Reserva, v_Fecha_Reserva,v_hora_reserva, v_email, v_telefono_reserva, v_cantidad_personas_reserva,v_num_mesa);
+    
+    INSERT INTO RESERVA ( rut_reserva, fecha_Hora_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
+    VALUES( v_Rut_Reserva,TO_DATE(v_Fecha_Hora_Reserva,'DD-MM-YYYY HH24:MI'), v_email, v_telefono_reserva, v_cantidad_personas_reserva,v_num_mesa);
     commit;
     v_salida:=1;
     ELSE 
@@ -158,6 +159,7 @@ BEGIN
 END;
 /
 COMMIT;
+
 
 
 create or replace PROCEDURE SP_BUSCAR_RESERVAS_POR_ID(

@@ -26,13 +26,7 @@
                   {% endfor %}
                 </select>
 
-                <label for="estado">Estado de Reserva</label>
-                <select name="EstadoReserva" id="user-group" class="form-select">
-                  <option value="">Seleccionar</option>
-                  {% for e in Lista_Estado_Reserva %}
-                  <option value="{{ e.0 }}">{{e.1}}</option>
-                  {% endfor %}
-                </select>
+
 
                 <label for="RutReserva">RUT Reserva</label>
                 <div class="input-group">
@@ -46,13 +40,11 @@
                 <input type="date" name="FechaReserva" class="form-control" id="floatingFecha"
                   placeholder="Fecha Reserva">
 
-                <label for="estado">Hora Reserva</label>
-                <select name="HoraReserva" id="HoraReserva" class="form-select">
-                  <option value="">Seleccionar</option>
-                  {% for h in Lista_Rangos %}
-                  <option value="{{ h.0 }}">{{h.1}}</option>
-                  {% endfor %}
-                </select>
+
+                <label for="HoraReserva">Hora Reserva</label>
+                <div class="input-group">
+                  <input type="time" style="width: 200px;" name="HoraReserva" class="form-control" id="HoraReserva">
+                </div>
 
 
 
@@ -96,21 +88,21 @@
           <form action="" method="POST">
             {% csrf_token %}
 
-          <div class="card-body">
-            <div class="form-group">
-            <div class="row">
-              <!-- buscar mediante rut-->                
-                <label for="floatingBuscarReserva">Buscar Reserva Por RUT</label>                
-                <div class="col-11">
-                  <input type="text" name="BuscarReservaRUT" class="form-control" id="floatingBuscarReserva"
-                    placeholder="Buscar Reserva Por RUT">
-                </div>
-                <div class="col-1">
-                  <input type="submit" class="btn btn-success" name='btnBuscarReservaPorRUT' value="Buscar">
+            <div class="card-body">
+              <div class="form-group">
+                <div class="row">
+                  <!-- buscar mediante rut-->
+                  <label for="floatingBuscarReserva">Buscar Reserva Por RUT</label>
+                  <div class="col-11">
+                    <input type="text" name="BuscarReservaRUT" class="form-control" id="floatingBuscarReserva"
+                      placeholder="Buscar Reserva Por RUT">
+                  </div>
+                  <div class="col-1">
+                    <input type="submit" class="btn btn-success" name='btnBuscarReservaPorRUT' value="Buscar">
+                  </div>
                 </div>
               </div>
-            </div>      
-          </div>
+            </div>
         </div>
       </div>
       <!-- /.card-body -->
@@ -120,55 +112,55 @@
 
   <!-- termino  cuadro derecho e izq -->
   <div class="row">
-    <div class="card">                
-        <div class="card-header">                                      
-            <h3 class="card-title" >Listado de Reservas</h3>  
-            <br>
-                  
-            <form action="" method="POST">
-                {% csrf_token %}
-                <!-- Boton para mostrar todos los datos de reserva en tabla -->                       
-                <input type="submit" class="btn btn-success btn-sm" name='btnTodasLasReserva'
-                value="Mostrar Todas Las Reserva">
-            </form>         
-        </div>        
-            <table class="table table-striped">
-              <tr>
-                <th>ID Reserva</th>
-                <th>Mesa Reservada</th>
-                <th>Estado de Reserva</th>
-                <th>Rut Reserva</th>
-                <th>Fecha Reserva</th>
-                <th>Hora Reserva</th>
-                <th>Email</th>
-                <th>Telefono</th>
-                <th>Cantidad de Personas</th>
-                <th>Modificar/Eliminar</th>
-              </tr>
-              {% for r in Reserva %}
-              <tr>
-                <td>{{ r.0 }}</td>
-                <td>Mesa {{ r.1 }}</td>
-                <td>{{ r.2 }}</td>
-                <td>{{ r.3 }}</td>
-                <td>{{ r.4 }}</td>
-                <td>{{ r.5 }}</td>
-                <td>{{ r.6 }}</td>
-                <td>{{ r.7 }}</td>
-                <td>{{ r.8 }}</td>
-                <td><a href="{%url 'modificar-reservas' r.0 %}">Modificar</a></td>
-              </tr>
-              {% endfor %}
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Listado de Reservas</h3>
+        <br>
 
-            </table>
-
-
-
-        </div>
+        <form action="" method="POST">
+          {% csrf_token %}
+          <!-- Boton para mostrar todos los datos de reserva en tabla -->
+          <input type="submit" class="btn btn-success btn-sm" name='btnTodasLasReserva'
+            value="Mostrar Todas Las Reserva">
+        </form>
       </div>
-    </div>
+      <table class="table table-striped">
+        <tr>
+          <th>ID Reserva</th>
+          <th>Mesa Reservada</th>
+          <th>Estado de Reserva</th>
+          <th>Rut Reserva</th>
+          <th>Fecha Reserva</th>
+          <th>Hora Reserva</th>
+          <th>Email</th>
+          <th>Telefono</th>
+          <th>Cantidad de Personas</th>
+          <th>Modificar/Eliminar</th>
+        </tr>
+        {% for r in Reserva %}
+        <tr>
+          <td>{{ r.0 }}</td>
+          <td>Mesa {{ r.1 }}</td>
+          <td>{{ r.2 }}</td>
+          <td>{{ r.3 }}</td>
+          <td>{{ r.4 }}</td>
+          <td>{{ r.5 }}</td>
+          <td>{{ r.6 }}</td>
+          <td>{{ r.7 }}</td>
+          <td>{{ r.8 }}</td>
+          <td><a href="{%url 'modificar-reservas' r.0 %}">Modificar</a></td>
+        </tr>
+        {% endfor %}
+
+      </table>
+
+
 
     </div>
+  </div>
+  </div>
+
+  </div>
 
   </main>
   {% endblock %}

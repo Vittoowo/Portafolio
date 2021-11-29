@@ -3,32 +3,31 @@ from django.db import connection
 from django.contrib.auth.decorators import login_required
 from reservas.models import Reservas as reservas
 from mesas.models import Mesas
+import datetime
 # Create your views here.
 
 @login_required
 def Reservas(request):
     
     data ={
-        'Lista_Estado_Reserva':reservas.listar_estados(),
-        'Reserva':reservas.listado_reservas(),
+        #'Reserva':reservas.listado_reservas(),
         'Lista_Mesas':Mesas.listado_mesa(),
-        'Lista_Rangos':reservas.listar_rangos(),
+        
     }
     
     if 'Guardar' in request.POST:
-       
-        ESTADO_RESERVA_ID_EST_RESERVA = request.POST.get('EstadoReserva')
-        RUT_RESERVA = request.POST.get('RutReserva') + " - " + request.POST.get('DVRUTReserva')
-        FECHA_RESERVA = request.POST.get('FechaReserva')
-        EMAIL = request.POST.get('Email')
-        TELEFONO_RESERVA = request.POST.get('Telefono')
-        CANTIDAD_PERSONAS_RESERVA = request.POST.get('CantidadPersonas')
-        NUM_MESA = request.POST.get('MesaReserva')
-        RANGO_HORA=request.POST.get('HoraReserva')
-        salida = reservas.agregar_reserva( ESTADO_RESERVA_ID_EST_RESERVA, RUT_RESERVA, FECHA_RESERVA,RANGO_HORA, EMAIL, TELEFONO_RESERVA, CANTIDAD_PERSONAS_RESERVA,NUM_MESA)
+        rut_reserva = request.POST.get('RutReserva') + " - " + request.POST.get('DVRUTReserva')
+        fecha = datetime.datetime.strptime(request.POST.get('FechaReserva'), '%Y-%m-%d').strftime('%d-%m-%Y')
+        fecha_Hora_reserva = fecha+" "+request.POST.get('HoraReserva')
+        print(fecha_Hora_reserva)
+        email = request.POST.get('Email')
+        telefono_reserva = request.POST.get('Telefono')
+        cantidad_personas_reserva = request.POST.get('CantidadPersonas')
+        mesas_id_mesa = request.POST.get('MesaReserva')
+        salida = reservas.agregar_reserva(rut_reserva, fecha_Hora_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
         if salida == 1:
             data['Mensaje'] = 'Reserva Agregada'
-            data['Reserva'] = reservas.listado_reservas()
+            #data['Reserva'] = reservas.listado_reservas()
         else:
             data['Mensaje'] = 'No se ha podido guardar'
         return render(request, 'Reservas.html', data)
