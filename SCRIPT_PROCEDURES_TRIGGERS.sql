@@ -45,6 +45,8 @@ BEGIN
     open estado for select*from estado_mesa;
 END;
 /
+
+
 CREATE OR REPLACE PROCEDURE SP_READ_MESAS(mesas out SYS_REFCURSOR)
 IS
 BEGIN
@@ -56,7 +58,8 @@ BEGIN
     m.ESTADO_MESA_ID_EST_MESA
     FROM MESAS m
     JOIN estado_mesa e
-    ON m.estado_mesa_id_est_mesa = e.id_est_mesa ;
+    ON m.estado_mesa_id_est_mesa = e.id_est_mesa 
+    ORDER BY M.ID_MESA ASC;
 END;
 /
 
@@ -166,12 +169,12 @@ IS
 v_verificar NUMBER;
 BEGIN
    
-    SELECT COUNT(*) INTO v_verificar FROM RESERVA WHERE fecha_Hora_reserva = v_Fecha_Hora_Reserva  AND mesas_id_mesa = v_num_mesa;
+    SELECT COUNT(*) INTO v_verificar FROM RESERVA WHERE fecha_reserva = TO_DATE(v_Fecha_Hora_Reserva,'DD-MM-YYYY HH24:MI')  AND mesas_id_mesa = v_num_mesa;
     
     IF v_verificar=1 THEN
         UPDATE RESERVA SET ESTADO_RESERVA_ID_EST_RESERVA = v_ID_Estado_Mesa,
                            RUT_RESERVA = v_Rut_Reserva,
-                           Fecha_Hora_Reserva = TO_DATE(v_Fecha_Hora_Reserva,'DD-MM-YYYY HH24:MI'),
+                           Fecha_Reserva = TO_DATE(v_Fecha_Hora_Reserva,'DD-MM-YYYY HH24:MI'),
                            EMAIL = v_Email,
                            TELEFONO_RESERVA = v_Telefono_Reserva,
                            CANTIDAD_PERSONAS_RESERVA = v_cantidad_personas_reserva,
@@ -193,6 +196,8 @@ END;
 
 
 
+
+
 create or replace PROCEDURE SP_BUSCAR_RESERVAS_POR_ID(
     
     v_id_Reserva in NVARCHAR2,
@@ -203,8 +208,8 @@ BEGIN
     SELECT r.id_reserva,
     r.mesas_id_mesa,
     r.rut_reserva,
-    to_char(r.FECHA_HORA_RESERVA,'DD-MM-YYYY') AS Fecha,
-    to_char(r.FECHA_HORA_RESERVA,'HH24:MI') as Hora,
+    to_char(r.FECHA_RESERVA,'DD-MM-YYYY') AS Fecha,
+    to_char(r.FECHA_RESERVA,'HH24:MI') as Hora,
     e.DESC_ESTD_RESERVA,
     r.email,
     r.telefono_reserva,
@@ -218,7 +223,6 @@ BEGIN
 END;
 /
 
-
 create or replace PROCEDURE SP_BUSCAR_RESERVAS_POR_RUT(
     
     v_Rut_Reserva in NVARCHAR2,
@@ -229,8 +233,8 @@ BEGIN
     SELECT r.id_reserva,
     r.mesas_id_mesa,
     r.rut_reserva,
-    to_char(r.FECHA_HORA_RESERVA,'DD-MM-YYYY') AS Fecha,
-    to_char(r.FECHA_HORA_RESERVA,'HH24:MI') as Hora,
+    to_char(r.FECHA_RESERVA,'DD-MM-YYYY') AS Fecha,
+    to_char(r.FECHA_RESERVA,'HH24:MI') as Hora,
     e.DESC_ESTD_RESERVA,
     r.email,
     r.telefono_reserva,
@@ -239,7 +243,7 @@ BEGIN
     JOIN estado_reserva e
     on r.estado_reserva_id_est_reserva = e.id_est_reserva
     where RUT_RESERVA = '20533815-2'
-    order by r.FECHA_HORA_RESERVA desc;
+    order by r.FECHA_RESERVA desc;
   
 END;
 
@@ -270,8 +274,8 @@ BEGIN
     SELECT r.id_reserva,
     r.mesas_id_mesa,
     r.rut_reserva,
-    to_char(r.FECHA_HORA_RESERVA,'DD-MM-YYYY') AS Fecha,
-    to_char(r.FECHA_HORA_RESERVA,'HH24:MI') as Hora,
+    to_char(r.FECHA_RESERVA,'DD-MM-YYYY') AS Fecha,
+    to_char(r.FECHA_RESERVA,'HH24:MI') as Hora,
     e.DESC_ESTD_RESERVA,
     r.email,
     r.telefono_reserva,
