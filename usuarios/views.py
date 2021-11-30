@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect,render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from usuarios.models import Usuario
-
+from mesas.models import Mesas as mesas
 
 #Vista que retorna Home
 def home(request):
@@ -52,7 +52,7 @@ def login_user(request):
             elif user.groups.filter(name='Cocina').exists():
                 return redirect (to='Cocina')
             elif user.groups.filter(name='Totem').exists():
-                return redirect (to='mesas_totem')
+                return redirect (to='Home_totem')
             elif user.groups.filter(name='Bodega').exists():
                 return redirect (to='Bodega')
             elif user.groups.filter(name='Recepcion').exists():
@@ -102,3 +102,13 @@ def RegistroUsuario(request):
         logout(request)
         return redirect('login')     
 
+
+def Home_totem(request ):
+    if 'reserva' in request.POST:
+        data={
+            'rut' : request.POST.get('rut'),
+            'Mesas' : mesas.listado_mesa(),
+            'message':"",
+        }
+        return render (request,'./MesasDisponibles.html',data)
+    return render (request,'usuarios/Home_totem.html')
