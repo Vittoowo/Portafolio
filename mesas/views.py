@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.db import connection
 from django.contrib.auth.decorators import login_required
 from mesas.models import Mesas as mesas
@@ -52,7 +52,7 @@ def Mesas(request):
 def mesas_totem(request):
     data ={
         'Mesas' : mesas.listado_mesa(),
-        'message':""
+        'message':"",
     }
     if 'Reservar' in request.POST:
         
@@ -78,4 +78,11 @@ def mesas_modificar(request,num_mesa,capacidad,estado):
     return render (request,'./Mesas-modificar.html',data)
 
 def Home_totem(request ):
+    if 'reserva' in request.POST:
+        data={
+            'rut' : request.POST.get('rut'),
+            'Mesas' : mesas.listado_mesa(),
+            'message':"",
+        }
+        return render (request,'./MesasDisponibles.html',data)
     return render (request,'./Home_totem.html')

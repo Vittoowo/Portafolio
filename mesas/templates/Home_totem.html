@@ -13,17 +13,16 @@
                          </div>
                         <!-- /.card-header -->
                          <!-- form start -->
-                        <form action="" method="post">
+                        <form action="" method="POST" id="formulario">
                          {% csrf_token %}
                              <div class="card-body">
                              <div class="form-group">
-                               <label for="rut_cli">Rut</label>
-                               <input type="text" name="rut_cli" class="form-control" id="rut_cli" placeholder="Ingrese rut para reservar" required>
+                               <label for="rut">Rut</label>
+                               <input type="text" name="rut" class="form-control" id="rut" placeholder="Ingrese rut para reservar" required>
                              </div>
                            <!-- /.card-body -->
                            <div class="card-footer">
-                            <input type="submit" name='reserva' value="Reservar" class="btn btn-block btn-success btn-sm col-3">
-                            <input type="submit" name='salir' value="Salir" class="btn btn-block btn-success btn-sm col-3"> 
+                            <input type="submit" name='reserva' id="reserva" value="Reservar" class="btn btn-block btn-success btn-sm col-3">
                            </div>
                          </form>
                        </div>
@@ -34,6 +33,7 @@
                 {% if mensaje %}
                     <script>
                         alert('{{ mensaje }}');
+
                     </script>
                 {%endif%}
             </div>
