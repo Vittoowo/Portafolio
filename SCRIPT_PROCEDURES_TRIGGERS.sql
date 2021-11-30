@@ -118,47 +118,44 @@ BEGIN
 END;
 /
 
-
-
-create or replace PROCEDURE SP_R_RANGO_HORA(rango out SYS_REFCURSOR)
-IS 
-BEGIN
-    open rango for select * from rango_hora;
-END;
-/
-
-
-create or replace PROCEDURE SP_AGREGAR_RESERVA(
-    v_Rut_Reserva NVARCHAR2,
+create or replace PROCEDURE SP_MODIFICAR_RESERVA(
+    v_ID_Reserva NUMBER,
+    v_ID_Estado_Mesa NUMBER,
+    v_Rut_Reserva VARCHAR2,
     v_Fecha_Hora_Reserva VARCHAR2,
     v_email VARCHAR2,
-    v_telefono_reserva varchar2,
-    v_cantidad_personas_reserva number,
-    v_num_mesa number,
-    v_salida out number)
-AS
+    v_telefono_reserva VARCHAR2,
+    v_cantidad_personas_reserva NUMBER,
+    v_num_mesa NUMBER,
+    v_salida OUT NUMBER)
+IS
 v_verificar NUMBER;
-
 BEGIN
    
     SELECT COUNT(*) INTO v_verificar FROM RESERVA WHERE fecha_Hora_reserva = v_Fecha_Hora_Reserva  AND mesas_id_mesa = v_num_mesa;
     
-    IF v_verificar=0 then
+    IF v_verificar=1 THEN
+        UPDATE RESERVA SET ESTADO_RESERVA_ID_EST_RESERVA = v_ID_Estado_Mesa,
+                           RUT_RESERVA = v_Rut_Reserva,
+                           Fecha_Hora_Reserva = TO_DATE(v_Fecha_Hora_Reserva,'DD-MM-YYYY HH24:MI'),
+                           EMAIL = v_Email,
+                           TELEFONO_RESERVA = v_Telefono_Reserva,
+                           CANTIDAD_PERSONAS_RESERVA = v_cantidad_personas_reserva,
+                           mesas_id_mesa = v_num_mesa
+        WHERE id_reserva = v_ID_Reserva;
+    COMMIT;
+        v_salida:=1;
     
-    INSERT INTO RESERVA ( rut_reserva, fecha_Hora_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
-    VALUES( v_Rut_Reserva,TO_DATE(v_Fecha_Hora_Reserva,'DD-MM-YYYY HH24:MI'), v_email, v_telefono_reserva, v_cantidad_personas_reserva,v_num_mesa);
-    commit;
-    v_salida:=1;
-    ELSE 
-    v_salida:=0;
+    ELSE
+        v_salida:=0;
     END IF;
+    
     EXCEPTION
 
     WHEN OTHERS THEN
     v_salida:=0;
 END;
 /
-COMMIT;
 
 
 
@@ -170,20 +167,23 @@ IS
 BEGIN
     open reserva for
     SELECT r.id_reserva,
-    e.ID_EST_RESERVA,
-    TRIM(SUBSTR(r.RUT_RESERVA,0,INSTR(r.rut_reserva,' ',1,1))) AS RUT, 
-    TRIM(SUBSTR(r.RUT_RESERVA,INSTR(r.rut_reserva,' ',1,2),INSTR(r.rut_reserva,' ',1,2)+1)) as DV,
-    to_char(r.fecha_reserva,'YYYY-MM-DD') as fecha,
+    r.mesas_id_mesa,
+    r.rut_reserva,
+    to_char(r.FECHA_HORA_RESERVA,'DD-MM-YYYY') AS Fecha,
+    to_char(r.FECHA_HORA_RESERVA,'HH24:MI') as Hora,
+    e.DESC_ESTD_RESERVA,
     r.email,
     r.telefono_reserva,
-    r.cantidad_personas_reserva,
-    r.mesas_id_mesa     
+    r.cantidad_personas_reserva    
     FROM RESERVA r
     JOIN estado_reserva e
     on r.estado_reserva_id_est_reserva = e.id_est_reserva
-    where id_reserva = v_id_Reserva;
+    where id_reserva = v_id_Reserva
+    ORDER BY r.id_reserva;
+    
 END;
 /
+
 
 create or replace PROCEDURE SP_BUSCAR_RESERVAS_POR_RUT(
     
@@ -193,20 +193,21 @@ IS
 BEGIN
     open reservas for
     SELECT r.id_reserva,
-    e.DESC_ESTD_RESERVA,
+    r.mesas_id_mesa,
     r.rut_reserva,
-    r.fecha_reserva,
+    to_char(r.FECHA_HORA_RESERVA,'DD-MM-YYYY') AS Fecha,
+    to_char(r.FECHA_HORA_RESERVA,'HH24:MI') as Hora,
+    e.DESC_ESTD_RESERVA,
     r.email,
     r.telefono_reserva,
-    r.cantidad_personas_reserva,
-    r.mesas_id_mesa     
+    r.cantidad_personas_reserva    
     FROM RESERVA r
     JOIN estado_reserva e
     on r.estado_reserva_id_est_reserva = e.id_est_reserva
-    where RUT_RESERVA = v_Rut_Reserva
-    order by fecha_reserva desc;
+    where RUT_RESERVA = '20533815-2'
+    order by r.FECHA_HORA_RESERVA desc;
+  
 END;
-
 
 /
 
@@ -234,50 +235,20 @@ BEGIN
     open reservas for
     SELECT r.id_reserva,
     r.mesas_id_mesa,
-    e.DESC_ESTD_RESERVA,
     r.rut_reserva,
-    to_char(r.fecha_reserva,'DD-MM-YYYY'),
-    rh.rango_hora,
+    to_char(r.FECHA_HORA_RESERVA,'DD-MM-YYYY') AS Fecha,
+    to_char(r.FECHA_HORA_RESERVA,'HH24:MI') as Hora,
+    e.DESC_ESTD_RESERVA,
     r.email,
     r.telefono_reserva,
     r.cantidad_personas_reserva    
     FROM RESERVA r
     JOIN estado_reserva e
     on r.estado_reserva_id_est_reserva = e.id_est_reserva
-    JOIN RANGO_HORA rh on rh.ID_RANGO = r.RANGO_HORA_ID_RANGO 
     ORDER BY r.id_reserva;
 END;
 /
 
-
-create or replace PROCEDURE SP_MODIFICAR_RESERVA(
-    v_ID_Reserva number,
-    v_ID_Estado_Mesa number,
-    v_Rut_Reserva NVARCHAR2,
-    v_Fecha_Reserva date,
-    v_email VARCHAR2,
-    v_telefono_reserva varchar2,
-    v_cantidad_personas_reserva number,
-    v_num_mesa number,
-    v_salida out number)
-IS
-BEGIN
-    UPDATE RESERVA SET ESTADO_RESERVA_ID_EST_RESERVA = v_ID_Estado_Mesa,
-                       RUT_RESERVA = v_Rut_Reserva,
-                       FECHA_RESERVA = v_Fecha_Reserva,
-                       EMAIL = v_Email,
-                       TELEFONO_RESERVA = v_Telefono_Reserva,
-                       CANTIDAD_PERSONAS_RESERVA = v_cantidad_personas_reserva,
-                       mesas_id_mesa = v_num_mesa
-    WHERE id_reserva = v_ID_Reserva;
-    commit;
-    v_salida:=1;
-    EXCEPTION
-
-    WHEN OTHERS THEN
-    v_salida:=0;
-END;
-/
 
 create or replace PROCEDURE SP_R_ESTADO_RESERVA(estado out SYS_REFCURSOR)
 IS 
