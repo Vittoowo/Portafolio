@@ -76,3 +76,6 @@ def mesas_modificar(request,num_mesa,capacidad,estado):
         
     }
     return render (request,'./Mesas-modificar.html',data)
+
+def Home_totem(request ):
+    return render (request,'./Home_totem.html')

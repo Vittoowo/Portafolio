@@ -1,0 +1,42 @@
+{% extends "base-generic.html" %}
+{% block content %}
+  {% load static %}
+    <main class="main-section p-12">
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                    <!-- general form elements -->
+                     <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Ingresa tu rut</h3>
+                         </div>
+                        <!-- /.card-header -->
+                         <!-- form start -->
+                        <form action="" method="post">
+                         {% csrf_token %}
+                             <div class="card-body">
+                             <div class="form-group">
+                               <label for="rut_cli">Rut</label>
+                               <input type="text" name="rut_cli" class="form-control" id="rut_cli" placeholder="Ingrese rut para reservar" required>
+                             </div>
+                           <!-- /.card-body -->
+                           <div class="card-footer">
+                            <input type="submit" name='reserva' value="Reservar" class="btn btn-block btn-success btn-sm col-3">
+                            <input type="submit" name='salir' value="Salir" class="btn btn-block btn-success btn-sm col-3"> 
+                           </div>
+                         </form>
+                       </div>
+                       <!-- /.card -->
+                     </div>
+                </div>
+
+                {% if mensaje %}
+                    <script>
+                        alert('{{ mensaje }}');
+                    </script>
+                {%endif%}
+            </div>
+        </section>
+    </main>
+{% endblock %}
