@@ -118,6 +118,40 @@ BEGIN
 END;
 /
 
+
+create or replace PROCEDURE SP_AGREGAR_RESERVA(
+    v_Rut_Reserva NVARCHAR2,
+    v_Fecha_Hora_Reserva VARCHAR2,
+    v_email VARCHAR2,
+    v_telefono_reserva varchar2,
+    v_cantidad_personas_reserva number,
+    v_num_mesa number,
+    v_salida out number)
+AS
+v_verificar NUMBER;
+
+BEGIN
+
+    SELECT COUNT(*) INTO v_verificar FROM RESERVA WHERE fecha_Hora_reserva = v_Fecha_Hora_Reserva  AND mesas_id_mesa = v_num_mesa;
+
+    IF v_verificar=0 then
+
+    INSERT INTO RESERVA ( rut_reserva, fecha_Hora_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
+    VALUES( v_Rut_Reserva,TO_DATE(v_Fecha_Hora_Reserva,'DD-MM-YYYY HH24:MI'), v_email, v_telefono_reserva, v_cantidad_personas_reserva,v_num_mesa);
+    
+    commit;
+    v_salida:=1;
+    ELSE 
+    v_salida:=0;
+    END IF;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+/
+
 create or replace PROCEDURE SP_MODIFICAR_RESERVA(
     v_ID_Reserva NUMBER,
     v_ID_Estado_Mesa NUMBER,
