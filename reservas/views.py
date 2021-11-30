@@ -17,14 +17,11 @@ def Reservas(request):
     
     if 'Guardar' in request.POST:
         rut_reserva = request.POST.get('RutReserva') + " - " + request.POST.get('DVRUTReserva')
-        fecha = datetime.datetime.strptime(request.POST.get('FechaReserva'), '%Y-%m-%d').strftime('%d-%m-%Y')
-        fecha_Hora_reserva = fecha+" "+request.POST.get('HoraReserva')
-        print(fecha_Hora_reserva)
         email = request.POST.get('Email')
         telefono_reserva = request.POST.get('Telefono')
         cantidad_personas_reserva = request.POST.get('CantidadPersonas')
         mesas_id_mesa = request.POST.get('MesaReserva')
-        salida = reservas.agregar_reserva(rut_reserva, fecha_Hora_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
+        salida = reservas.agregar_reserva(rut_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
         if salida == 1:
             data['Mensaje'] = 'Reserva Agregada'
             #data['Reserva'] = reservas.listado_reservas()
