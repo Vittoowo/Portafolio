@@ -1,72 +1,94 @@
-<!DOCTYPE html>
+{% extends "base-generic.html" %}
+
+{% block content %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/style.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/bootstrap.css' %}" />
 
+    <main class="main-section p-12">
 
-<!-- BOOTSTRAP PARA PASSWORD-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- JAVASCRIP -->
-<script type="text/javascript">
-  function mostrarPassword(){
-      var cambio = document.getElementById("txtPassword");
-      if(cambio.type == "password"){
-        cambio.type = "text";
-        $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-      }else{
-        cambio.type = "password";
-        $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-      }
-    } 
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- general form elements -->
+                <div class="card card-success">
+                  <div class="card-header">
+                    <h3 class="card-title">Registro</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <!-- form start -->
+                  <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label for="nomUsuario">Nombre de usuario</label>
+                        <input type="text" class="form-control" id="nomUsuario" placeholder="Nombre de usuario" name="username" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="emailUsuario">Email</label>
+                        <input type="email" class="form-control" id="emailUsuario" placeholder="Email de usuario" name="email" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="primerNombre">Nombre</label>
+                        <input type="text" class="form-control" id="primerNombre" placeholder="Nombre" name="first_name" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="apellidoUsuario">Apellido</label>
+                        <input type="text" class="form-control" id="apellidoUsuario" placeholder="Apellido" name="last_name" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="passUser">Contraseña</label>
+                        <input type="password" class="form-control" id="passUser" placeholder="Ingrese contraseña" name="password1" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="passUser2">Confirmar contraseña</label>
+                        <input type="password" class="form-control" id="passUser2" placeholder="Confirme contraseña" name="password2" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="groups">Grupo de usuario</label>
+                        <select name="groups" id="groups" class="custom-select" required>
+                            <option value="">Seleccionar grupo</option>
+                            {% for c in grupos %}
+                                <option value="{{ c.0 }}">{{c.1}}</option>
+                            {% endfor %}
+                        </select>
+                      </div>
+                      
+                      
+                    </div>
+                    <!-- /.card-body -->
     
-    $(document).ready(function () {
-    //CheckBox mostrar contraseña
-    $('#ShowPassword').click(function () {
-      $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
-    });
-  });
+                    <div class="card-footer text-center">
+                      <button type="submit" class="btn btn-success">Registrar</button>
+                    </div>
+                  </form>
+                </div>
+                <!-- /.card -->
+                {% if message %}
+                    <script>
+                
+                        alert('{{ message }}');
+                
+                     </script>
+                {%endif%}
+            </div>
 
-  </script>
-  <script type="text/javascript">
-    function mostrarPassword2(){
-        var cambio = document.getElementById("txtConfirmacion");
-        if(cambio.type == "password"){
-          cambio.type = "text";
-          $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-        }else{
-          cambio.type = "password";
-          $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-        }
-      } 
-      
-      $(document).ready(function () {
-      //CheckBox mostrar contraseña
-      $('#ShowPassword').click(function () {
-        $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
-      });
-    });
-    </script>
-<!-- javascrip -->
-<html>
 
-<head>
-</head>
 
-<body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <h3>Ingresar Datos de Registro</h3>
-            </a>
         </div>
-    </nav>
+        
 
-    <main class="main-section p-4 text-center">
-        <div class="modal-dialog text-center">
 
-            <div class="modal-dialog text-center">
+
+    </main>
+
+    <!--
+
+        Formulario antiguo en caso de error
+
+
+
+        <main class="main-section p-12 text-center">
+        
+
+            
                 <div class="col-sm-8">
                     <div class="modal-content">
                         <div class="col-12 user-img">
@@ -93,6 +115,7 @@
                                 <input type="text" name="last_name" class="form-control" placeholder="Apellido">
                                 <label for="floatingUsuario">Apellido</label>
                             </div>
+                            
 
 
 
@@ -107,7 +130,7 @@
                         </div>
                     
 
-<!-- segunda casilla de password-->
+ segunda casilla de password
                 
                 <div class="input-group mb-3">                    
                     <input type="password" name="password2" class="form-control" placeholder="Confirmar Contraseña" id="txtConfirmacion">                                                 
@@ -139,10 +162,7 @@
                     </div>
                 </div>
 
-            </div>
-        </div>
-
-        </div>
+                </div>
         {% if message %}
         <script>
             
@@ -150,9 +170,60 @@
             
         </script>
         {%endif%}
+
+
+    -->
+    
+            
         
-    </main>
-</body>
+
+        
+        
+    
+
+    <!--
+        Script del ojo en password del formulario antiguo
+
+        <script type="text/javascript">
+        function mostrarPassword(){
+            var cambio = document.getElementById("txtPassword");
+            if(cambio.type == "password"){
+              cambio.type = "text";
+              $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+            }else{
+              cambio.type = "password";
+              $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            }
+          } 
+          
+          $(document).ready(function () {
+          //CheckBox mostrar contraseña
+          $('#ShowPassword').click(function () {
+            $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+          });
+        });
+      
+        </script>
+        <script type="text/javascript">
+          function mostrarPassword2(){
+              var cambio = document.getElementById("txtConfirmacion");
+              if(cambio.type == "password"){
+                cambio.type = "text";
+                $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+              }else{
+                cambio.type = "password";
+                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+              }
+            } 
+            
+            $(document).ready(function () {
+            //CheckBox mostrar contraseña
+            $('#ShowPassword').click(function () {
+              $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+            });
+          });
+          </script>
 
 
-</html>
+    -->
+{% endblock %}

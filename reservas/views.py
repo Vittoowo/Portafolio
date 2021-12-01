@@ -79,6 +79,28 @@ def modificarReservas(request,id):
     
     return render(request,'Reservas-modificar.html', data)
 
+def ConfirmarReserva(request, rut, dvRut, num_mesa, estado_mesa, capacidad ):
+    data = {
+        'rut': rut,
+        'dv': dvRut,
+        'numMesa': num_mesa,
+        'estadoMesa':estado_mesa,
+        'capacidadMesa': capacidad,
+        'fecha': datetime.today().strftime('%Y-%m-%d')
+    }
+    if 'ConfirmarReserva' in request.POST:
+        if request.POST.get('CantidadPersonas')<=capacidad:
+            ESTADO_RESERVA_ID_EST_RESERVA = 1
+            RUT_RESERVA = request.POST.get('RutReserva') + " - " + request.POST.get('DVRUTReserva')
+            FECHA_RESERVA = request.POST.get('FechaReserva')
+            CANTIDAD_PERSONAS_RESERVA = request.POST.get('CantidadPersonas')
+            MESAS_ID_MESA = request.POST.get('IDMesa')
+            salida = reservas.agregar_reserva_totem(ESTADO_RESERVA_ID_EST_RESERVA, RUT_RESERVA, FECHA_RESERVA, CANTIDAD_PERSONAS_RESERVA ,MESAS_ID_MESA)
+            if salida == 1:
+                data['Mensaje'] = 'Reserva Agregada'
+            else:
+                data['Mensaje'] = 'No se ha podido guardar'
+        return render(request, 'Reserva-Realizada.html')
 
-
+    return render(request, 'Confirmar-Reserva.html', data)
 
