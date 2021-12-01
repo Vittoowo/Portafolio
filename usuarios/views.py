@@ -105,10 +105,6 @@ def RegistroUsuario(request):
 
 def Home_totem(request ):
     if 'reserva' in request.POST:
-        data={
-            'rut' : request.POST.get('rut'),
-            'Mesas' : mesas.listado_mesa(),
-            'message':"",
-        }
-        return render (request,'./MesasDisponibles.html',data)
+        return redirect(to='mesas_totem',rut='20533815-2')
+        #return render (request,'./MesasDisponibles.html',data)
     return render (request,'usuarios/Home_totem.html')

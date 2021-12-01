@@ -49,10 +49,11 @@ def Mesas(request):
         return render(request, 'Mesas.html', data)
     return render(request, 'Mesas.html', data)
 
-def mesas_totem(request):
+def mesas_totem(request,rut):
     data ={
         'Mesas' : mesas.listado_mesa(),
         'message':"",
+        'rut':rut,
     }
     if 'Reservar' in request.POST:
         
@@ -76,13 +77,3 @@ def mesas_modificar(request,num_mesa,capacidad,estado):
         
     }
     return render (request,'./Mesas-modificar.html',data)
-
-def Home_totem(request ):
-    if 'reserva' in request.POST:
-        data={
-            'rut' : request.POST.get('rut'),
-            'Mesas' : mesas.listado_mesa(),
-            'message':"",
-        }
-        return render (request,'./MesasDisponibles.html',data)
-    return render (request,'./Home_totem.html')
