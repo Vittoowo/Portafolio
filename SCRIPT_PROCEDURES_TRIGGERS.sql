@@ -124,6 +124,7 @@ END;
 
 create or replace PROCEDURE SP_AGREGAR_RESERVA(
     v_Rut_Reserva VARCHAR2,
+    v_fecha_hora VARCHAR2,
     v_email VARCHAR2,
     v_telefono_reserva varchar2,
     v_cantidad_personas_reserva number,
@@ -134,12 +135,12 @@ v_verificar NUMBER;
 
 BEGIN
 
-    SELECT COUNT(*) INTO v_verificar FROM RESERVA WHERE fecha_reserva = sysdate  AND mesas_id_mesa = v_num_mesa;
+    SELECT COUNT(*) INTO v_verificar FROM RESERVA WHERE fecha_reserva = v_fecha_hora  AND mesas_id_mesa = v_num_mesa;
 
     IF v_verificar=0 then
 
     INSERT INTO RESERVA ( rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
-    VALUES( v_Rut_Reserva,sysdate, v_email, v_telefono_reserva, v_cantidad_personas_reserva,v_num_mesa);
+    VALUES( v_Rut_Reserva,TO_DATE(v_fecha_hora,'DD-MM-YYYY HH24:MI'), v_email, v_telefono_reserva, v_cantidad_personas_reserva,v_num_mesa);
     commit;
     v_salida:=1;
     ELSE 
@@ -148,11 +149,10 @@ BEGIN
     EXCEPTION
 
     WHEN OTHERS THEN
+     DBMS_OUTPUT.PUT_LINE('Error'||SQLCODE||SQLERRM);
     v_salida:=0;
 END;
 /
-
-
 
 create or replace PROCEDURE SP_MODIFICAR_RESERVA(
     v_ID_Reserva NUMBER,
@@ -168,7 +168,7 @@ IS
 v_verificar NUMBER;
 BEGIN
    
-    SELECT COUNT(*) INTO v_verificar FROM RESERVA WHERE  v_ID_Reserva = ID_Reserva  AND mesas_id_mesa = v_num_mesa;
+    SELECT COUNT(*) INTO v_verificar FROM RESERVA WHERE  v_ID_Reserva = ID_Reserva;
 
     IF v_verificar=1 THEN
         UPDATE RESERVA SET ESTADO_RESERVA_ID_EST_RESERVA = v_ID_Estado_Reserva,

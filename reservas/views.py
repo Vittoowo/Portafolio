@@ -14,14 +14,14 @@ def Reservas(request):
         'Lista_Mesas':Mesas.listado_mesa(),
         
     }
-
     if 'Guardar' in request.POST:
         rut_reserva = request.POST.get('RutReserva') + " - " + request.POST.get('DVRUTReserva')
+        fecha_reserva=str(datetime.strptime(request.POST.get('FechaReserva'), '%Y-%m-%d').date().strftime("%d-%m-%Y"))+" "+request.POST.get('HoraReserva')
         email = request.POST.get('Email')
         telefono_reserva = request.POST.get('Telefono')
         cantidad_personas_reserva = request.POST.get('CantidadPersonas')
         mesas_id_mesa = request.POST.get('MesaReserva')
-        salida = reservas.agregar_reserva(rut_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
+        salida = reservas.agregar_reserva( rut_reserva, fecha_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa)
         if salida == 1:
             data['Mensaje'] = 'Reserva Agregada'
             data['Reserva'] = reservas.listado_reservas()
@@ -55,12 +55,11 @@ def modificarReservas(request,id):
         ESTADO_RESERVA_ID_EST_RESERVA = request.POST.get('EstadoReserva')
         RUT_RESERVA = request.POST.get('RutReserva') + " - " + request.POST.get('DVRUTReserva')
         FECHA_RESERVA=str(datetime.strptime(request.POST.get('FechaReserva'), '%Y-%m-%d').date().strftime("%d-%m-%Y"))+" "+request.POST.get('HoraReserva')
-        print(FECHA_RESERVA)
         EMAIL = request.POST.get('Email')
         TELEFONO_RESERVA = request.POST.get('Telefono')
         CANTIDAD_PERSONAS_RESERVA = request.POST.get('CantidadPersonas')
         NUM_MESA = request.POST.get('MesaReserva')
-        print("Los resultados son: " ,ID_RESERVA, ESTADO_RESERVA_ID_EST_RESERVA, RUT_RESERVA, FECHA_RESERVA, EMAIL, TELEFONO_RESERVA,CANTIDAD_PERSONAS_RESERVA, NUM_MESA)
+        print("Los resultados son: " , NUM_MESA)
         salida = reservas.modificar_reserva(ID_RESERVA, ESTADO_RESERVA_ID_EST_RESERVA, RUT_RESERVA, FECHA_RESERVA, EMAIL, TELEFONO_RESERVA,CANTIDAD_PERSONAS_RESERVA, NUM_MESA)
         if salida == 1:
             data['Mensaje'] = 'Reserva Modificada'
