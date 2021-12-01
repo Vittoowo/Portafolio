@@ -1,0 +1,68 @@
+{% extends "base-generic.html" %}
+
+{% block content %}
+
+</br>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- ------------------------------------------------COLUMNA DERECHA------------------------------------- -->
+      <div class="col-md-6">
+        <!-- Form Element sizes -->
+        <div class="card card-success">
+          <div class="card-header">
+            <h3 class="card-title">Confirmar Reserva</h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <form action="" method="POST">
+                {% csrf_token %}
+
+                <label for="Mesas">Mesa a Reservar</label>
+                <input type="number" readonly name="IDMesa" class="form-control" id="IDMesa"
+                  placeholder="Mesa {{numMesa}} (Para {{capacidadMesa}} personas)" value="{{numMesa}}">Esta mesa tiene capacidad para {{capacidadMesa}} personas
+                <br><br>
+                
+
+
+                <label for="DVRUTReserva">Rut reserva</label>
+                <div class="input-group">
+                  <input type="text" style="width: 200px;" readonly name="RutReserva" class="form-control" id="floatingRut"
+                    placeholder="Rut Reserva" value="{{rut}}">
+                  <h3> - </h3>
+                  <input type="text" readonly name="DVRUTReserva" class="form-control" id="floatingDV" placeholder="DV"
+                    value="{{dv}}">
+                </div>
+                <br>
+
+                <label for="floatingReserva">Fecha Reserva</label>
+                <input type="date" readonly name="FechaReserva" class="form-control" id="floatingFecha"
+                  placeholder="Fecha Reserva" value="{{fecha}}">
+                <br>
+
+                <label for="floatingCantidad">Cantidad de personas</label>
+                <input type="number" name="CantidadPersonas" class="form-control" id="floatingCantidad"
+                  placeholder="Cantidad de personas">
+
+                <br>
+
+                <input type="submit" class="btn btn-success" name='Eliminar' value="Cancelar">
+
+                <input type="submit" class="btn btn-success" name='Confirmar' value="Confirmar">
+                <br>
+                <br>
+
+              </form>
+
+              {{Mensaje}}
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{%load static %}
+
+{% endblock %}

@@ -49,20 +49,20 @@ def Mesas(request):
         return render(request, 'Mesas.html', data)
     return render(request, 'Mesas.html', data)
 
-def mesas_totem(request,rut):
+def mesas_totem(request,rut, dvRut):
     data ={
         'Mesas' : mesas.listado_mesa(),
         'message':"",
         'rut':rut,
+        'dvRut': dvRut
     }
     if 'Reservar' in request.POST:
-        
         estado_mesa=int(request.POST.get('estado'))
-        num_mesa=int(request.POST.get('numMesa'))
+        #num_mesa=int(request.POST.get('numMesa'))
         if estado_mesa==1:
-            mesas.modificar_estado_mesa(num_mesa,4)
-            data['Mesas']=mesas.listado_mesa()
-            return render (request,'./MesasDisponibles.html',data)
+            #mesas.modificar_estado_mesa(num_mesa,4)
+            #data['Mesas']=mesas.listado_mesa()
+            return redirect (to='ConfirmarReserva',rut=request.POST.get('rut'), dvRut=request.POST.get('dvRut'), num_mesa=request.POST.get('numMesa'), estado_mesa=request.POST.get('estado'), capacidad=request.POST.get('capacidad'))
         else:
             data['message']="No puedes reservar una mesa que esta en este estado!"
             return render (request,'./MesasDisponibles.html',data)

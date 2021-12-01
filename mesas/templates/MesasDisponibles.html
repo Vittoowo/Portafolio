@@ -8,6 +8,7 @@
       color: #ffffff;
       width: 180px;
       line-height: 180px;
+      height: 180px;
       text-align: center;
       margin: 6px;
       display: none;
@@ -43,7 +44,7 @@
   <body>
     
 
-    <h2>Mesas Restaurant Siglo XXI {{rut}}</h2>
+    <h2>Mesas Restaurant Siglo XXI {{rut}} - {{dvRut}}</h2>
 
 
     <div class="container">
@@ -53,8 +54,10 @@
       {% csrf_token %}
         <input id="numMesa" name="numMesa" type="hidden" value="{{e.1}}">
         <input id="estado" name="estado" type="hidden" value="{{e.3}}">
+        <input id="capacidad" name="capacidad" type="hidden" value="{{e.2}}">
         <input id="rut" name="rut" type="hidden" value="{{rut}}">
-        <button name='Reservar' class ="filterDiv {{ e.3 }}" > Mesa {{e.1}}</button>
+        <input id="dv" name="dvRut" type="hidden" value="{{dvRut}}">
+        <button name='Reservar' class ="filterDiv {{ e.3 }}" > Mesa {{e.1}} (Para {{e.2}} Personas)</button>
       </form>
       {% endfor %} 
      
