@@ -15,14 +15,12 @@
           </div>
           <div class="card-body">
             <div class="row">
-              <form action="{%url 'reservas'%}" method="POST">
+              <form action="" method="POST">
                 {% csrf_token %}
 
                 <label for="idmesa">ID de la Reserva</label>
                 <input type="number" readonly name="ID_RESERVA" class="form-control" id="ID_RESERVA"
                   placeholder="ID de la reserva" value="{{reserva.0}}">
-
-
 
                 <label for="Mesas">Mesa asignada</label>
                 <select name="MesaReserva" id="MesaReserva" class="form-select">
@@ -39,56 +37,55 @@
                 </select>
 
 
-
-                <label for="estado">Estado de la reserva</label>
-                <select name="EstadoReserva" id="user-group" class="form-select">
-                  <option value="">Seleccionar</option>
-                  {% for e in Lista_Estado_Reserva %}
-                  {% if e.0 == estadoR %}
-                  <option value="{{ e.0 }}" selected>{{e.1}}</option>
-                  {% else %}
-                  <option value="{{ e.0 }}">{{e.1}}</option>
-                  {% endif %}
-                  {% endfor %}
-                </select>
-
-
-
-                <label for="DVRUTReserva">Rut reserva</label>
+                <label for="RutReserva">RUT Reserva</label>
                 <div class="input-group">
                   <input type="text" style="width: 200px;" name="RutReserva" class="form-control" id="floatingRut"
                     placeholder="Rut Reserva" value="{{reserva.2}}">
                   <h3> - </h3>
-                  <input type="text" name="DVRUTReserva" class="form-control" id="floatingDV" placeholder="DV"
-                    value="{{reserva.3}}">
+                  <input type="text" name="DVRUTReserva" class="form-control" id="floatingDV" placeholder="DV" value="{{reserva.3}}">
                 </div>
+
 
                 <label for="floatingReserva">Fecha Reserva</label>
                 <input type="date" name="FechaReserva" class="form-control" id="floatingFecha"
-                  placeholder="Fecha Reserva" value="{{reserva.4}}">
+                  placeholder="Fecha Reserva" value="{{fecha}}">
 
 
 
                 <label for="floatingReserva">Hora Reserva</label>
                 <input type="time" name="HoraReserva" class="form-control" id="floatingFecha"
-                  placeholder="Hora Reserva">
+                  placeholder="Hora Reserva" value="{{reserva.5}}">
+
+                
+                  <label for="estado">Estado de la reserva</label>
+                  <select name="EstadoReserva" id="user-group" class="form-select">
+                    <option value="">Seleccionar</option>
+                    {% for e in Lista_Estado_Reserva %}
+                    {% if e.1 == estadoR %}
+                    <option value="{{ e.0 }}" selected>{{e.1}}</option>
+                    {% else %}
+                    <option value="{{ e.0 }}">{{e.1}}</option>
+                    {% endif %}
+                    {% endfor %}
+                  </select>
+  
 
 
                 <label for="floatingEmail">Email</label>
                 <input type="email" name="Email" class="form-control" id="floatingEmail" placeholder="Email"
-                  value="{{reserva.5}}">
+                  value="{{reserva.7}}">
 
 
 
                 <label for="floatingTelefono">Telefono</label>
                 <input type="text" name="Telefono" class="form-control" id="floatingTelefono" placeholder="Telefono"
-                  value="{{reserva.6}}">
+                  value="{{reserva.8}}">
 
 
 
                 <label for="floatingCantidad">Cantidad de personas</label>
                 <input type="number" name="CantidadPersonas" class="form-control" id="floatingCantidad"
-                  placeholder="Cantidad de personas" value="{{reserva.7}}">
+                  placeholder="Cantidad de personas" value="{{reserva.9}}">
 
 
 

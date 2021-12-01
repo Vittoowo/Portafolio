@@ -64,8 +64,8 @@ class Reservas():
         django_cursor = connection.cursor()
         cursor = django_cursor.connection.cursor()
         salida = cursor.var(cx_Oracle.NUMBER)
-        cursor.callproc('SP_AGREGAR_RESERVA',[ 
-                                              rut_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa, salida])
+        cursor.callproc('SP_AGREGAR_RESERVA',[rut_reserva, email, telefono_reserva, cantidad_personas_reserva,mesas_id_mesa,
+                                              salida])
         return salida.getvalue()
 
         #Eliminar Reserva

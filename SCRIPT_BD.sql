@@ -36,11 +36,7 @@ DROP TABLE producto_receta CASCADE CONSTRAINTS;
 
 DROP TABLE productos CASCADE CONSTRAINTS;
 
-DROP TABLE productos_receta CASCADE CONSTRAINTS;
-
 DROP TABLE proveedor CASCADE CONSTRAINTS;
-
-DROP TABLE rango_hora CASCADE CONSTRAINTS;
 
 DROP TABLE receta CASCADE CONSTRAINTS;
 
@@ -131,15 +127,15 @@ ALTER TABLE orden ADD CONSTRAINT orden_pk PRIMARY KEY ( id_orden );
 
 CREATE TABLE pedido_insumo (
     pedido_proveedor_id_pedido   NUMBER(10) NOT NULL,
-    insumo_id_insumo             NUMBER(4) NOT NULL
+    insumo_id_insumo             NUMBER(20) NOT NULL
 );
 
-ALTER TABLE pedido_insumo ADD CONSTRAINT relation_20_pk PRIMARY KEY ( pedido_proveedor_id_pedido,
-                                                                      insumo_id_insumo );
+ALTER TABLE pedido_insumo ADD CONSTRAINT pedido_insumo_pk PRIMARY KEY ( pedido_proveedor_id_pedido,
+                                                                        insumo_id_insumo );
 
 CREATE TABLE pedido_producto (
     pedido_proveedor_id_pedido   NUMBER(10) NOT NULL,
-    productos_id_producto        NUMBER(4) NOT NULL,
+    productos_id_producto        NUMBER(20) NOT NULL,
     cantidad                     NUMBER(4,2) NOT NULL
 );
 
@@ -190,23 +186,14 @@ CREATE TABLE productos (
     id_producto                      NUMBER(20) NOT NULL,
     nom_producto                     VARCHAR2(50) NOT NULL,
     proveedor_id_proveedor           NUMBER(2) NOT NULL,
-    stock                            NUMBER NOT NULL,
     marca_producto_id_marca          NUMBER(5) NOT NULL,
-    unidad_medida_id_unidad          NUMBER(1) NOT NULL,
+    stock                            NUMBER NOT NULL,
     formato_stock_id_formato_stock   NUMBER(2) NOT NULL,
-    medida_stock                     NUMBER NOT NULL
+    medida_stock                     NUMBER NOT NULL,
+    unidad_medida_id_unidad          NUMBER(1) NOT NULL
 );
 
 ALTER TABLE productos ADD CONSTRAINT productos_pk PRIMARY KEY ( id_producto );
-
-CREATE TABLE productos_receta (
-    productos_id_producto   NUMBER(4) NOT NULL,
-    receta_id_receta        NUMBER(4) NOT NULL,
-    cantidad                NUMBER(3,2) NOT NULL
-);
-
-ALTER TABLE productos_receta ADD CONSTRAINT productos_receta_pk PRIMARY KEY ( productos_id_producto,
-                                                                              receta_id_receta );
 
 CREATE TABLE proveedor (
     id_proveedor       NUMBER(2) NOT NULL,
@@ -214,13 +201,6 @@ CREATE TABLE proveedor (
 );
 
 ALTER TABLE proveedor ADD CONSTRAINT proveedor_pk PRIMARY KEY ( id_proveedor );
-
-CREATE TABLE rango_hora (
-    id_rango     NUMBER(2) NOT NULL,
-    rango_hora   VARCHAR2(12) NOT NULL
-);
-
-ALTER TABLE rango_hora ADD CONSTRAINT rango_hora_pk PRIMARY KEY ( id_rango );
 
 CREATE TABLE receta (
     plato_id_plato   NUMBER(4) NOT NULL,
@@ -241,11 +221,9 @@ CREATE TABLE reserva (
     rut_reserva                     NVARCHAR2(12) NOT NULL,
     fecha_reserva                   DATE NOT NULL,
     email                           VARCHAR2(50),
-    telefono_reserva                VARCHAR2(12) NOT NULL,
+    telefono_reserva                VARCHAR2(12),
     cantidad_personas_reserva       NUMBER(2) NOT NULL,
-    mesas_id_mesa                   NUMBER(3) NOT NULL,
-    rango_hora_id_rango             NUMBER(2) NOT NULL,
-    hora_reserva                    DATE NOT NULL
+    mesas_id_mesa                   NUMBER(3) NOT NULL
 );
 
 ALTER TABLE reserva ADD CONSTRAINT reserva_pk PRIMARY KEY ( id_reserva );
@@ -290,6 +268,15 @@ ALTER TABLE orden
 ALTER TABLE orden
     ADD CONSTRAINT orden_estado_orden_fk FOREIGN KEY ( estado_orden_id_est_ord )
         REFERENCES estado_orden ( id_est_ord );
+
+ALTER TABLE pedido_insumo
+    ADD CONSTRAINT pedido_insumo_insumo_fk FOREIGN KEY ( insumo_id_insumo )
+        REFERENCES insumo ( id_insumo );
+
+--  ERROR: FK name length exceeds maximum allowed length(30) 
+ALTER TABLE pedido_insumo
+    ADD CONSTRAINT pedido_insumo_pedido_proveedor_fk FOREIGN KEY ( pedido_proveedor_id_pedido )
+        REFERENCES pedido_proveedor ( id_pedido );
 
 --  ERROR: FK name length exceeds maximum allowed length(30) 
 ALTER TABLE pedido_producto
@@ -341,14 +328,6 @@ ALTER TABLE productos
     ADD CONSTRAINT productos_proveedor_fk FOREIGN KEY ( proveedor_id_proveedor )
         REFERENCES proveedor ( id_proveedor );
 
-ALTER TABLE productos_receta
-    ADD CONSTRAINT productos_receta_productos_fk FOREIGN KEY ( productos_id_producto )
-        REFERENCES productos ( id_producto );
-
-ALTER TABLE productos_receta
-    ADD CONSTRAINT productos_receta_receta_fk FOREIGN KEY ( receta_id_receta )
-        REFERENCES receta ( id_receta );
-
 ALTER TABLE productos
     ADD CONSTRAINT productos_unidad_medida_fk FOREIGN KEY ( unidad_medida_id_unidad )
         REFERENCES unidad_medida ( id_unidad );
@@ -357,15 +336,6 @@ ALTER TABLE receta
     ADD CONSTRAINT receta_plato_fk FOREIGN KEY ( plato_id_plato )
         REFERENCES plato ( id_plato );
 
-ALTER TABLE pedido_insumo
-    ADD CONSTRAINT relation_20_insumo_fk FOREIGN KEY ( insumo_id_insumo )
-        REFERENCES insumo ( id_insumo );
-
---  ERROR: FK name length exceeds maximum allowed length(30) 
-ALTER TABLE pedido_insumo
-    ADD CONSTRAINT relation_20_pedido_proveedor_fk FOREIGN KEY ( pedido_proveedor_id_pedido )
-        REFERENCES pedido_proveedor ( id_pedido );
-
 ALTER TABLE reserva
     ADD CONSTRAINT reserva_estado_reserva_fk FOREIGN KEY ( estado_reserva_id_est_reserva )
         REFERENCES estado_reserva ( id_est_reserva );
@@ -373,9 +343,3 @@ ALTER TABLE reserva
 ALTER TABLE reserva
     ADD CONSTRAINT reserva_mesas_fk FOREIGN KEY ( mesas_id_mesa )
         REFERENCES mesas ( id_mesa );
-
-ALTER TABLE reserva
-    ADD CONSTRAINT reserva_rango_hora_fk FOREIGN KEY ( rango_hora_id_rango )
-        REFERENCES rango_hora ( id_rango );
-
-
