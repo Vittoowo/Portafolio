@@ -108,6 +108,7 @@ CREATE SEQUENCE reservas_seq
  INCREMENT BY   1;
  
 /
+
 CREATE OR REPLACE TRIGGER trigger_reserva_id
 BEFORE INSERT ON reserva 
 FOR EACH ROW
@@ -121,7 +122,37 @@ BEGIN
 END;
 /
 
+create or replace PROCEDURE SP_AGREGAR_RESERVA_TOTEM(
+    v_Estado_Reserva number,
+    v_Rut_Reserva VARCHAR2,
+    v_fecha_hora VARCHAR2,
+    v_cantidad_personas_reserva number,
+    v_num_mesa number,
+    v_salida out NUMBER)
+AS
+v_verificar NUMBER;
 
+BEGIN
+
+    SELECT COUNT(*) INTO v_verificar FROM RESERVA WHERE fecha_reserva = v_fecha_hora  AND mesas_id_mesa = v_num_mesa;
+
+    IF v_verificar=0 then
+
+    INSERT INTO RESERVA ( estado_reserva_id_est_reserva, rut_reserva, fecha_reserva, cantidad_personas_reserva,mesas_id_mesa)
+    VALUES(v_Estado_Reserva, v_Rut_Reserva,TO_DATE(v_fecha_hora,'DD-MM-YYYY HH24:MI'), v_cantidad_personas_reserva,v_num_mesa);
+    commit;
+    v_salida:=1;
+    ELSE 
+    v_salida:=0;
+    END IF;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+     DBMS_OUTPUT.PUT_LINE('Error'||SQLCODE||SQLERRM);
+    v_salida:=0;
+    commit;
+END;
+/
 create or replace PROCEDURE SP_AGREGAR_RESERVA(
     v_Rut_Reserva VARCHAR2,
     v_fecha_hora VARCHAR2,
