@@ -49,6 +49,8 @@ def Mesas(request):
         return render(request, 'Mesas.html', data)
     return render(request, 'Mesas.html', data)
 
+#Metodo para totem, aqui se estan recibiendo los datos que fueron enviados desde el home_totem en views.py de usuarios
+#Y dejandolos en una data para utilizarlos de manera mas comoda
 def mesas_totem(request,rut, dvRut):
     data ={
         'Mesas' : mesas.listado_mesa(),
@@ -58,10 +60,7 @@ def mesas_totem(request,rut, dvRut):
     }
     if 'Reservar' in request.POST:
         estado_mesa=int(request.POST.get('estado'))
-        #num_mesa=int(request.POST.get('numMesa'))
         if estado_mesa==1:
-            #mesas.modificar_estado_mesa(num_mesa,4)
-            #data['Mesas']=mesas.listado_mesa()
             return redirect (to='ConfirmarReserva',rut=request.POST.get('rut'), dvRut=request.POST.get('dvRut'), num_mesa=request.POST.get('numMesa'), estado_mesa=request.POST.get('estado'), capacidad=request.POST.get('capacidad'))
         else:
             data['message']="No puedes reservar una mesa que esta en este estado!"

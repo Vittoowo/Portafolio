@@ -95,3 +95,10 @@ class Reservas():
         for fila in out_cur:
             lista.append(fila)
         return lista
+
+    def agregar_reserva_totem(ESTADO_RESERVA_ID_EST_RESERVA, RUT_RESERVA, FECHA_RESERVA, CANTIDAD_PERSONAS_RESERVA ,MESAS_ID_MESA):
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        salida = cursor.var(cx_Oracle.NUMBER)
+        cursor.callproc('SP_AGREGAR_RESERVA_TOTEM',[ ESTADO_RESERVA_ID_EST_RESERVA, RUT_RESERVA, FECHA_RESERVA, CANTIDAD_PERSONAS_RESERVA, MESAS_ID_MESA, salida])
+        return salida.getvalue()

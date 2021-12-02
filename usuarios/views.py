@@ -105,7 +105,6 @@ def RegistroUsuario(request):
 
 def Home_totem(request ):
     if 'vermesasdisponibles' in request.POST:
-        
+        #Aqui se redirecciona a la url "mesas_totem" enviando los datos que se necesitaran, rut y digito verificador
         return redirect(to='mesas_totem',rut=request.POST.get('RutReserva'), dvRut= request.POST.get('DVRUTReserva'))
-        #return render (request,'./MesasDisponibles.html',data)
     return render (request,'usuarios/Home_totem.html')

@@ -60,6 +60,7 @@
           {% for e in Mesas %}
           <form action="" method="POST">
           {% csrf_token %}
+            <!-- Inputs necesarios para recoger los datos a mandar a la pagina de Confirmar-Reserva-->
             <input id="numMesa" name="numMesa" type="hidden" value="{{e.1}}">
             <input id="estado" name="estado" type="hidden" value="{{e.3}}">
             <input id="capacidad" name="capacidad" type="hidden" value="{{e.2}}">
