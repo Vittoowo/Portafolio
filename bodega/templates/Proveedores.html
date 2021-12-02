@@ -1,0 +1,126 @@
+{% extends "base-generic.html" %}
+
+{% block content %}
+
+</br>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- -------------------------- COLUMNA IZQUIERDA ------------------------------ -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">Buscar Proveedor</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <!-- Buscar Insumo Por Codigo De Barra -->
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="Proveedortxt">Buscar Proveedor por Nombre</label>
+                                    <div class="col-11">
+                                        <input type="number" class="form-control" id="Proveedorxt"
+                                            placeholder="Ingrese nombre" name="BuscarProveedorPorNombre">
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="submit" class="btn btn-success" name='btnBuscarPrvoeedorNombre'
+                                            value="Buscar">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ------------------------------------------------- -->
+                        </div>
+                        <!-- /.card-body -->
+                    </form>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- .col izquierda-->
+            <!-- ------------------------------------------------COLUMNA DERECHA------------------------------------- -->
+            <div class="col-md-6">
+                <!-- Form Element sizes -->
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Agregar Proveedor</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+
+                                <label for="IdProveedor">ID Proveedor</label>
+                                <input type="number" name="IDProveedor" class="form-control" id="IdProveedor"
+                                    placeholder="IDProveedor">
+
+
+
+                                <label for="NomProveedor">Nombre Proveedor</label>
+                                <input type="text" name="NombreProveedor" class="form-control" id="NomProveedor"
+                                    placeholder="Nombre Proveedor">
+
+                                </br>
+                                <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Proveedor">
+                                <br>
+                                <br>
+                            </form>
+                            <br>
+                            <br>
+                            <br>
+                            <label for="Mensaje">{{Mensaje}}</label>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+        <!------------------------------------------------------------------------------------>
+
+        <!-- Tabla de listado de Insumos -->
+        <div class="row">
+            <div class="card">                
+                <div class="card-header">                                      
+                    <h3 class="card-title" >Listado de Proveedores</h3>  
+                    <br>
+                          
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <!-- Boton para mostrar todos los Insumos -->                       
+                        <input type="submit" class="btn btn-success btn-sm" name='btnTodosLosProveedores' value="Mostrar Todos Los Proveedores">
+                    </form>
+                 
+                </div>                
+
+
+            <table class="table table-striped">
+                <tr>
+                    <th>ID Proveedor</th>
+                    <th>Nombre Proveedor</th>
+                </tr>
+                {% for p in Proveedores %}
+                <tr>
+                    <td>{{ p.0 }}</td>
+                    <td>{{ p.1 }}</td>
+                    <td><a href="{%url 'modificar-proveedor' p.1 %}" class="btn-xs btn-success">Modificar/Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+            <!-- Fin de Tabla de listado de Proveedores -->
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- Fin Formulario-->
+
+    </main>
+    </div>
+</section>
+{%load static %}
+
+{% endblock %}

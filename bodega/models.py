@@ -258,3 +258,45 @@ class Insumo():
         for fila in out_cur:
             lista.append(fila)
         return lista
+    
+    
+class Proveedor():
+    def agregar_proveedor(ID_PROVEEDOR, NOMBRE_PROVEEDOR):
+        try:          
+            django_cursor = connection.cursor()
+            cursor = django_cursor.connection.cursor()
+            salida= cursor.var(cx_Oracle.NUMBER)
+            cursor.callproc ('SP_AGREGAR_PROVEEDOR',[ID_PROVEEDOR,NOMBRE_PROVEEDOR,salida])
+            return salida.getvalue()
+        except Exception as e:
+            raise e.__str__()
+        
+    def buscar_proveedor_por_nombre(NOMRE_PROVEEDOR):
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        out_cur = django_cursor.connection.cursor()
+        cursor.callproc("SP_BUSCAR_PROVEEDOR_POR_NOMBRE", [NOMRE_PROVEEDOR, out_cur])
+        lista = []
+        for fila in out_cur:
+            lista.append(fila)
+        return lista
+    
+    def modificar_proveedor(ID_PROVEEDOR,NOMBRE_PROVEEDOR):
+        try:
+            django_cursor = connection.cursor()
+            cursor = django_cursor.connection.cursor()
+            salida= cursor.var(cx_Oracle.NUMBER)
+            cursor.callproc ('SP_MODIFICAR_PROVEEDOR',[ID_PROVEEDOR,NOMBRE_PROVEEDOR, salida])
+            return salida.getvalue()
+        except Exception as e:
+            raise e.__str__()
+        
+    def eliminar_proveedor(ID_PROVEEDOR):
+        try:
+            django_cursor = connection.cursor()
+            cursor = django_cursor.connection.cursor()
+            salida= cursor.var(cx_Oracle.NUMBER)
+            cursor.callproc ('SP_ELIMINAR_PROVEEDOR',[ID_PROVEEDOR, salida])
+            return salida.getvalue()
+        except Exception as e:
+            raise e.__str__()

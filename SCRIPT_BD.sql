@@ -326,7 +326,7 @@ ALTER TABLE productos
 
 ALTER TABLE productos
     ADD CONSTRAINT productos_proveedor_fk FOREIGN KEY ( proveedor_id_proveedor )
-        REFERENCES proveedor ( id_proveedor );
+        REFERENCES proveedor ( id_proveedor ) on delete cascade;
 
 ALTER TABLE productos
     ADD CONSTRAINT productos_unidad_medida_fk FOREIGN KEY ( unidad_medida_id_unidad )

@@ -1,0 +1,64 @@
+{% extends "base-generic.html" %}
+
+{% block content %}
+
+</br>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- ------------------------------------------------COLUMNA DERECHA------------------------------------- -->
+            <div class="col-md-6">
+                <!-- Form Element sizes -->
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Agregar Proveedor</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <form action="{% url 'proveedores' %}" method="POST">
+                                {% csrf_token %}
+
+                                <label for="IdProveedor">ID Proveedor</label>
+                                <input type="number" readonly name="IDProveedor" class="form-control" id="IdProveedor"
+                                    placeholder="IDProveedor" value="{{IDProveedor}}">
+
+
+
+                                <label for="NomProveedor">Nombre Proveedor</label>
+                                <input type="text" name="NombreProveedor" class="form-control" id="NomProveedor"
+                                    placeholder="Nombre Proveedor" value="{{NombreProveedor}}">
+
+                                </br>
+                                <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Insumo">
+
+                                <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Insumo">
+
+                                <input type="submit" class="btn btn-success" name='Cancelar' value="Cancelar">
+                                <br>
+                                <br>
+                            </form>
+                            <br>
+                            <br>
+                            <br>
+                            <label for="Mensaje">{{Mensaje}}</label>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+        <!------------------------------------------------------------------------------------>
+
+        
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- Fin Formulario-->
+
+    </main>
+    </div>
+</section>
+{%load static %}
+
+{% endblock %}

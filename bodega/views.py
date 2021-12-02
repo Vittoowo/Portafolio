@@ -206,3 +206,57 @@ def insumosModificar(request,ID_INSUMO):
     }
     
     return render(request,'Insumos-Modificar.html', data)
+
+
+
+def Proveedores(request):
+    data={
+        'Proveedores': Bodega.listar_proveedores()
+    }
+    if 'Guardar' in request.POST:
+        ID_PROVEEDOR = request.POST.get('IDProveedor')
+        NOMBRE_PROVEEDOR = request.POST.get('NombreProveedor')
+        salida = Proveedor.agregar_proveedor(ID_PROVEEDOR,NOMBRE_PROVEEDOR)
+        if salida == 1:
+            data['Mensaje'] = 'Proveedor Agregado'
+            data['Proveedores'] = Bodega.listar_proveedores()
+        else:
+            data['Mensaje'] = 'No se ha podido guardar'
+        return render(request, 'Proveedores.html', data)
+    
+    if 'Modificar' in request.POST:
+        ID_PROVEEDOR = request.POST.get('IDProveedor')
+        NOMBRE_PROVEEDOR = request.POST.get('NombreProveedor')
+        salida = Proveedor.modificar_proveedor(ID_PROVEEDOR,NOMBRE_PROVEEDOR)
+        if salida == 1:
+            data['Mensaje'] = 'Proveedor Modificado'
+            data['Proveedores'] = Bodega.listar_proveedores()
+        else:
+            data['Mensaje'] = 'No se ha podido modificar'
+        return render(request, 'Proveedores.html', data)
+    
+    if 'Eliminar' in request.POST:
+        ID_PROVEEDOR = request.POST.get('IDProveedor')
+        salida = Proveedor.eliminar_proveedor(ID_PROVEEDOR)
+        if salida == 1:
+            data['Mensaje'] = 'Proveedor Eliminado'
+            data['Proveedores'] = Bodega.listar_proveedores()
+        else:
+            data['Mensaje'] = 'No se ha podido eliminar'
+        return render(request, 'Proveedores.html', data)
+    
+    elif 'Cancelar' in request.POST:
+        return render(request, 'Proveedores.html', data)
+        
+    return render(request, 'Proveedores.html',data)
+
+
+
+def proveedorModificar(request, NOMBRE_PROVEEDOR):
+    prov=Proveedor.buscar_proveedor_por_nombre(NOMBRE_PROVEEDOR)
+    data={
+        'IDProveedor': prov[0][0],
+        'NombreProveedor': prov[0][1]
+    }
+    return render(request,'Proveedores-Modificar.html',data)
+    
