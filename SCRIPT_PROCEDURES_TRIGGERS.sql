@@ -699,5 +699,82 @@ END;
 /
 
 
+--------------------------
+-----Proc. Proveedores----
+--------------------------
+
+
+create or replace PROCEDURE SP_AGREGAR_PROVEEDOR(
+    v_ID_PROVEEDOR in number,
+    v_NOM_PROVEEDOR in NVARCHAR2,
+    v_salida out number) 
+IS
+BEGIN
+
+    INSERT INTO PROVEEDOR
+    VALUES(v_ID_PROVEEDOR, v_NOM_PROVEEDOR);
+    commit;
+    v_salida:=1;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+/
+create or replace PROCEDURE SP_BUSCAR_PROVEEDOR_POR_NOMBRE(
+        
+    v_NOMBRE_PROVEEDOR varchar2,
+    prove out SYS_REFCURSOR)
+IS 
+BEGIN
+    open prove for
+    select *
+    from PROVEEDOR
+    where NOMBRE_PROVEEDOR = v_NOMBRE_PROVEEDOR
+    order by NOMBRE_PROVEEDOR asc;
+END;
+/
+
+create or replace PROCEDURE SP_MODIFICAR_PROVEEDOR(
+    v_ID_PROVEEDOR in number,
+    v_NOMBRE_PROVEEDOR in NVARCHAR2,
+    v_salida out number)  
+IS
+BEGIN
+    UPDATE PROVEEDOR SET NOMBRE_PROVEEDOR = v_NOMBRE_PROVEEDOR
+    WHERE ID_PROVEEDOR = v_ID_PROVEEDOR;
+    if sql%rowcount > 0 then
+    v_salida:=1;
+    end if;
+    commit;
+
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+/
+create or replace PROCEDURE SP_ELIMINAR_PROVEEDOR(
+    v_ID_PROVEEDOR in number,
+    v_salida out number)
+IS
+BEGIN
+    DELETE FROM PROVEEDOR
+    WHERE ID_PROVEEDOR = v_ID_PROVEEDOR;
+    if sql%rowcount > 0 then
+    v_salida:=1;
+    else
+    v_salida:=0;
+    end if;
+    commit;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+/
 
 COMMIT;
