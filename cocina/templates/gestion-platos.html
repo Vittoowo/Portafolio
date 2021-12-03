@@ -2,14 +2,65 @@
 {% block content %}
 {% load static %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- escrip q transfiere de tabla a tabla -->
 <script>
-$(function(){
-    $(document).on("click",".transferow",function(){
-        var getselectedvalues=$("#maintable input:checked").parents("tr").clone().appendTo($("#secondtable tbody").add(getselectedvalues))
-    })
+    $(function () {
+        $(document).on("click", "#transferow", function () {
+            var getselectedvalues = $("#maintable input:checked").parents("tr").clone().appendTo($("#secondtable tbody").add(getselectedvalues))
+            document.getElementById("#secondtable tbody").contentEditable = "false";
+        })
 
-})
+    })
 </script>
+<!-- estilo barra search -->
+<style>
+    #myInput {
+        background-position: 10px 12px;
+        /* Position the search icon */
+        background-repeat: no-repeat;
+        /* Do not repeat the icon image */
+        width: 90%;
+        /* Full-width */
+        font-size: 16px;
+        /* Increase font-size */
+        padding: 12px 20px 12px 40px;
+        /* Add some padding */
+        border: 1px solid #ddd;
+        /* Add a grey border */
+        margin-bottom: 12px;
+        /* Add some space below the input */
+        margin-left: 40px;
+    }
+</style>
+<!-- script busqueda de campos en tabla-->
+<script>
+    function BuscarEnTabla() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("maintable");
+        tr = table.getElementsByTagName("tr");
+
+        // loop en la tabla ocultando los campos q no coinciden
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<!-- DATA TABES SCRIPT -->
+
+
+
+<!-- table test-->
 
 <!-- test mover datos table-->
 
@@ -57,76 +108,89 @@ $(function(){
         </div>
         <!------------------------------------------------------------------------------------>
         <!-- Tabla  -->
-        <div class= "card">
-        <div class="row">
-            
+        <div class="card">
+            <div class="row">
                 <!-- tabla izq-->
                 <div class="col-md-6">
                     <div class="card-header">
                         <h3 class="card-title">Listado de productos</h3>
                         <br>
-
-                        <form action="" method="POST">
+                        <!--                        <form action="" method="POST">
                             {% csrf_token %}
                             <input type="submit" class="btn btn-success btn-sm" name='btnTodosLosProductos'
                                 value="Mostrar Todos Los Productos">
                         </form>
+                        -->
                     </div>
+
+                    <input type="text" id="myInput" onkeyup="BuscarEnTabla()" placeholder="Buscar por nombre producto">
+                    
+                    
                     <!------------------------------------------------------------------------------------>
                     <!-- Tabla de listado de Productos -->
-                    <table class="table table-striped" id="maintable">
-                        <tr>
-                            <th>Seleccionar</th>
-                            <th>Codigo de Barra</th>
-                            <th>Nombre Producto</th>
-                            <TH>Cantidad medida</TH>
+                    <div style="overflow-x:auto;">
+                        <!-- table responsive con div style="overflow-x:auto"-->
+                        <table class="table table-striped" id="maintable">
+                            <tr>
+                                <th>Seleccionar</th>
+                                <th>Nombre Producto</th>
+                                <th>Cantidad</th>
+                                <th>Medida</th>
+                            </tr>
 
-                        </tr>
+                            {% for r in Producto %}
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>{{ r.1 }}</td>
+                                <td><input typer="text"></a></td>
+                                <td>
+                                    <!-- select que no muestra los valores -->
+                                    <select name="ProveedorProducto" id="user-group" class="form-select">
+                                        <option value="">Seleccionar</option>
+                                        {% for e in Listado_Proveedores %}
+                                        <option value="{{ e.0 }}">{{e.1}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <!--        fin select          -->
+                                </td>
 
-                        {% for r in Producto %}
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>{{ r.0 }}</td>
-                            <td>{{ r.1 }}</td>
-                            <td><input typer="text"></a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                    <input type="button" value="transferir seleccion" class="transferow">
+                            </tr>
+                            {% endfor %}
+
+                        </table>
+
+                    </div>
+                    <input type="button" value="transferir seleccion" id="transferow" class="btn btn-success">
                     <!-- Fin de Tabla de listado de Insumos -->
                 </div>
                 <!-- fin tabla izq-->
                 <!-- tabla derecha-->
                 <div class="col-md-6">
                     <div class="card-header">
-                        <h3 class="card-title">Listado de productos</h3>
-                        <br>
-
-                        <form action="" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" class="btn btn-success btn-sm" name='btnTodosLosProductos'
-                                value="Mostrar Todos Los Productos">
-                        </form>
+                        <h3 class="card-title">Listado de productos agregados</h3>
+                        <!-- Agregar otra busqueda aca si se requiere en la tabla de productos agregados -->
                     </div>
 
                     <!------------------------------------------------------------------------------------>
                     <!-- Tabla de listado de Productos -->
-                    <table class="table table-striped" id="secondtable">
-                        <tr>
-                            <th>Seleccionar</th>
-                            <th>Codigo de Barra</th>
-                            <th>Nombre Producto</th>
-                            <TH>Cantidad/medida</TH>
-                        </tr>
-                    </table>
+                    <div style="overflow-x:auto;">
+                        <table class="table table-striped" id="secondtable" >
+
+                            <tr>
+                                <th>Seleccionar</th>
+                                <th>Nombre Producto</th>
+                                <th>Cantidad/medida</th>
+                                <th>Medida</th>
+                            </tr>
+                        </table>
+                    </div>
                     <!-- Fin de Tabla de listado de Insumos -->
                 </div>
-                <!-- fin tabla derecha--> 
-                <!-- test mover datos-->     
-                      
+                <!-- fin tabla derecha-->
+                <!-- test mover datos-->
+
+            </div>
         </div>
-    </div>
     </div>
     <!-- Fin Formulario-->
     </div>
