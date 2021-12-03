@@ -9,4 +9,6 @@ urlpatterns = [
     path('productosModificar/<ID_PRODUCTO>',productosModificar, name= 'modificar-producto'),
     path('proveedores',Proveedores, name= 'proveedores'),
     path('proveedoresModificar/<NOMBRE_PROVEEDOR>',proveedorModificar, name= 'modificar-proveedor'),
+    path('marcas',Marcas, name= 'marcas'),
+    path('marcasModificar/<MARCA>',marcaModificar, name= 'modificar-marca')
 ]

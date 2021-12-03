@@ -11,32 +11,33 @@
                 <!-- Form Element sizes -->
                 <div class="card card-success">
                     <div class="card-header">
-                        <h3 class="card-title">Agregar Proveedor</h3>
+                        <h3 class="card-title">Agregar Marca</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <form action="{% url 'proveedores' %}" method="POST">
+                            <form action="{% url 'marcas' %}" method="POST">
                                 {% csrf_token %}
 
-                                <label for="IdProveedor">ID Proveedor</label>
-                                <input type="number" readonly name="IDProveedor" class="form-control" id="IdProveedor"
-                                    placeholder="ID Proveedor" value="{{IDProveedor}}">
+                                <label for="IdMarca">ID Marca</label>
+                                <input type="number" readonly name="IDMarca" class="form-control" id="IdMarca"
+                                    placeholder="ID Marca" value="{{IDMarca}}">
 
                                 <br>
 
-                                <label for="NomProveedor">Nombre Proveedor</label>
-                                <input type="text" name="NombreProveedor" class="form-control" id="NomProveedor"
-                                    placeholder="Nombre Proveedor" value="{{NombreProveedor}}">
+                                <label for="NomMarca">Nombre Marca</label>
+                                <input type="text" name="NombreMarca" class="form-control" id="NomMarca"
+                                    placeholder="Nombre Marca" value="{{NombreMarca}}">
 
                                 <br>
                                 <label for="Advertencia">!Advertencia!</label> 
-                                <p> Si elimina este proveedor tambien sera eliminado todo lo que este afiliado a el
-                                (Como por ejemplo productos e insumos que vengan de este proveedor). Si desea eliminar el proveedor sin eliminar
-                                los productos y/o insumos que vengan de este proveedor es recomendable modificar el proveedor de los productos e insumos
-                                asociados a este proveedor. </p>
-                                <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Proveedor">
+                                <p> Si elimina esta marca tambien sera eliminado todo lo que este afiliado a ella
+                                (Como por ejemplo productos que sean de esta marca). Si desea eliminar la marca sin eliminar
+                                los productos que sean de esta marca es recomendable modificar la marca de los productos
+                                asociados a esta marca. </p>
+                                
+                                <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Marca">
 
-                                <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Proveedor">
+                                <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Marca">
 
                                 <input type="submit" class="btn btn-success" name='Cancelar' value="Cancelar">
                                 <br>

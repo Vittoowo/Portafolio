@@ -245,11 +245,19 @@ def Proveedores(request):
             data['Mensaje'] = 'No se ha podido eliminar'
         return render(request, 'Proveedores.html', data)
     
+    if 'btnBuscarProveedorNombre' in request.POST:
+        NOMBRE_PROVEEDOR = request.POST.get('BuscarProveedorPorNombre')
+        data['Proveedores'] = Proveedor.buscar_proveedor_por_nombre(NOMBRE_PROVEEDOR)
+        return render(request, 'Proveedores.html', data)
+
+    if 'btnTodosLosProveedores' in request.POST:
+        data['Proveedores'] = Bodega.listar_proveedores()
+        return render(request, 'Proveedores.html', data)
+
     elif 'Cancelar' in request.POST:
         return render(request, 'Proveedores.html', data)
         
     return render(request, 'Proveedores.html',data)
-
 
 
 def proveedorModificar(request, NOMBRE_PROVEEDOR):
@@ -260,3 +268,61 @@ def proveedorModificar(request, NOMBRE_PROVEEDOR):
     }
     return render(request,'Proveedores-Modificar.html',data)
     
+
+
+def Marcas(request):
+    data={
+        'Marcas': Bodega.listar_marcas()
+    }
+    if 'Guardar' in request.POST:
+        ID_MARCA = request.POST.get('IDMarca')
+        MARCA = request.POST.get('NombreMarca')
+        salida = Marca.agregar_marca(ID_MARCA,MARCA)
+        if salida == 1:
+            data['Mensaje'] = 'Marca Agregada'
+            data['Marcas'] = Bodega.listar_marcas()
+        else:
+            data['Mensaje'] = 'No se ha podido guardar'
+        return render(request, 'Marcas.html', data)
+
+    if 'Modificar' in request.POST:
+        ID_MARCA = request.POST.get('IDMarca')
+        MARCA = request.POST.get('NombreMarca')
+        salida = Marca.modificar_marca(ID_MARCA,MARCA)
+        if salida == 1:
+            data['Mensaje'] = 'Marca Modificada'
+            data['Marcas'] = Bodega.listar_marcas()
+        else:
+            data['Mensaje'] = 'No se ha podido modificar'
+        return render(request, 'Marcas.html', data)
+
+    if 'Eliminar' in request.POST:
+        ID_MARCA = request.POST.get('IDMarca')
+        salida = Marca.eliminar_marca(ID_MARCA)
+        if salida == 1:
+            data['Mensaje'] = 'Marca Eliminada'
+            data['Marcas'] = Bodega.listar_marcas()
+        else:
+            data['Mensaje'] = 'No se ha podido eliminar'
+        return render(request, 'Marcas.html', data)
+    
+    if 'btnBuscarMarcaNombre' in request.POST:
+        MARCA = request.POST.get('BuscarMarcaPorNombre')
+        data['Marcas'] = Marca.buscar_marca_por_nombre(MARCA)
+        return render(request, 'Marcas.html', data)
+
+    if 'btnTodasLasMarcas' in request.POST:
+        data['Marcas'] = Bodega.listar_marcas()
+        return render(request, 'Marcas.html', data)
+
+    elif 'Cancelar' in request.POST:
+        return render(request, 'Marcas.html', data)
+    return render (request, 'Marcas.html',data)
+
+def marcaModificar(request, MARCA):
+    marc = Marca.buscar_marca_por_nombre(MARCA)
+    data={
+        'IDMarca': marc[0][0],
+        'NombreMarca': marc[0][1]
+    }
+    return render(request,'Marcas-Modificar.html',data)

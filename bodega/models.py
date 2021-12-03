@@ -5,6 +5,7 @@ from django.shortcuts import render
 import cx_Oracle
 # Create your models here.
 
+#BODEGA---------------------------------------------------------------------------
 class Bodega():
     #Metodo para llamar al procedimiento para listar las marcas
     def listar_marcas():
@@ -41,8 +42,7 @@ class Bodega():
             lista.append(fila)
         return lista
 
-
-
+#PRODUCTO----------------------------------------------------------------------------------
 class Producto():
 
     def __init__(self,ID_PRODUCTO, NOM_PRODUCTO, PROVEEDOR, MARCA, STOCK, FORMATO_STOCK, MEDIDA, UNIDAD_MEDIDA):
@@ -159,14 +159,7 @@ class Producto():
             lista.append(fila)
         return lista
 
-
-
-
-
-
-
-
-
+#INSUMO------------------------------------------------------------------------------------
 class Insumo():
 
     def __init__(self,ID_PRODUCTO, NOM_PRODUCTO, STOCK, PROVEEDOR, FORMATO_STOCK):
@@ -259,7 +252,7 @@ class Insumo():
             lista.append(fila)
         return lista
     
-    
+#PROVEEDOR--------------------------------------------------------
 class Proveedor():
     def agregar_proveedor(ID_PROVEEDOR, NOMBRE_PROVEEDOR):
         try:          
@@ -271,11 +264,11 @@ class Proveedor():
         except Exception as e:
             raise e.__str__()
         
-    def buscar_proveedor_por_nombre(NOMRE_PROVEEDOR):
+    def buscar_proveedor_por_nombre(NOMBRE_PROVEEDOR):
         django_cursor = connection.cursor()
         cursor = django_cursor.connection.cursor()
         out_cur = django_cursor.connection.cursor()
-        cursor.callproc("SP_BUSCAR_PROVEEDOR_POR_NOMBRE", [NOMRE_PROVEEDOR, out_cur])
+        cursor.callproc("SP_BUSCAR_PROVEEDOR_POR_NOMBRE", [NOMBRE_PROVEEDOR, out_cur])
         lista = []
         for fila in out_cur:
             lista.append(fila)
@@ -297,6 +290,48 @@ class Proveedor():
             cursor = django_cursor.connection.cursor()
             salida= cursor.var(cx_Oracle.NUMBER)
             cursor.callproc ('SP_ELIMINAR_PROVEEDOR',[ID_PROVEEDOR, salida])
+            return salida.getvalue()
+        except Exception as e:
+            raise e.__str__()
+
+#MARCA-------------------------------------------------------
+class Marca():
+    def agregar_marca(ID_MARCA, MARCA):
+        try:          
+            django_cursor = connection.cursor()
+            cursor = django_cursor.connection.cursor()
+            salida= cursor.var(cx_Oracle.NUMBER)
+            cursor.callproc ('SP_AGREGAR_MARCA',[ID_MARCA,MARCA,salida])
+            return salida.getvalue()
+        except Exception as e:
+            raise e.__str__()
+        
+    def buscar_marca_por_nombre(MARCA):
+        django_cursor = connection.cursor()
+        cursor = django_cursor.connection.cursor()
+        out_cur = django_cursor.connection.cursor()
+        cursor.callproc("SP_BUSCAR_MARCA_POR_NOMBRE", [MARCA, out_cur])
+        lista = []
+        for fila in out_cur:
+            lista.append(fila)
+        return lista
+    
+    def modificar_marca(ID_MARCA,MARCA):
+        try:
+            django_cursor = connection.cursor()
+            cursor = django_cursor.connection.cursor()
+            salida= cursor.var(cx_Oracle.NUMBER)
+            cursor.callproc ('SP_MODIFICAR_MARCA',[ID_MARCA, MARCA, salida])
+            return salida.getvalue()
+        except Exception as e:
+            raise e.__str__()
+        
+    def eliminar_marca(ID_MARCA):
+        try:
+            django_cursor = connection.cursor()
+            cursor = django_cursor.connection.cursor()
+            salida= cursor.var(cx_Oracle.NUMBER)
+            cursor.callproc ('SP_ELIMINAR_MARCA',[ID_MARCA, salida])
             return salida.getvalue()
         except Exception as e:
             raise e.__str__()
