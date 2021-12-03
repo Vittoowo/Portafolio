@@ -79,28 +79,55 @@ class Producto():
 
 
     #Metodo para llamar al procedimiento para agregar un producto
-    def agregar_producto(ID_PRODUCTO,NOM_PRODUCTO,PROVEEDOR_ID_PROVEEDOR,STOCK,MARCA_PRODUCTO_ID_MARCA,UNIDAD_MEDIDA_ID_UNIDAD,FORMATO_STOCK_ID_FORMATO,MEDIDA):
+    def agregar_producto(ID_PRODUCTO,
+                            NOM_PRODUCTO,
+                            PROVEEDOR_ID_PROVEEDOR,
+                            MARCA_PRODUCTO_ID_MARCA,
+                            STOCK,
+                            FORMATO_STOCK_ID_FORMATO_STOCK,
+                            MEDIDA_STOCK,
+                            UNIDAD_MEDIDA_ID_UNIDAD):
         try:          
             django_cursor = connection.cursor()
             cursor = django_cursor.connection.cursor()
             salida= cursor.var(cx_Oracle.NUMBER)
-            cursor.callproc ('SP_AGREGAR_PRODUCTO',[ID_PRODUCTO,NOM_PRODUCTO,PROVEEDOR_ID_PROVEEDOR,STOCK,MARCA_PRODUCTO_ID_MARCA,UNIDAD_MEDIDA_ID_UNIDAD,FORMATO_STOCK_ID_FORMATO,MEDIDA,salida])
+            cursor.callproc ('SP_AGREGAR_PRODUCTO',[ID_PRODUCTO,
+                            NOM_PRODUCTO,
+                            PROVEEDOR_ID_PROVEEDOR,
+                            MARCA_PRODUCTO_ID_MARCA,
+                            STOCK,
+                            FORMATO_STOCK_ID_FORMATO_STOCK,
+                            MEDIDA_STOCK,
+                            UNIDAD_MEDIDA_ID_UNIDAD,salida])
             return salida.getvalue()
         except Exception as e:
             raise e.__str__()
     
 
     #Metodo para llamar al procedimiento para modificar un producto
-    def modificar_producto(ID_PRODUCTO,NOM_PRODUCTO,PROVEEDOR_ID_PROVEEDOR,STOCK,MARCA_PRODUCTO_ID_MARCA,UNIDAD_MEDIDA_ID_UNIDAD,FORMATO_STOCK_ID_FORMATO,MEDIDA):
-        try:
+    def modificar_producto(ID_PRODUCTO,
+                            NOM_PRODUCTO,
+                            PROVEEDOR_ID_PROVEEDOR,
+                            MARCA_PRODUCTO_ID_MARCA,
+                            STOCK,
+                            FORMATO_STOCK_ID_FORMATO_STOCK,
+                            MEDIDA_STOCK,
+                            UNIDAD_MEDIDA_ID_UNIDAD):
+        try:          
             django_cursor = connection.cursor()
             cursor = django_cursor.connection.cursor()
             salida= cursor.var(cx_Oracle.NUMBER)
-            cursor.callproc ('SP_MODIFICAR_PRODUCTO',[ID_PRODUCTO,NOM_PRODUCTO,PROVEEDOR_ID_PROVEEDOR,STOCK,MARCA_PRODUCTO_ID_MARCA,UNIDAD_MEDIDA_ID_UNIDAD,FORMATO_STOCK_ID_FORMATO,MEDIDA, salida])
+            cursor.callproc ('SP_MODIFICAR_PRODUCTO',[ID_PRODUCTO,
+                            NOM_PRODUCTO,
+                            PROVEEDOR_ID_PROVEEDOR,
+                            MARCA_PRODUCTO_ID_MARCA,
+                            STOCK,
+                            FORMATO_STOCK_ID_FORMATO_STOCK,
+                            MEDIDA_STOCK,
+                            UNIDAD_MEDIDA_ID_UNIDAD,salida])
             return salida.getvalue()
         except Exception as e:
             raise e.__str__()
-
     
     #Metodo para llamar al procedimiento para eliminar un producto
     def eliminar_producto(ID_PRODUCTO):

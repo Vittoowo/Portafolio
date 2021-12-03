@@ -322,22 +322,38 @@ END;
 --------------------------
 --    Proc. Productos   --
 --------------------------
-
 create or replace PROCEDURE SP_AGREGAR_PRODUCTO(
-    v_ID_PRODUCTO in number,
-    v_NOM_PRODUCTO in NVARCHAR2,
-    v_PROVEEDOR_ID_PROVEEDOR NVARCHAR2,
-    v_STOCK in number,
-    v_MARCA_PRODUCTO_ID_MARCA nvarchar2,
-    v_UNIDAD_MEDIDA_ID_UNIDAD in number,
-    v_FORMATO_STOCK_ID_FORMATO in number,
-    v_MEDIDA in number,
-    v_salida out number) 
+    v_ID_PRODUCTO in NUMBER,
+    v_NOM_PRODUCTO in VARCHAR2,
+    v_PROVEEDOR_ID_PROVEEDOR NUMBER,
+    v_MARCA_PRODUCTO_ID_MARCA NUMBER,
+    v_STOCK in NUMBER,
+    v_FORMATO_STOCK_ID_FORMATO in NUMBER,
+    v_MEDIDA in NUMBER,
+    v_UNIDAD_MEDIDA_ID_UNIDAD in NUMBER,
+    v_salida out NUMBER) 
 IS
 BEGIN
 
-    INSERT INTO productos 
-    VALUES(v_ID_PRODUCTO,v_NOM_PRODUCTO,v_PROVEEDOR_ID_PROVEEDOR,v_STOCK,v_MARCA_PRODUCTO_ID_MARCA,v_UNIDAD_MEDIDA_ID_UNIDAD,v_FORMATO_STOCK_ID_FORMATO,v_MEDIDA);
+    INSERT INTO productos(
+                            ID_PRODUCTO,
+                            NOM_PRODUCTO,
+                            PROVEEDOR_ID_PROVEEDOR,
+                            MARCA_PRODUCTO_ID_MARCA,
+                            STOCK,
+                            FORMATO_STOCK_ID_FORMATO_STOCK,
+                            MEDIDA_STOCK,
+                            UNIDAD_MEDIDA_ID_UNIDAD)
+    VALUES(
+                            v_ID_PRODUCTO,
+                            v_NOM_PRODUCTO,
+                            v_PROVEEDOR_ID_PROVEEDOR,
+                            v_MARCA_PRODUCTO_ID_MARCA,
+                            v_STOCK,
+                            v_FORMATO_STOCK_ID_FORMATO,
+                            v_MEDIDA,
+                            v_UNIDAD_MEDIDA_ID_UNIDAD
+    );
     commit;
     v_salida:=1;
     EXCEPTION
@@ -350,24 +366,27 @@ END;
 /
 
 create or replace PROCEDURE SP_MODIFICAR_PRODUCTO(
-    v_ID_PRODUCTO in number,
-    v_NOM_PRODUCTO in NVARCHAR2,
-    v_PROVEEDOR_ID_PROVEEDOR NVARCHAR2,
-    v_STOCK in number,
-    v_MARCA_PRODUCTO_ID_MARCA nvarchar2,
-    v_UNIDAD_MEDIDA_ID_UNIDAD in number,
-    v_FORMATO_STOCK_ID_FORMATO in number,
-    v_MEDIDA in number,
-    v_salida out number) 
+    v_ID_PRODUCTO in NUMBER,
+    v_NOM_PRODUCTO in VARCHAR2,
+    v_PROVEEDOR_ID_PROVEEDOR NUMBER,
+    v_MARCA_PRODUCTO_ID_MARCA NUMBER,
+    v_STOCK in NUMBER,
+    v_FORMATO_STOCK_ID_FORMATO_STOCK in NUMBER,
+    v_MEDIDA_STOCK in NUMBER,
+    v_UNIDAD_MEDIDA_ID_UNIDAD in NUMBER,
+    v_salida out NUMBER)  
 IS
 BEGIN
-    UPDATE PRODUCTOS SET nom_producto = v_Nom_Producto,
-                         proveedor_id_proveedor = v_PROVEEDOR_ID_PROVEEDOR,
-                         marca_producto_id_marca = v_MARCA_PRODUCTO_ID_MARCA,
-                         stock = v_Stock,
-                         FORMATO_STOCK_ID_FORMATO_STOCK = v_FORMATO_STOCK_ID_FORMATO,
-                         medida_stock =  v_MEDIDA,
-                         unidad_medida_id_unidad = v_UNIDAD_MEDIDA_ID_UNIDAD
+    UPDATE PRODUCTOS SET    ID_PRODUCTO=v_ID_PRODUCTO,
+                            NOM_PRODUCTO=v_NOM_PRODUCTO,
+                            PROVEEDOR_ID_PROVEEDOR=v_PROVEEDOR_ID_PROVEEDOR,
+                            MARCA_PRODUCTO_ID_MARCA=v_MARCA_PRODUCTO_ID_MARCA,
+                            STOCK=v_STOCK,
+                            FORMATO_STOCK_ID_FORMATO_STOCK=v_FORMATO_STOCK_ID_FORMATO_STOCK,
+                            MEDIDA_STOCK=v_MEDIDA_STOCK,
+                            UNIDAD_MEDIDA_ID_UNIDAD=v_UNIDAD_MEDIDA_ID_UNIDAD
+    
+    
     WHERE id_producto = v_ID_Producto;
     commit;
     v_salida:=1;
@@ -377,6 +396,7 @@ BEGIN
     v_salida:=0;
 END;
 /
+
 
 
 create or replace PROCEDURE SP_LISTAR_PRODUCTOS(produc out SYS_REFCURSOR)

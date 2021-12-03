@@ -22,10 +22,17 @@ def Productos(request):
         PROVEEDOR_ID_PROVEEDOR = request.POST.get('ProveedorProducto')
         MARCA_PRODUCTO_ID_MARCA = request.POST.get('MarcaProducto')
         STOCK = request.POST.get('StockProducto')
-        FORMATO_STOCK_ID_FORMATO = request.POST.get('FormatoStockProducto')
-        MEDIDA = request.POST.get('MedidaProducto')
+        FORMATO_STOCK_ID_FORMATO_STOCK = request.POST.get('FormatoStockProducto')
+        MEDIDA_STOCK = request.POST.get('MedidaProducto')
         UNIDAD_MEDIDA_ID_UNIDAD = request.POST.get('UnidadMedidaProducto')
-        salida = Producto.agregar_producto(ID_PRODUCTO,NOM_PRODUCTO,PROVEEDOR_ID_PROVEEDOR,STOCK,MARCA_PRODUCTO_ID_MARCA,UNIDAD_MEDIDA_ID_UNIDAD,FORMATO_STOCK_ID_FORMATO,MEDIDA)
+        salida = Producto.agregar_producto(ID_PRODUCTO,
+                            NOM_PRODUCTO,
+                            PROVEEDOR_ID_PROVEEDOR,
+                            MARCA_PRODUCTO_ID_MARCA,
+                            STOCK,
+                            FORMATO_STOCK_ID_FORMATO_STOCK,
+                            MEDIDA_STOCK,
+                            UNIDAD_MEDIDA_ID_UNIDAD)
         if salida == 1:
             data['Mensaje'] = 'Producto Agregado'
             data['Producto'] = Producto.listar_productos()
@@ -40,10 +47,17 @@ def Productos(request):
         PROVEEDOR_ID_PROVEEDOR = request.POST.get('ProveedorProducto')
         MARCA_PRODUCTO_ID_MARCA = request.POST.get('MarcaProducto')
         STOCK = request.POST.get('StockProducto')
-        FORMATO_STOCK_ID_FORMATO = request.POST.get('FormatoStockProducto')
-        MEDIDA = request.POST.get('MedidaProducto')
+        FORMATO_STOCK_ID_FORMATO_STOCK = request.POST.get('FormatoStockProducto')
+        MEDIDA_STOCK = request.POST.get('MedidaProducto')
         UNIDAD_MEDIDA_ID_UNIDAD = request.POST.get('UnidadMedidaProducto')
-        salida = Producto.modificar_producto(ID_PRODUCTO,NOM_PRODUCTO,PROVEEDOR_ID_PROVEEDOR,STOCK,MARCA_PRODUCTO_ID_MARCA,UNIDAD_MEDIDA_ID_UNIDAD,FORMATO_STOCK_ID_FORMATO,MEDIDA)
+        salida = Producto.modificar_producto(ID_PRODUCTO,
+                            NOM_PRODUCTO,
+                            PROVEEDOR_ID_PROVEEDOR,
+                            MARCA_PRODUCTO_ID_MARCA,
+                            STOCK,
+                            FORMATO_STOCK_ID_FORMATO_STOCK,
+                            MEDIDA_STOCK,
+                            UNIDAD_MEDIDA_ID_UNIDAD)
         if salida == 1:
             data['Mensaje'] = 'Producto Modificado'
             data['Producto'] = Producto.listar_productos()
