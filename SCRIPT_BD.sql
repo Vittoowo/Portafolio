@@ -193,7 +193,7 @@ CREATE TABLE productos (
     unidad_medida_id_unidad          NUMBER(1) NOT NULL
 );
 
-ALTER TABLE productos ADD CONSTRAINT productos_pk PRIMARY KEY ( id_producto );
+ALTER TABLE productos ADD CONSTRAINT productos_pk PRIMARY KEY ( id_producto ) ;
 
 CREATE TABLE proveedor (
     id_proveedor       NUMBER(2) NOT NULL,
@@ -322,7 +322,7 @@ ALTER TABLE productos
 
 ALTER TABLE productos
     ADD CONSTRAINT productos_marca_producto_fk FOREIGN KEY ( marca_producto_id_marca )
-        REFERENCES marca_producto ( id_marca );
+        REFERENCES marca_producto ( id_marca ) on delete cascade;
 
 ALTER TABLE productos
     ADD CONSTRAINT productos_proveedor_fk FOREIGN KEY ( proveedor_id_proveedor )
@@ -343,3 +343,5 @@ ALTER TABLE reserva
 ALTER TABLE reserva
     ADD CONSTRAINT reserva_mesas_fk FOREIGN KEY ( mesas_id_mesa )
         REFERENCES mesas ( id_mesa );
+
+COMMIT;

@@ -731,9 +731,10 @@ BEGIN
     open prove for
     select *
     from PROVEEDOR
-    where NOMBRE_PROVEEDOR = v_NOMBRE_PROVEEDOR
+    where UPPER(NOMBRE_PROVEEDOR) = UPPER(v_NOMBRE_PROVEEDOR)
     order by NOMBRE_PROVEEDOR asc;
 END;
+
 /
 
 create or replace PROCEDURE SP_MODIFICAR_PROVEEDOR(
@@ -763,6 +764,89 @@ IS
 BEGIN
     DELETE FROM PROVEEDOR
     WHERE ID_PROVEEDOR = v_ID_PROVEEDOR;
+    if sql%rowcount > 0 then
+    v_salida:=1;
+    else
+    v_salida:=0;
+    end if;
+    commit;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+/
+
+
+--------------------------
+-----PROC MARCAS----------
+--------------------------
+
+create or replace PROCEDURE SP_AGREGAR_MARCA(
+    v_ID_MARCA in number,
+    v_MARCA in NVARCHAR2,
+    v_salida out number) 
+IS
+BEGIN
+
+    INSERT INTO MARCA_PRODUCTO
+    VALUES(v_ID_MARCA, v_MARCA);
+    commit;
+    v_salida:=1;
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+
+
+/
+
+
+create or replace PROCEDURE SP_BUSCAR_MARCA_POR_NOMBRE(
+        
+    v_MARCA varchar2,
+    mar out SYS_REFCURSOR)
+IS 
+BEGIN
+    open mar for
+    select *
+    from MARCA_PRODUCTO
+    where UPPER(MARCA) = UPPER(v_MARCA);
+END;
+
+
+/
+
+create or replace PROCEDURE SP_MODIFICAR_MARCA(
+    v_ID_MARCA in number,
+    v_MARCA in NVARCHAR2,
+    v_salida out number)  
+IS
+BEGIN
+    UPDATE MARCA_PRODUCTO SET MARCA = v_MARCA
+    WHERE ID_MARCA = v_ID_MARCA;
+    if sql%rowcount > 0 then
+    v_salida:=1;
+    end if;
+    commit;
+
+    EXCEPTION
+
+    WHEN OTHERS THEN
+    v_salida:=0;
+END;
+/
+
+
+create or replace PROCEDURE SP_ELIMINAR_MARCA(
+    v_ID_MARCA in number,
+    v_salida out number)
+IS
+BEGIN
+    DELETE FROM MARCA_PRODUCTO
+    WHERE ID_MARCA = v_ID_MARCA;
     if sql%rowcount > 0 then
     v_salida:=1;
     else
