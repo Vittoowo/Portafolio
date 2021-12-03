@@ -47,6 +47,8 @@ def Mesas(request):
         else:
             data['mensaje'] = 'No se ha podido modificar la mesa'
         return render(request, 'Mesas.html', data)
+    elif 'Cancelar' in request.POST:
+        return redirect(to="mesas")
     return render(request, 'Mesas.html', data)
 
 #Metodo para totem, aqui se estan recibiendo los datos que fueron enviados desde el home_totem en views.py de usuarios

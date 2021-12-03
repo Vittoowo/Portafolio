@@ -75,6 +75,8 @@ def modificarReservas(request,id):
             data['Reserva'] = reservas.listado_reservas()
         else:
             data['Mensaje'] = 'No se ha podido eliminar'
+        return redirect(to='reservas')
+    elif 'Cancelar' in request.POST:
         return redirect(to='reservas') 
     
     return render(request,'Reservas-modificar.html', data)

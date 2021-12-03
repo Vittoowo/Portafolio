@@ -4,69 +4,72 @@
 
 
 {% block content %}
-  {% load static %}
+{% load static %}
 
-    <main class="main-section p-12">
-
-        
+<main class="main-section p-12">
 
 
-        <div class="modal-dialog">
-            <div class="col-sm-12">
-                <div class="modal-content">
-                     <!-- general form elements -->
+
+
+  <div class="modal-dialog">
+    <div class="col-sm-12">
+      <div class="modal-content">
+        <!-- general form elements -->
         <div class="card card-warning">
-            <div class="card-header">
-                <h3 class="card-title">Eliminar y/o Modificar mesa</h3>
-             </div>
-            <!-- /.card-header -->
-             <!-- form start -->
-            <form action="{%url 'mesas'%}" method="POST">
-             {% csrf_token %}
-                 <div class="card-body">
-                 <div class="form-group">
-                   <label for="numeroMesa">Numero de mesa</label>
-                   <input type="number" name="idmesa" class="form-control" id="idmesa" placeholder="Ingrese numero de mesa" value="{{num_mesaM}}" readonly="readonly">
-                 </div>
-                 <div class="form-group">
-                   <label for="capacidad">Capacidad de la mesa</label>
-                   <input type="number" name="capacidad" class="form-control" id="capacidad" placeholder="Ingrese capacidad de la mesa" value="{{capacidadM}}" required>
-                 </div>
-                 <div class="form-group">
-                     <label for="estado">Estado de la mesa</label>
-                     <select name="estado" id="estado" class="custom-select">
-                        <option value="">Seleccionar</option>
-                        {% for e in lista_estado %}
+          <div class="card-header">
+            <h3 class="card-title">Eliminar y/o Modificar mesa</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form action="{%url 'mesas'%}" method="POST">
+            {% csrf_token %}
+            <div class="card-body">
+              <div class="form-group">
+                <label for="numeroMesa">Numero de mesa</label>
+                <input type="number" name="idmesa" class="form-control" id="idmesa" placeholder="Ingrese numero de mesa"
+                  value="{{num_mesaM}}" readonly="readonly">
+              </div>
+              <div class="form-group">
+                <label for="capacidad">Capacidad de la mesa</label>
+                <input type="number" name="capacidad" class="form-control" id="capacidad"
+                  placeholder="Ingrese capacidad de la mesa" value="{{capacidadM}}" required>
+              </div>
+              <div class="form-group">
+                <label for="estado">Estado de la mesa</label>
+                <select name="estado" id="estado" class="custom-select">
+                  <option value="">Seleccionar</option>
+                  {% for e in lista_estado %}
 
-                        {% if e.0 == estadoM %}
-                        <option value="{{ e.0 }}" selected>{{e.1}}</option>
-                        {% else %}
-                        <option value="{{ e.0 }}">{{e.1}}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                   </div>
-               
-               <!-- /.card-body -->
-               
-               <div class="card-footer text-center">
+                  {% if e.0 == estadoM %}
+                  <option value="{{ e.0 }}" selected>{{e.1}}</option>
+                  {% else %}
+                  <option value="{{ e.0 }}">{{e.1}}</option>
+                  {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+
+              <!-- /.card-body -->
+
+              <div class="card-footer text-center">
                 <input type="submit" name='Eliminar' value="Eliminar Mesa" class="btn btn-danger">
-                        <input type="submit" name='Modificar' value="Modificar Mesa" class="btn btn-primary"> 
-               </div>
-             </form>
-           </div>
-                </div>
-            </div>
+                <input type="submit" name='Modificar' value="Modificar Mesa" class="btn btn-primary">
+                <input type="submit" class="btn btn-success" name="Cancelar" value="Cancelar">
+              </div>
+          </form>
         </div>
+      </div>
+    </div>
+  </div>
 
-        {% if mensaje %}
-        <script>
-            alert('{{ mensaje }}');
-        </script>
-        {%endif%}
-       
+  {% if mensaje %}
+  <script>
+    alert('{{ mensaje }}');
+  </script>
+  {%endif%}
 
-    </main>
 
-    
-    {% endblock %}
+</main>
+
+
+{% endblock %}

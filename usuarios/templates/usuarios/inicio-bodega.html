@@ -38,6 +38,45 @@
       <!-- /.info-box -->
     </div>
 
+
+
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-info"><i class="fa-solid fa-cart-plus"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Proveedores</span>
+          <form action="{% url 'proveedores' %}">
+            <div class="form">
+              <input type="submit"   value="Gestionar Productos" class="btn btn-success">
+            </div>
+          </form>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+
+
+
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-info"><i class="fa-solid fa-cart-plus"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Marca</span>
+          <form action="{% url 'marcas' %}">
+            <div class="form">
+              <input type="submit"   value="Gestionar Productos" class="btn btn-success">
+            </div>
+          </form>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+
+
       {% if message %}
       <script>
           
