@@ -114,8 +114,23 @@ def modificarUsuario(request,usuario):
           'usuario' : u,
           'grupoUsuario':str(u.groups.all()[0])
           }
-    #if 'Modificar' in request.POST:
-        
+    if 'Modificar' in request.POST:
+        username=request.POST.get("username")
+        password=request.POST.get("password1")
+        email=request.POST.get("email")
+        id_grupo=int(request.POST.get('groups'))
+        first_name = request.POST.get('first_name')
+        last_name=request.POST.get('last_name')
+        u.username=username
+        if password:
+            u.set_password(password)
+        u.email=email
+        u.groups.remove(u.groups.all()[0])
+        u.groups.add(id_grupo)
+        u.first_name=first_name
+        u.last_name=last_name
+        u.save()
+        return redirect(to='registro')  
     return render(request,'registration/modificar-usuario.html',data)
     
 def Home_totem(request ):

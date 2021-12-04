@@ -65,203 +65,56 @@
 
           </div>
         </form>
-
-
-        <form action="{%url 'Administrador'%}" method="GET">
-          <input type="submit" class="btn btn-success" name="Cancelar" value="Cancelar">
-        </form>
-      </div>
-
-      <div class="row">
-        <div class="card">
-          <div class="card-header">
-            <h2 class="card-title">Listado de Usuarios</h2>
-            <br>
-            <br>
-
-          </div>
-
-
-          <table class="table table-striped">
-            <tr>
-              <th>Nombre de Usuario</th>
-              <th>Rol</th>
-            </tr>
-            {% for lu in ListaUsuarios %}
-            <tr>
-              <td>{{ lu }}</td>
-              <td>{{ lu.groups.all.0 }}</td>
-              <td><a href="{%url 'modificar-usuario' lu %}" class="btn-xs btn-success">Modificar/Eliminar</a>
-              </td>
-            </tr>
-            {% endfor %}
-
-          </table>
-          <!-- Fin de Tabla de listado de Proveedores -->
-        </div>
+        
+      </div
+        
 
         <!-- /.card -->
-        {% if message %}
-        <script>
-          alert('{{ message }}');
-        </script>
-        {%endif%}
+   
       </div>
-
-
+      
 
     </div>
 
+    <div class="row">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Listado de Usuarios</h2>
+          <br>
+          <br>
+        </div>
+
+
+        <table class="table table-striped">
+          <tr>
+            <th>Nombre de Usuario</th>
+            <th>Rol</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+          </tr>
+          {% for lu in ListaUsuarios %}
+          <tr>
+            <td>{{ lu }}</td>
+            <td>{{ lu.groups.all.0 }}</td>
+            <td>{{ lu.first_name }}</td>
+            <td>{{ lu.last_name }}</td>
+            <td>{{ lu.email }}</td>
+            <td><a href="{%url 'modificar-usuario' lu %}" class="btn-xs btn-success">Modificar/Eliminar</a>
+            </td>
+          </tr>
+          {% endfor %}
+
+        </table>
+        <!-- Fin de Tabla de listado de Proveedores -->
+      </div>
 
 
 
 </main>
-
-<!--
-
-        Formulario antiguo en caso de error
-
-
-
-        <main class="main-section p-12 text-center">
-        
-
-            
-                <div class="col-sm-8">
-                    <div class="modal-content">
-                        <div class="col-12 user-img">
-                            
-                        </div>
-                        <form action="" method="POST">
-                            {% csrf_token %}
-
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="text" name="username" class="form-control" id="floatingUsuario"
-                                    placeholder="Usuario">
-                                <label for="floatingUsuario">Nombre Usuario</label>
-                            </div>
-       
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="email" name="email" class="form-control" placeholder="EXAMPLE@GMAIL.COM">
-                                <label for="floatingUsuario">Email</label>
-                            </div>
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="text" name="first_name" class="form-control" placeholder="Nombre">
-                                <label for="floatingUsuario">Nombre</label>
-                            </div>
-                            <div class="form-floating mb-3" id="user-group">
-                                <input type="text" name="last_name" class="form-control" placeholder="Apellido">
-                                <label for="floatingUsuario">Apellido</label>
-                            </div>
-                            
-
-
-
-                    <div class="input-group mb-3">                    
-                        <input type="password" name="password1" class="form-control" placeholder="Contraseña" id="txtPassword">                                                 
-    
-                        <div class="input-group-append">
-                        <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()">
-                        <span class="fa fa-eye-slash icon"></span> </button>
-    
-                               </div>                
-                        </div>
-                    
-
- segunda casilla de password
-                
-                <div class="input-group mb-3">                    
-                    <input type="password" name="password2" class="form-control" placeholder="Confirmar Contraseña" id="txtConfirmacion">                                                 
-
-                    <div class="input-group-append">
-                    <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword2()">
-                    <span class="fa fa-eye-slash icon"></span> </button>
-
-                           </div>                
-                    </div>
-                            <div class="form-floating">
-                                
-                                <select name="groups" id="groups" class="form-select">
-                                    <option value="">Seleccionar</option>
-                                    {% for c in grupos %}
-                                    <option value="{{ c.0 }}">{{c.1}}</option>
-                                    {% endfor %}
-                                </select>
-
-                                <label for="groups">Grupo</label>
-                            </div>
-
-                                </br>
-                            <div class="form-floating mb-3">
-                                <input type="submit" value="Registrar" class="btn btn-success">
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-
-                </div>
-        {% if message %}
-        <script>
-            
-            alert('{{ message }}');
-            
-        </script>
-        {%endif%}
-
-
-    -->
-
-
-
-
-
-
-
-
-<!--
-        Script del ojo en password del formulario antiguo
-
-        <script type="text/javascript">
-        function mostrarPassword(){
-            var cambio = document.getElementById("txtPassword");
-            if(cambio.type == "password"){
-              cambio.type = "text";
-              $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-            }else{
-              cambio.type = "password";
-              $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-            }
-          } 
-          
-          $(document).ready(function () {
-          //CheckBox mostrar contraseña
-          $('#ShowPassword').click(function () {
-            $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
-          });
-        });
-      
-        </script>
-        <script type="text/javascript">
-          function mostrarPassword2(){
-              var cambio = document.getElementById("txtConfirmacion");
-              if(cambio.type == "password"){
-                cambio.type = "text";
-                $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-              }else{
-                cambio.type = "password";
-                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-              }
-            } 
-            
-            $(document).ready(function () {
-            //CheckBox mostrar contraseña
-            $('#ShowPassword').click(function () {
-              $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
-            });
-          });
-          </script>
-
-
-    -->
+{% if message %}
+<script>
+  alert('{{ message }}');
+</script>
+{%endif%}
 {% endblock %}
