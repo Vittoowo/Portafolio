@@ -12,7 +12,7 @@ def home(request):
 @login_required
 def inicioAdmin(request):
     if request.user.groups.filter(name='Administrador').exists():
-        print(request.user.groups.get(),"=",len("Administrador"))
+        
         return render(request,'usuarios/inicio-admin.html')
     else:
         data = {'message':'Usted no tiene permisos para ingresar a este apartado'}
