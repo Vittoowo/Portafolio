@@ -6,6 +6,7 @@ from reservas import views as rv
 urlpatterns = [
     #path('', home,name='home'),
     path('registro/',RegistroUsuario,name="registro"),
+    path('registro/modificar-usuario/<usuario>',modificarUsuario,name="modificar-usuario"),
     path('',login_user,name='login'),
     path('logout/',logout_def,name='logout'),
     path('mesas/', include('mesas.urls')),

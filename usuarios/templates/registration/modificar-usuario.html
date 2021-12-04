@@ -20,40 +20,48 @@
             <div class="form-group">
               <label for="nomUsuario">Nombre de usuario</label>
               <input type="text" class="form-control" id="nomUsuario" placeholder="Nombre de usuario" name="username"
-                required>
+                required value="{{usuario.username}}">
             </div>
             <div class="form-group">
               <label for="emailUsuario">Email</label>
               <input type="email" class="form-control" id="emailUsuario" placeholder="Email de usuario" name="email"
-                required>
+                required value="{{usuario.email}}">
             </div>
             <div class="form-group">
               <label for="primerNombre">Nombre</label>
-              <input type="text" class="form-control" id="primerNombre" placeholder="Nombre" name="first_name" required>
+              <input type="text" class="form-control" id="primerNombre" placeholder="Nombre" name="first_name" required
+              value="{{usuario.first_name}}">
             </div>
             <div class="form-group">
               <label for="apellidoUsuario">Apellido</label>
               <input type="text" class="form-control" id="apellidoUsuario" placeholder="Apellido" name="last_name"
-                required>
+                required value="{{usuario.last_name}}">
             </div>
+            <label for="primerNombre">Cambiar Contraseña</label>
             <div class="form-group">
               <label for="passUser">Contraseña</label>
               <input type="password" class="form-control" id="passUser" placeholder="Ingrese contraseña"
-                name="password1" required>
+                name="password1" >
             </div>
+            
             <div class="form-group">
               <label for="passUser2">Confirmar contraseña</label>
               <input type="password" class="form-control" id="passUser2" placeholder="Confirme contraseña"
-                name="password2" required>
+                name="password2" >
             </div>
             <div class="form-group">
-              <label for="groups">Grupo de usuario</label>
+              
               <select name="groups" id="groups" class="custom-select" required>
                 <option value="">Seleccionar grupo</option>
                 {% for c in grupos %}
-                <option value="{{ c.0 }}">{{c.1}}</option>
+                {% if c.1 == grupoUsuario %}
+                <option value="{{ c.0 }}" selected>{{c.1}}</option>
+                {% else %}
+                <option value="{{ c.0 }}" >{{c.1}}</option>
+                {% endif %}
                 {% endfor %}
               </select>
+              
             </div>
 
 
@@ -61,44 +69,15 @@
           <!-- /.card-body -->
 
           <div class="card-footer text-center">
-            <input type="submit" class="btn btn-success" name="Registrar" value="Registrar">
+            <input type="submit" class="btn btn-success" name="Modificar" value="Modificar">
 
           </div>
         </form>
-
 
         <form action="{%url 'Administrador'%}" method="GET">
           <input type="submit" class="btn btn-success" name="Cancelar" value="Cancelar">
         </form>
       </div>
-
-      <div class="row">
-        <div class="card">
-          <div class="card-header">
-            <h2 class="card-title">Listado de Usuarios</h2>
-            <br>
-            <br>
-
-          </div>
-
-
-          <table class="table table-striped">
-            <tr>
-              <th>Nombre de Usuario</th>
-              <th>Rol</th>
-            </tr>
-            {% for lu in ListaUsuarios %}
-            <tr>
-              <td>{{ lu }}</td>
-              <td>{{ lu.groups.all.0 }}</td>
-              <td><a href="{%url 'modificar-usuario' lu %}" class="btn-xs btn-success">Modificar/Eliminar</a>
-              </td>
-            </tr>
-            {% endfor %}
-
-          </table>
-          <!-- Fin de Tabla de listado de Proveedores -->
-        </div>
 
         <!-- /.card -->
         {% if message %}

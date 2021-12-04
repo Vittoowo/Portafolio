@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect,render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -71,8 +72,11 @@ def RegistroUsuario(request):
     if request.user.groups.filter(name='Administrador').exists():
         data={
            'grupos':Usuario.lista_grupos(),
-           'message':""
+           'message':"",
+           'ListaUsuarios':User.objects.all(),
         }
+        
+        
         if request.method =='POST':
             #formulario= CustomUserForm(request.POST)
             if 'Registrar' in request.POST:
@@ -103,7 +107,17 @@ def RegistroUsuario(request):
         logout(request)
         return redirect('login')     
 
-
+def modificarUsuario(request,usuario):
+    u = User.objects.get(username=usuario)
+    data={ 
+          'grupos':Usuario.lista_grupos(),
+          'usuario' : u,
+          'grupoUsuario':str(u.groups.all()[0])
+          }
+    #if 'Modificar' in request.POST:
+        
+    return render(request,'registration/modificar-usuario.html',data)
+    
 def Home_totem(request ):
     if 'vermesasdisponibles' in request.POST:
         #Aqui se redirecciona a la url "mesas_totem" enviando los datos que se necesitaran, rut y digito verificador
