@@ -47,7 +47,6 @@ def login_user(request):
             login(request,user)
             #Obtenemos su grupo y segun esto, le redireccionamos a otra pagina
             if user.groups.filter(name='Administrador').exists():
-                
                 return redirect (to='Administrador')
             elif user.groups.filter(name='Cocina').exists():
                 return redirect (to='Cocina')
@@ -86,7 +85,6 @@ def RegistroUsuario(request):
                     id_grupo=int(request.POST.get('groups'))
                     first_name = request.POST.get('first_name')
                     last_name=request.POST.get('last_name')
-                    print(last_name)
                     #Pasamos los datos a la clase Usuario(creada por nosotros)
                     user = Usuario(username,password,email,id_grupo,first_name,last_name)
                     #Utilizamos el metodo crear usuario(creado por nosotros)
