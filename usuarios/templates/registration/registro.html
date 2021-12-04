@@ -57,9 +57,14 @@
     
                     <div class="card-footer text-center">
                       <input type="submit" class="btn btn-success" name="Registrar" value="Registrar">
-                      <input type="submit" class="btn btn-success" name="Cancelar" value="Cancelar">
+                      
                     </div>
                   </form>
+
+
+                  <form action="{%url 'Administrador'%}" method="GET">
+                    <input type="submit" class="btn btn-success" name="Cancelar" value="Cancelar">
+                </form>
                 </div>
                 <!-- /.card -->
                 {% if message %}
