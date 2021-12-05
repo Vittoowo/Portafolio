@@ -4,14 +4,49 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- escrip q transfiere de tabla a tabla -->
 <script>
+
     $(function () {
+
+        var i = 0; // variable maldita
+
         $(document).on("click", "#transferow", function () {
-            var getselectedvalues = $("#maintable input:checked").parents("tr").clone().appendTo($("#secondtable tbody").add(getselectedvalues))
-            document.getElementById("#secondtable tbody").contentEditable = "false";
+            //for each y meter lo demas dentro
+            var tabla2 = $("#secondtable")
+            var largo = $("#maintable input:checked").parents("tr").length;
+            //console.log(largo);
+            var contador = 0;
+            var id = 0;
+            
+            for (x = 0; x < largo; x++) {
+                
+                var nombreprod = $("#maintable input:checked").parents("tr")[x].children[1].textContent;
+                console.log($("#maintable input:checked").parents("tr")[x].children[1]);
+                console.log(x);
+                var cantidad = $("#maintable input:checked").parents("tr")[x].children[2].children[0].value;
+                //test.append("<td>" + cantidad + "</td>")
+                var medida = $("#maintable input:checked").parents("tr")[x].children[3].children[0].value;
+                //console.log($("#maintable input:checked").parents("tr")[x].children[3].children);
+                //test.append("<td>" + medida + "</td>")
+                //window.alert(largo);
+                tabla2.append('<tr id=row' + i + '><td>' + nombreprod + '</td><td>' + cantidad + '</td><td>' + medida + '</td><td><button name="remove" id="' + i + '" class="btn btn-danger btn_remove">Eliminar</button></td></tr>');
+                i++;
+
+            };
         })
+
+        /*
+        
+        <select class="form-select" name="medida" style="width: 200px">
+                                                <option value="">Seleccione</option>
+                                                <option value="Gramos">Gramos</option>
+                                                <option value="Kilos">Kilos</option>
+                                                <option value="Litros">Litros</option>
+                                            </select>
+        */
 
     })
 </script>
+
 <!-- estilo barra search -->
 <style>
     #myInput {
@@ -56,13 +91,21 @@
         }
     }
 </script>
-<!-- DATA TABES SCRIPT -->
-
-
-
-<!-- table test-->
-
-<!-- test mover datos table-->
+<!-- funcion eliminar -->
+<script>
+    $(document).ready(function () {
+        //obtenemos el valor de los input
+        $(document).on('click', '.btn_remove', function () {
+            var button_id = $(this).attr("id");
+            //cuando da click obtenemos el id del boton
+            $('#row' + button_id + '').remove(); //borra la fila
+            //limpia el para que vuelva a contar las filas de la tabla
+            $("#adicionados").text("");
+            var nFilas = $("#mytable tr").length;
+            $("#adicionados").append(nFilas - 1);
+        });
+    });
+</script>
 
 <section class="content">
     <div class="container-fluid">
@@ -88,16 +131,9 @@
                             <label for="precio">Precio</label>
                             <input type="number" name="precio" class="form-control" placeholder="precio" id="precio">
 
-                            <label for="img_plato">Imagen</label>
-                            <input type="file" name="img_plato" class="form-control" id="img_plato">
-
-                            <label for="instrucciones">Instrucciones</label>
-                            <textarea name="instrucciones" class="form-control" id="instrucciones"
+                            <label for="descripcion">Descripcion</label>
+                            <textarea name="descripcion" class="form-control" id="descripcion"
                                 placeholder="Instrucciones"></textarea>
-
-                            <br>
-                            <input type="submit" name='Guardar' value="Ingresar Plato" class="btn btn-success">
-
                             <label for="Mensaje">{{Mensaje}}</label>
                         </div>
                     </form>
@@ -114,18 +150,8 @@
                 <div class="col-md-6">
                     <div class="card-header">
                         <h3 class="card-title">Listado de productos</h3>
-                        <br>
-                        <!--                        <form action="" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" class="btn btn-success btn-sm" name='btnTodosLosProductos'
-                                value="Mostrar Todos Los Productos">
-                        </form>
-                        -->
                     </div>
-
                     <input type="text" id="myInput" onkeyup="BuscarEnTabla()" placeholder="Buscar por nombre producto">
-                    
-                    
                     <!------------------------------------------------------------------------------------>
                     <!-- Tabla de listado de Productos -->
                     <div style="overflow-x:auto;">
@@ -140,18 +166,24 @@
 
                             {% for r in Producto %}
                             <tr>
-                                <td><input type="checkbox"></td>
-                                <td>{{ r.1 }}</td>
-                                <td><input typer="text"></a></td>
-                                <td>
-                                    <!-- select que no muestra los valores -->
-                                    <select name="ProveedorProducto" id="user-group" class="form-select">
+                                <td id="checkboxtable1" style="width: 20px "><input type="checkbox"></td>
+                                <td id="nombreprodtable1" style="width: 250px ">{{ r.1 }}</td>
+                                <td id="cantidadtable1"><input type="text" class="form-control" style="width: 90px"></a>
+                                </td>
+                                <td id="seleccionartable1">
+                                    <!-- <select class="form-select" name="medida" style="width: 200px">
+                                        <option value="">Seleccione</option>
+                                        <option value="Gramos">Gramos</option>
+                                        <option value="Kilos">Kilos</option>
+                                        <option value="Litros">Litros</option>
+                                    </select> -->
+                                    <select name="UnidadMedidaProducto" id="user-group" class="form-select">
                                         <option value="">Seleccionar</option>
-                                        {% for e in Listado_Proveedores %}
-                                        <option value="{{ e.0 }}">{{e.1}}</option>
+                                        {% for e in Listado_Unidades_Medida %}
+                                        <option value="{{ e.1 }}">{{e.1}}</option>
                                         {% endfor %}
                                     </select>
-                                    <!--        fin select          -->
+
                                 </td>
 
                             </tr>
@@ -160,9 +192,10 @@
                         </table>
 
                     </div>
-                    <input type="button" value="transferir seleccion" id="transferow" class="btn btn-success">
+                    <input type="button" value="Transferir Seleccion" id="transferow" class="btn btn-success">
                     <!-- Fin de Tabla de listado de Insumos -->
                 </div>
+                <br>
                 <!-- fin tabla izq-->
                 <!-- tabla derecha-->
                 <div class="col-md-6">
@@ -173,26 +206,39 @@
 
                     <!------------------------------------------------------------------------------------>
                     <!-- Tabla de listado de Productos -->
-                    <div style="overflow-x:auto;">
-                        <table class="table table-striped" id="secondtable" >
-
+                    <div style="overflow-x:auto;" class="blockMe">
+                        <table class="table table-striped" id="secondtable">
                             <tr>
-                                <th>Seleccionar</th>
                                 <th>Nombre Producto</th>
                                 <th>Cantidad/medida</th>
                                 <th>Medida</th>
+                                <th>Eliminar</th>
                             </tr>
                         </table>
                     </div>
                     <!-- Fin de Tabla de listado de Insumos -->
                 </div>
                 <!-- fin tabla derecha-->
-                <!-- test mover datos-->
 
             </div>
         </div>
+
     </div>
     <!-- Fin Formulario-->
+    <div class="card card-warning">
+        <div class="card-header">
+            Ingresar intruucciones de la receta
+        </div>
+        <div class="card-body">
+
+            <label for="instrucciones">Instrucciones</label>
+            <textarea name="instrucciones" class="form-control" id="instrucciones"
+                placeholder="Instrucciones"></textarea>
+            <br>
+            <input type="submit" name='Guardar' value="Ingresar datos del plato" class="btn btn-success">
+        </div>
+    </div>
+
     </div>
     {% if mensaje %}
     <script>
