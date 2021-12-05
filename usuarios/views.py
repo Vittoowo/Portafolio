@@ -130,7 +130,10 @@ def modificarUsuario(request,usuario):
         u.first_name=first_name
         u.last_name=last_name
         u.save()
-        return redirect(to='registro')  
+        return redirect(to='registro')
+    if 'Eliminar' in request.POST:
+        u.delete()
+        return redirect(to='registro') 
     return render(request,'registration/modificar-usuario.html',data)
     
 def Home_totem(request ):
