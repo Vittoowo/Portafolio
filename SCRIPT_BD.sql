@@ -1,7 +1,3 @@
-ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MM-YYYY HH24:MI'; 
-DROP TABLE RELATION_20 CASCADE CONSTRAINTS;
-DROP TABLE RANGO_HORA CASCADE CONSTRAINTS;
-
 DROP TABLE boleta CASCADE CONSTRAINTS;
 
 DROP TABLE estado_mesa CASCADE CONSTRAINTS;
@@ -152,17 +148,12 @@ CREATE TABLE pedido_proveedor (
 ALTER TABLE pedido_proveedor ADD CONSTRAINT pedido_proveedor_pk PRIMARY KEY ( id_pedido );
 
 CREATE TABLE plato (
-    id_plato           NUMBER(4) NOT NULL,
-    receta_id_receta   NUMBER(4) NOT NULL,
-    nombre_plato       NVARCHAR2(50) NOT NULL,
-    descripcion        VARCHAR2(300) NOT NULL,
-    precio_plato       NUMBER(6) NOT NULL
+    id_plato       NUMBER(4) NOT NULL,
+    nombre_plato   NVARCHAR2(50) NOT NULL,
+    descripcion    VARCHAR2(300) NOT NULL,
+    precio_plato   NUMBER(6) NOT NULL,
+    id_receta      NUMBER(4) NOT NULL
 );
-
-CREATE UNIQUE INDEX plato__idx ON
-    plato (
-        receta_id_receta
-    ASC );
 
 ALTER TABLE plato ADD CONSTRAINT plato_pk PRIMARY KEY ( id_plato );
 
@@ -193,7 +184,7 @@ CREATE TABLE productos (
     unidad_medida_id_unidad          NUMBER(1) NOT NULL
 );
 
-ALTER TABLE productos ADD CONSTRAINT productos_pk PRIMARY KEY ( id_producto ) ;
+ALTER TABLE productos ADD CONSTRAINT productos_pk PRIMARY KEY ( id_producto );
 
 CREATE TABLE proveedor (
     id_proveedor       NUMBER(2) NOT NULL,
@@ -203,15 +194,10 @@ CREATE TABLE proveedor (
 ALTER TABLE proveedor ADD CONSTRAINT proveedor_pk PRIMARY KEY ( id_proveedor );
 
 CREATE TABLE receta (
-    plato_id_plato   NUMBER(4) NOT NULL,
-    id_receta        NUMBER(4) NOT NULL,
-    instrucciones    VARCHAR2(3000) NOT NULL
+    id_receta       NUMBER(4) NOT NULL,
+    instrucciones   VARCHAR2(3000) NOT NULL,
+    id_plato        NUMBER(4) NOT NULL
 );
-
-CREATE UNIQUE INDEX receta__idx ON
-    receta (
-        plato_id_plato
-    ASC );
 
 ALTER TABLE receta ADD CONSTRAINT receta_pk PRIMARY KEY ( id_receta );
 
@@ -291,10 +277,6 @@ ALTER TABLE pedido_proveedor
     ADD CONSTRAINT pedido_proveedor_proveedor_fk FOREIGN KEY ( proveedor_id_proveedor )
         REFERENCES proveedor ( id_proveedor );
 
-ALTER TABLE plato
-    ADD CONSTRAINT plato_receta_fk FOREIGN KEY ( receta_id_receta )
-        REFERENCES receta ( id_receta );
-
 ALTER TABLE platos_orden
     ADD CONSTRAINT platos_orden_orden_fk FOREIGN KEY ( orden_id_orden )
         REFERENCES orden ( id_orden );
@@ -332,10 +314,6 @@ ALTER TABLE productos
     ADD CONSTRAINT productos_unidad_medida_fk FOREIGN KEY ( unidad_medida_id_unidad )
         REFERENCES unidad_medida ( id_unidad );
 
-ALTER TABLE receta
-    ADD CONSTRAINT receta_plato_fk FOREIGN KEY ( plato_id_plato )
-        REFERENCES plato ( id_plato );
-
 ALTER TABLE reserva
     ADD CONSTRAINT reserva_estado_reserva_fk FOREIGN KEY ( estado_reserva_id_est_reserva )
         REFERENCES estado_reserva ( id_est_reserva );
@@ -343,5 +321,6 @@ ALTER TABLE reserva
 ALTER TABLE reserva
     ADD CONSTRAINT reserva_mesas_fk FOREIGN KEY ( mesas_id_mesa )
         REFERENCES mesas ( id_mesa );
+
 
 COMMIT;
