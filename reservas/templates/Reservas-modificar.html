@@ -5,13 +5,14 @@
 </br>
 <section class="content">
   <div class="container-fluid">
-    <div class="row">
-      <!-- ------------------------------------------------COLUMNA DERECHA------------------------------------- -->
-      <div class="col-md-6">
+
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
         <!-- Form Element sizes -->
         <div class="card card-success">
           <div class="card-header">
-            <h3 class="card-title">Modificar Insumo</h3>
+            <h3 class="card-title">Modificar Reserva</h3>
           </div>
           <div class="card-body">
             <div class="row">
@@ -42,7 +43,8 @@
                   <input type="text" style="width: 200px;" name="RutReserva" class="form-control" id="floatingRut"
                     placeholder="Rut Reserva" value="{{reserva.2}}">
                   <h3> - </h3>
-                  <input type="text" name="DVRUTReserva" class="form-control" id="floatingDV" placeholder="DV" value="{{reserva.3}}">
+                  <input type="text" name="DVRUTReserva" class="form-control" id="floatingDV" placeholder="DV"
+                    value="{{reserva.3}}">
                 </div>
 
 
@@ -53,22 +55,22 @@
 
 
                 <label for="floatingReserva">Hora Reserva</label>
-                <input type="time" name="HoraReserva" class="form-control" id="floatingFecha"
-                  placeholder="Hora Reserva" value="{{reserva.5}}">
+                <input type="time" name="HoraReserva" class="form-control" id="floatingFecha" placeholder="Hora Reserva"
+                  value="{{reserva.5}}">
 
-                
-                  <label for="estado">Estado de la reserva</label>
-                  <select name="EstadoReserva" id="user-group" class="form-select">
-                    <option value="">Seleccionar</option>
-                    {% for e in Lista_Estado_Reserva %}
-                    {% if e.1 == estadoR %}
-                    <option value="{{ e.0 }}" selected>{{e.1}}</option>
-                    {% else %}
-                    <option value="{{ e.0 }}">{{e.1}}</option>
-                    {% endif %}
-                    {% endfor %}
-                  </select>
-  
+
+                <label for="estado">Estado de la reserva</label>
+                <select name="EstadoReserva" id="user-group" class="form-select">
+                  <option value="">Seleccionar</option>
+                  {% for e in Lista_Estado_Reserva %}
+                  {% if e.1 == estadoR %}
+                  <option value="{{ e.0 }}" selected>{{e.1}}</option>
+                  {% else %}
+                  <option value="{{ e.0 }}">{{e.1}}</option>
+                  {% endif %}
+                  {% endfor %}
+                </select>
+
 
 
                 <label for="floatingEmail">Email</label>
@@ -91,25 +93,29 @@
 
                 <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Reserva">
 
-                <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Reserva">
-                
+                <input type="submit" class="btn btn-info" name='Modificar' value="Modificar Reserva">
+
                 <input type="submit" class="btn btn-success" name="Cancelar" value="Cancelar">
-                
-                
+
+
                 <br>
                 <br>
 
               </form>
-              
+
 
               {{Mensaje}}
             </div>
           </div>
           <!-- /.card-body -->
         </div>
+
+
       </div>
     </div>
+
   </div>
+
 </section>
 {%load static %}
 

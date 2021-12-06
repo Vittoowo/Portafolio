@@ -4,152 +4,155 @@
 
 <html>
 
-  <style>
-    .filterDiv {
-      float: left;
-      background-color: #4caf50 ;
-      color: #ffffff;
-      width: 180px;
-      line-height: 180px;
-      height: 180px;
-      text-align: center;
-      margin: 6px;
-      display: none;
-    }
+<style>
+  .filterDiv {
+    float: left;
+    background-color: #4caf50;
+    color: #ffffff;
+    width: 180px;
+    line-height: 180px;
+    height: 180px;
+    text-align: center;
+    margin: 6px;
+    display: none;
+  }
 
-    .show {
-      display: block;
-    }
+  .show {
+    display: block;
+  }
 
-    .container {
-      margin-top: 20px;
-      overflow: hidden;
-    }
-    
-    .btn {
-      border: none;
-      outline: none;
-      background-color: #f1f1f1;
-      cursor: pointer;
-    }
+  .container {
+    margin-top: 20px;
+    overflow: hidden;
+  }
 
-    .btn:hover {
-      background-color: #ddd;
-    }
+  .btn {
+    border: none;
+    outline: none;
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
 
-    .btn.active {
-      background-color: #666;
-      color: white;
-    }
-    
-  </style>
+  .btn:hover {
+    background-color: #ddd;
+  }
 
-<div class="card card-info">
-<div class="card-header"><h2>Mesas Restaurant Siglo XXI, Bienvenido  {{rut}} - {{dvRut}}</h2> </div>
-</div>
+  .btn.active {
+    background-color: #666;
+    color: white;
+  }
+</style>
+<br>
+<br>
+<section class="content">
+  <div class="container-fluid">
+    <div class="modal-dialog">
+      <div class="modal-content"> 
 
-<div class="card card-warning">
-  <div class="card-header">
-      <h3 class="card-title">Listado de Mesas</h3>
-  </div>
-  <!-- /.card-header -->
-  <!-- form start -->  
-  <div class="container">
-      <div class="card-body">      
-      
-          {% for e in Mesas %}
-          <form action="" method="POST">
-          {% csrf_token %}
-            <!-- Inputs necesarios para recoger los datos a mandar a la pagina de Confirmar-Reserva-->
-            <input id="numMesa" name="numMesa" type="hidden" value="{{e.1}}">
-            <input id="estado" name="estado" type="hidden" value="{{e.3}}">
-            <input id="capacidad" name="capacidad" type="hidden" value="{{e.2}}">
-            <input id="rut" name="rut" type="hidden" value="{{rut}}">
-            <input id="dv" name="dvRut" type="hidden" value="{{dvRut}}">
-            <button name='Reservar' class ="filterDiv {{ e.3 }}" > Mesa {{e.1}} (Para {{e.2}} Personas)</button>
-          </form>
-          {% endfor %} 
-         
+      <div class="text-center">
+        <div class="card card-warning">
+          <div class="card-header">
+            <h3 class="card-title">Listado de Mesas</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <div class="container">
+            <div class="card-body">
+              {% for e in Mesas %}
+              <form action="" method="POST">
+                {% csrf_token %}
+                <!-- Inputs necesarios para recoger los datos a mandar a la pagina de Confirmar-Reserva-->
+                <input id="numMesa" name="numMesa" type="hidden" value="{{e.1}}">
+                <input id="estado" name="estado" type="hidden" value="{{e.3}}">
+                <input id="capacidad" name="capacidad" type="hidden" value="{{e.2}}">
+                <input id="rut" name="rut" type="hidden" value="{{rut}}">
+                <input id="dv" name="dvRut" type="hidden" value="{{dvRut}}">
+                <button name='Reservar' class="filterDiv {{ e.3 }}"> Mesa {{e.1}} (Para {{e.2}} Personas)</button>
+              </form>
+              {% endfor %}
+            </div>
+          </div>
         </div>
       </div>
-</div>
+
+    </div>
+    </div>
+  </div>
+</section>
 
 
 
 
 
+{% if message %}
+<script>
+
+  alert('{{ message }}');
+
+</script>
+{%endif%}
+<script>
+
+  //Se obtienen todos los elementos con el nombre de clase filterDiv 4
+  //El 4 significa que esta reservada(según la bdd)
+  //Una vez se obtenidos, se les cambia el color mediante un ciclo for 
+  var reservadas = document.getElementsByClassName("filterDiv 4");
+  for (var i = 0; i < reservadas.length; i++) reservadas[i].style.backgroundColor = "rgb(213,9,9)";
+
+  var por_limpiar = document.getElementsByClassName("filterDiv 3");
+  for (var i = 0; i < por_limpiar.length; i++) por_limpiar[i].style.backgroundColor = "rgb(235,192,36)";
 
 
-
-        {% if message %}
-        <script>
-            
-            alert('{{ message }}');
-            
-        </script>
-        {%endif%}
-    <script>
-      
-      //Se obtienen todos los elementos con el nombre de clase filterDiv 4
-      //El 4 significa que esta reservada(según la bdd)
-      //Una vez se obtenidos, se les cambia el color mediante un ciclo for 
-      var reservadas=document.getElementsByClassName("filterDiv 4");
-		  for (var i=0; i<reservadas.length; i++) reservadas[i].style.backgroundColor="rgb(213,9,9)";
-
-      var por_limpiar=document.getElementsByClassName("filterDiv 3");
-		  for (var i=0; i<por_limpiar.length; i++) por_limpiar[i].style.backgroundColor="rgb(235,192,36)";
+  var enUso = document.getElementsByClassName("filterDiv 2");
+  for (var i = 0; i < enUso.length; i++) enUso[i].style.backgroundColor = "rgb(239,116,10)";
 
 
-      var enUso=document.getElementsByClassName("filterDiv 2");
-		  for (var i=0; i<enUso.length; i++) enUso[i].style.backgroundColor="rgb(239,116,10)";
-      
+  filterSelection("all")
+  function filterSelection(c) {
+    var x, i;
+    x = document.getElementsByClassName("filterDiv");
+    if (c == "all") c = "";
+    for (i = 0; i < x.length; i++) {
+      w3RemoveClass(x[i], "show");
+      if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+    }
+  }
 
-      filterSelection("all")
-      function filterSelection(c) {
-        var x, i;
-        x = document.getElementsByClassName("filterDiv");
-        if (c == "all") c = "";
-        for (i = 0; i < x.length; i++) {
-          w3RemoveClass(x[i], "show");
-          if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-        }
+  function w3AddClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+      if (arr1.indexOf(arr2[i]) == -1) { element.className += " " + arr2[i]; }
+    }
+  }
+
+  function w3RemoveClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+      while (arr1.indexOf(arr2[i]) > -1) {
+        arr1.splice(arr1.indexOf(arr2[i]), 1);
       }
+    }
+    element.className = arr1.join(" ");
+  }
 
-      function w3AddClass(element, name) {
-        var i, arr1, arr2;
-        arr1 = element.className.split(" ");
-        arr2 = name.split(" ");
-        for (i = 0; i < arr2.length; i++) {
-          if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
-        }
-      }
+  // Add active class to the current button (highlight it)
+  var btnContainer = document.getElementById("myBtnContainer");
+  var btns = btnContainer.getElementsByClassName("btn");
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function () {
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+    });
+  }
 
-      function w3RemoveClass(element, name) {
-        var i, arr1, arr2;
-        arr1 = element.className.split(" ");
-        arr2 = name.split(" ");
-        for (i = 0; i < arr2.length; i++) {
-          while (arr1.indexOf(arr2[i]) > -1) {
-            arr1.splice(arr1.indexOf(arr2[i]), 1);     
-          }
-        }
-        element.className = arr1.join(" ");
-      }
 
-      // Add active class to the current button (highlight it)
-      var btnContainer = document.getElementById("myBtnContainer");
-      var btns = btnContainer.getElementsByClassName("btn");
-      for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function(){
-          var current = document.getElementsByClassName("active");
-          current[0].className = current[0].className.replace(" active", "");
-          this.className += " active";
-        });
-      }
-     
-    
-      
-    </script>
+
+</script>
 {%load static %}
 
 {% endblock %}

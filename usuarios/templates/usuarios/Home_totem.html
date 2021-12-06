@@ -1,47 +1,46 @@
 {% extends "base-generic.html" %}
 {% block content %}
-  {% load static %}
-    <main class="main-section p-12">
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6">
-                    <!-- general form elements -->
-                     <div class="card card-success">
-                        <div class="card-header">
-                            <h3 class="card-title">Ingresa tu rut</h3>
-                         </div>
-                        <!-- /.card-header -->
-                         <!-- form start -->
-                        <form action="" method="POST" id="formulario">
-                         {% csrf_token %}
-                             <div class="card-body">
-                             <div class="form-group">
-                               <label for="RutReserva">Rut Reserva</label>
-                                <div class="input-group">
-                                  <input type="text" style="width: 200px;" name="RutReserva" class="form-control" id="floatingRut"
-                                    placeholder="Rut Reserva" required>
-                                  <h3> - </h3>
-                                  <input type="text" name="DVRUTReserva" class="form-control" id="floatingDV" placeholder="DV" required>
-                                </div>
-                             </div>
-                           <!-- /.card-body -->
-                           <div class="card-footer">
-                            <input type="submit" name='vermesasdisponibles' id="reserva" value="Reservar" class="btn btn-block btn-success btn-sm col-3">
-                           </div>
-                         </form>
-                       </div>
-                       <!-- /.card -->
-                     </div>
+{% load static %}
+<section class="content">
+  <div class="container-fluid">
+
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- general form elements -->
+        <div class="card card-success">
+          <div class="card-header">
+            <h3 class="card-title">Ingresa tu rut</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form action="" method="POST" id="formulario">
+            {% csrf_token %}
+            <div class="card-body">
+              <div class="form-group">
+                <label for="RutReserva">Rut Reserva</label>
+                <div class="input-group">
+                  <input type="text" style="width: 200px;" name="RutReserva" class="form-control" id="floatingRut"
+                    placeholder="Rut Reserva" required>
+                  <h3> - </h3>
+                  <input type="text" name="DVRUTReserva" class="form-control" id="floatingDV" placeholder="DV" required>
                 </div>
+              </div>
+              <!-- /.card-body -->
+              <input type="submit" name='vermesasdisponibles' id="reserva" value="Reservar"
+                class="btn btn-block btn-success btn-sm col-3">
 
-                {% if mensaje %}
-                    <script>
-                        alert('{{ mensaje }}');
+          </form>
+        </div>
+        <!-- /.card -->
+        {% if mensaje %}
+        <script>
+          alert('{{ mensaje }}');
+        </script>
+        {%endif%}
+      </div>
+    </div>
 
-                    </script>
-                {%endif%}
-            </div>
-        </section>
-    </main>
+  </div>
+</section>
 {% endblock %}

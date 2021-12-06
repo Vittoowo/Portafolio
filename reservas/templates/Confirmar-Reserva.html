@@ -1,13 +1,11 @@
 {% extends "base-generic.html" %}
 
 {% block content %}
-
-</br>
 <section class="content">
   <div class="container-fluid">
-    <div class="row">
-      <!-- ------------------------------------------------COLUMNA DERECHA------------------------------------- -->
-      <div class="col-md-6">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
         <!-- Form Element sizes -->
         <div class="card card-success">
           <div class="card-header">
@@ -20,15 +18,16 @@
 
                 <label for="Mesas">Mesa a Reservar</label>
                 <input type="number" readonly name="IDMesa" class="form-control" id="IDMesa"
-                  placeholder="Mesa {{numMesa}} (Para {{capacidadMesa}} personas)" value="{{numMesa}}">Esta mesa tiene capacidad para {{capacidadMesa}} personas
+                  placeholder="Mesa {{numMesa}} (Para {{capacidadMesa}} personas)" value="{{numMesa}}">Esta mesa tiene
+                capacidad para {{capacidadMesa}} personas
                 <br><br>
-                
+
 
 
                 <label for="DVRUTReserva">Rut reserva</label>
                 <div class="input-group">
-                  <input type="text" style="width: 200px;" readonly name="RutReserva" class="form-control" id="floatingRut"
-                    placeholder="Rut Reserva" value="{{rut}}">
+                  <input type="text" style="width: 200px;" readonly name="RutReserva" class="form-control"
+                    id="floatingRut" placeholder="Rut Reserva" value="{{rut}}">
                   <h3> - </h3>
                   <input type="text" readonly name="DVRUTReserva" class="form-control" id="floatingDV" placeholder="DV"
                     value="{{dv}}">
@@ -47,18 +46,14 @@
                 <label for="">{{MensajeCapacidad}}</label>
                 <br><br>
                 <input type="submit" class="btn btn-success" name="ConfirmarReserva" value="Confirmar">
+                  <button id="Cancelar" class="btn btn-danger" >Cancelar</button>
                 
-                <br>
-                
-                
-                <br>
-
-              </form>
-
-              <form action="{%url 'Home_totem'%}" method="GET">
-                <input type="submit" class="btn btn-success" name="Cancelar" value="Cancelar">
-              </form>
-
+              </form>              
+              <script type="text/javascript">
+                document.getElementById("Cancelar").onclick = function () {
+                    location.href = "{%url 'Home_totem'%}";
+                };
+            </script>
               {{Mensaje}}
             </div>
           </div>
@@ -68,6 +63,8 @@
     </div>
   </div>
 </section>
+
+
 {%load static %}
 
 {% endblock %}

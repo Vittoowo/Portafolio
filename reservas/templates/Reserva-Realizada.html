@@ -2,22 +2,35 @@
 {% block content %}
 {%load static %}
 
-
 <section class="content">
   <div class="container-fluid">
-    <div class="row">
-      <h4>Felicidades, mesa reservada!</h4>
-      <form action="" method="post">
-        {% csrf_token %}
-      <button type="submit" name="Listo">Listo</button>
-      </form>
+    <div class="modal-dialog">
+
+
+      <div class="card card-info">
+        <div class="card-header">
+          <h3 class="card-title">Felicidades, mesa reservada!</h3>
+        </div>
+        <div>
+          <div class="modal-content">
+            <BR>
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="text-center">
+              <button type="submit" name="Listo" class="btn btn-success">Listo</button>
+            </div>
+            </form>
+            <BR>
+          </div>
+        </div>
+
+
+      </div>
+
 
     </div>
   </div>
-  
-
-  
-
-  
+  </div>
 </section>
-  {% endblock %}
+
+{% endblock %}
