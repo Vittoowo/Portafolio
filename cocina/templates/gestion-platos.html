@@ -113,7 +113,7 @@
             <!-- -------------------------- COLUMNA IZQUIERDA ------------------------------ -->
             <div class="col-md-6">
                 <!-- general form elements -->
-                <div class="card card-warning">
+                <div class="card card-success">
                     <div class="card-header">
                         <h3 class="card-title">Ingresar Platos</h3>
                     </div>
@@ -144,7 +144,7 @@
         </div>
         <!------------------------------------------------------------------------------------>
         <!-- Tabla  -->
-        <div class="card">
+        <div class="card card-danger">
             <div class="row">
                 <!-- tabla izq-->
                 <div class="col-md-6">
@@ -168,15 +168,9 @@
                             <tr>
                                 <td id="checkboxtable1" style="width: 20px "><input type="checkbox"></td>
                                 <td id="nombreprodtable1" style="width: 250px ">{{ r.1 }}</td>
-                                <td id="cantidadtable1"><input type="text" class="form-control" style="width: 90px"></a>
+                                <td id="cantidadtable1"><input type="number" class="form-control" style="width: 90px"></a>
                                 </td>
                                 <td id="seleccionartable1">
-                                    <!-- <select class="form-select" name="medida" style="width: 200px">
-                                        <option value="">Seleccione</option>
-                                        <option value="Gramos">Gramos</option>
-                                        <option value="Kilos">Kilos</option>
-                                        <option value="Litros">Litros</option>
-                                    </select> -->
                                     <select name="UnidadMedidaProducto" id="user-group" class="form-select">
                                         <option value="">Seleccionar</option>
                                         {% for e in Listado_Unidades_Medida %}
@@ -193,6 +187,7 @@
 
                     </div>
                     <input type="button" value="Transferir Seleccion" id="transferow" class="btn btn-success">
+                </br>
                     <!-- Fin de Tabla de listado de Insumos -->
                 </div>
                 <br>
@@ -225,7 +220,7 @@
 
     </div>
     <!-- Fin Formulario-->
-    <div class="card card-warning">
+    <div class="card card-success">
         <div class="card-header">
             Ingresar intruucciones de la receta
         </div>
