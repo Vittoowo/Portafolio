@@ -2,55 +2,58 @@
 
 {% block content %}
 
-</br>
+
 <section class="content">
     <div class="container-fluid">
         <div class="row">
             <!-- ------------------------------------------------COLUMNA DERECHA------------------------------------- -->
-            <div class="col-md-6">
-                <!-- Form Element sizes -->
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Agregar Proveedor</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <form action="{% url 'proveedores' %}" method="POST">
-                                {% csrf_token %}
-
-                                <label for="IdProveedor">ID Proveedor</label>
-                                <input type="number" readonly name="IDProveedor" class="form-control" id="IdProveedor"
-                                    placeholder="ID Proveedor" value="{{IDProveedor}}">
-
-                                <br>
-
-                                <label for="NomProveedor">Nombre Proveedor</label>
-                                <input type="text" name="NombreProveedor" class="form-control" id="NomProveedor"
-                                    placeholder="Nombre Proveedor" value="{{NombreProveedor}}">
-
-                                <br>
-                                <label for="Advertencia">!Advertencia!</label> 
-                                <p> Si elimina este proveedor tambien sera eliminado todo lo que este afiliado a el
-                                (Como por ejemplo productos e insumos que vengan de este proveedor). Si desea eliminar el proveedor sin eliminar
-                                los productos y/o insumos que vengan de este proveedor es recomendable modificar el proveedor de los productos e insumos
-                                asociados a este proveedor. </p>
-                                <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Proveedor">
-
-                                <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Proveedor">
-
-                                <input type="submit" class="btn btn-success" name='Cancelar' value="Cancelar">
-                                <br>
-                                <br>
-                            </form>
-                            <br>
-                            <br>
-                            <br>
-                            <label for="Mensaje">{{Mensaje}}</label>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Form Element sizes -->
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Agregar Proveedor</h3>
                         </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <form action="{% url 'proveedores' %}" method="POST">
+                                    {% csrf_token %}
+    
+                                    <label for="IdProveedor">ID Proveedor</label>
+                                    <input type="number" readonly name="IDProveedor" class="form-control" id="IdProveedor"
+                                        placeholder="ID Proveedor" value="{{IDProveedor}}">
+    
+                                    <br>
+    
+                                    <label for="NomProveedor">Nombre Proveedor</label>
+                                    <input type="text" name="NombreProveedor" class="form-control" id="NomProveedor"
+                                        placeholder="Nombre Proveedor" value="{{NombreProveedor}}">
+    
+                                    <br>
+                                    <label for="Advertencia">!Advertencia!</label> 
+                                    <p> Si elimina este proveedor tambien sera eliminado todo lo que este afiliado a el
+                                    (Como por ejemplo productos e insumos que vengan de este proveedor). Si desea eliminar el proveedor sin eliminar
+                                    los productos y/o insumos que vengan de este proveedor es recomendable modificar el proveedor de los productos e insumos
+                                    asociados a este proveedor. </p>
+                                    <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Proveedor">
+    
+                                    <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Proveedor">
+    
+                                    <input type="submit" class="btn btn-success" name='Cancelar' value="Cancelar">
+                                    <br>
+                                    <br>
+                                </form>
+                                <br>
+                                <br>
+                                <br>
+                                <label for="Mensaje">{{Mensaje}}</label>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
                 </div>
             </div>
+            
         </div>
         <!------------------------------------------------------------------------------------>
 

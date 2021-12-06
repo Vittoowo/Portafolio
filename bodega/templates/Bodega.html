@@ -21,11 +21,11 @@
                             <div class="form-group">
                                 <div class="row">
                                     <label for="Productotxt">Buscar Producto por Codigo</label>
-                                    <div class="col-11">
+                                    <div class="col-10">
                                         <input type="number" class="form-control" id="Productotxt"
-                                            placeholder="Ingrese codigo" name="BuscarProductoPorCodigo">
+                                            placeholder="Ingrese codigo" name="BuscarProductoPorCodigo"> 
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-2">
                                         <input type="submit" class="btn btn-success" name='btnBuscarProductoCodigo'
                                             value="Buscar">
                                     </div>
@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <label for="BuscarProductoPorProveedor">Buscar por Proveedor</label>
-                                    <div class="col-11">
+                                    <div class="col-10">
                                         <select name="BuscarProductoPorProveedor" id="user-group" class="form-select">
                                             <option value="">Seleccionar</option>
                                             {% for e in Listado_Proveedores %}
@@ -44,7 +44,7 @@
                                             {% endfor %}
                                         </select>
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-2">
                                         <input type="submit" class="btn btn-success" name='btnBuscarProductoProveedor'
                                             value="Buscar">
                                     </div>
@@ -56,7 +56,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <label for="BuscarProductoPorMarca">Buscar Insumo por Marca</label>
-                                    <div class="col-11">
+                                    <div class="col-10">
                                         <select name="BuscarProductoPorMarca" id="user-group" class="form-select">
                                             <option value="">Seleccionar</option>
                                             {% for e in Listado_Marcas %}
@@ -64,7 +64,7 @@
                                             {% endfor %}
                                         </select>
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-2">
                                         <input type="submit" class="btn btn-success" name='btnBuscarProductoMarca'
                                             value="Buscar">
                                     </div>
@@ -75,11 +75,11 @@
                             <div class="form-group">
                                 <div class="row">
                                     <label for="BuscarProductoPorStock">Buscar Producto por Stock</label>
-                                    <div class="col-11">
+                                    <div class="col-10">
                                         <input type="number" class="form-control" id="Productotxt"
                                             placeholder="Ingrese codigo" name="BuscarProductoPorStock">
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-2">
                                         <input type="submit" class="btn btn-success" name='btnBuscarProductoStock'
                                             value="Buscar">
                                     </div>
@@ -98,13 +98,70 @@
                 <!-- Form Element sizes -->
                 <div class="card card-success">
                     <div class="card-header">
-                        <h3 class="card-title">Manejar Productos</h3>
+                        <h3 class="card-title">Ingresar producto</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <form action="" method="POST">
                                 {% csrf_token %}
-                                <label for="IDProducto">Codigo de Barra</label>
+                                <div class="form-group">
+                                    <label for="IDProducto">Codigo de Barra</label>
+                                    <input type="number" name="IDProducto" class="form-control" id="IDProducto"
+                                    placeholder="Codigo de Barra">
+                                </div>
+                                <div class="form-group">
+                                    <label for="NombreProducto">Nombre Producto</label>
+                                    <input type="text" name="NombreProducto" class="form-control" id="NombreProducto"
+                                    placeholder="Nombre Producto">
+                                </div>
+                                <div class="form-group">
+                                    <label for="ProveedorProducto">Proveedor Producto</label>
+                                    <select name="ProveedorProducto" id="user-group" class="form-select">
+                                        <option value="">Seleccionar</option>
+                                        {% for e in Listado_Proveedores %}
+                                        <option value="{{ e.0 }}">{{e.1}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="MarcaProducto">Marca Producto</label>
+                                    <select name="MarcaProducto" id="user-group" class="form-select">
+                                        <option value="">Seleccionar</option>
+                                        {% for e in Listado_Marcas %}
+                                        <option value="{{ e.0 }}">{{e.1}}</option>
+                                        {% endfor %}
+                                </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="StockProducto">Stock Producto</label>
+                                    <input type="number" name="StockProducto" class="form-control" id="StockProducto"
+                                    placeholder="Stock">
+                                </div>
+                                <div class="form-group">
+                                    <label for="FormatoStockProducto">Formato Stock Producto</label>
+                                    <select name="FormatoStockProducto" id="user-group" class="form-select">
+                                        <option value="">Seleccionar</option>
+                                        {% for e in Listado_Formato_Stock %}
+                                        <option value="{{ e.0 }}">{{e.1}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="MedidaProducto">Medida Stock Producto</label>
+                                    <input type="number" step="any" name="MedidaProducto" class="form-control"
+                                    id="MedidaProducto" placeholder="Medida Producto">
+                                </div>
+                                <div class="form-group">
+                                    <label for="UnidadMedidaProducto">Unidad Medida Stock Producto</label>
+                                    <select name="UnidadMedidaProducto" id="user-group" class="form-select">
+                                        <option value="">Seleccionar</option>
+                                        {% for e in Listado_Unidades_Medida %}
+                                        <option value="{{ e.0 }}">{{e.1}}</option>
+                                        {% endfor %}
+                                </select>
+                                </div>
+                                <!--
+                                    <label for="IDProducto">Codigo de Barra</label>
                                 <input type="number" name="IDProducto" class="form-control" id="IDProducto"
                                     placeholder="Codigo de Barra">
 
@@ -154,10 +211,15 @@
                                     <option value="{{ e.0 }}">{{e.1}}</option>
                                     {% endfor %}
                                 </select>
+
+                                -->
+                                
                                 </br>
-                                <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Producto">
-                                <br>
-                                <br>
+                                <div class="card-footer text-center">
+                                    <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Producto">
+                                </div>
+                                
+                                
 
                             </form>
                             <!-- Fin Formulario-->
@@ -177,6 +239,7 @@
                     <!-- Boton para mostrar todos los productos -->
                     <form action="" method="POST">
                         {% csrf_token %}
+                    </br>
                         <input type="submit" class="btn btn-success btn-sm" name='btnTodosLosProductos' value="Mostrar Todos Los Productos">
                     </form>
                 </div>
@@ -190,6 +253,7 @@
                         <th>Marca</th>
                         <th>Stock</th>
                         <th>Unidad de Medida Unitaria</th>
+                        <th>Modificar</th>
                     </tr>
         
                     {% for r in Producto %}
@@ -200,7 +264,7 @@
                         <td>{{ r.3 }}</td>
                         <td>{{ r.4 }} {{ r.5 }}</td>
                         <td>{{ r.6 }} {{ r.7 }} c/u</td>
-                        <td><a href="{% url 'modificar-producto' r.0 %}" class="btn-xs btn-success">Modificar/Eliminar</a> </td>
+                        <td><a href="{% url 'modificar-producto' r.0 %}" class="btn-xs btn-warning">Modificar/Eliminar</a> </td>
                     </tr>
                     {% endfor %}
                 </table>

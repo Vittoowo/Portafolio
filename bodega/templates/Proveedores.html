@@ -2,7 +2,7 @@
 
 {% block content %}
 
-</br>
+
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -22,11 +22,11 @@
                             <div class="form-group">
                                 <div class="row">
                                     <label for="Proveedortxt">Buscar Proveedor por Nombre</label>
-                                    <div class="col-11">
+                                    <div class="col-10">
                                         <input type="text" class="form-control" id="Proveedortxt"
                                             placeholder="Ingrese Nombre del Proveedor" name='BuscarProveedorPorNombre'>
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-2">
                                         <input type="submit" class="btn btn-success" name='btnBuscarProveedorNombre'
                                             value="Buscar">
                                     </div>
@@ -51,8 +51,18 @@
                         <div class="row">
                             <form action="" method="POST">
                                 {% csrf_token %}
-
-                                <label for="IdProveedor">ID Proveedor</label>
+                                <div class="form-group">
+                                    <label for="IdProveedor">ID Proveedor</label>
+                                    <input type="number" name="IDProveedor" class="form-control" id="IdProveedor"
+                                    placeholder="IDProveedor">
+                                </div>
+                                <div class="form-group">
+                                    <label for="NomProveedor">Nombre Proveedor</label>
+                                    <input type="text" name="NombreProveedor" class="form-control" id="NomProveedor"
+                                    placeholder="Nombre Proveedor">
+                                </div>
+                                <!--
+                                    <label for="IdProveedor">ID Proveedor</label>
                                 <input type="number" name="IDProveedor" class="form-control" id="IdProveedor"
                                     placeholder="IDProveedor">
                                 <br>
@@ -62,9 +72,12 @@
                                     placeholder="Nombre Proveedor">
 
                                 </br>
-                                <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Proveedor">
-                                <br>
-                                <br>
+                                -->
+                                <div class="card-footer text-center">
+                                    <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Proveedor">
+                                </div>
+                                
+                                
                             </form>
                             <br>
                             <br>
@@ -99,12 +112,13 @@
                 <tr>
                     <th>ID Proveedor</th>
                     <th>Nombre Proveedor</th>
+                    <th>Modificar</th>
                 </tr>
                 {% for p in Proveedores %}
                 <tr>
                     <td>{{ p.0 }}</td>
                     <td>{{ p.1 }}</td>
-                    <td><a href="{%url 'modificar-proveedor' p.1 %}" class="btn-xs btn-success">Modificar/Eliminar</a>
+                    <td><a href="{%url 'modificar-proveedor' p.1 %}" class="btn-xs btn-warning">Modificar/Eliminar</a>
                     </td>
                 </tr>
                 {% endfor %}

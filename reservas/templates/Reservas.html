@@ -91,11 +91,11 @@
                 <div class="row">
                   <!-- buscar mediante rut-->
                   <label for="floatingBuscarReserva">Buscar Reserva Por RUT</label>
-                  <div class="col-11">
+                  <div class="col-10">
                     <input type="text" name="BuscarReservaRUT" class="form-control" id="floatingBuscarReserva"
                       placeholder="Buscar Reserva Por RUT">
                   </div>
-                  <div class="col-1">
+                  <div class="col-2">
                     <input type="submit" class="btn btn-success" name='btnBuscarReservaPorRUT' value="Buscar">
                   </div>
                 </div>
@@ -146,7 +146,7 @@
           <td>{{ r.6 }}</td>
           <td>{{ r.7 }}</td>
           <td>{{ r.8 }}</td>
-          <td><a href="{%url 'modificar-reservas' r.0 %}">Modificar</a></td>
+          <td><a href="{%url 'modificar-reservas' r.0 %}" class="btn-xs btn-warning">Modificar</a></td>
         </tr>
         {% endfor %}
 

@@ -2,56 +2,59 @@
 
 {% block content %}
 
-</br>
+
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <!-- ------------------------------------------------COLUMNA DERECHA------------------------------------- -->
-            <div class="col-md-6">
-                <!-- Form Element sizes -->
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Agregar Marca</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <form action="{% url 'marcas' %}" method="POST">
-                                {% csrf_token %}
-
-                                <label for="IdMarca">ID Marca</label>
-                                <input type="number" readonly name="IDMarca" class="form-control" id="IdMarca"
-                                    placeholder="ID Marca" value="{{IDMarca}}">
-
-                                <br>
-
-                                <label for="NomMarca">Nombre Marca</label>
-                                <input type="text" name="NombreMarca" class="form-control" id="NomMarca"
-                                    placeholder="Nombre Marca" value="{{NombreMarca}}">
-
-                                <br>
-                                <label for="Advertencia">!Advertencia!</label> 
-                                <p> Si elimina esta marca tambien sera eliminado todo lo que este afiliado a ella
-                                (Como por ejemplo productos que sean de esta marca). Si desea eliminar la marca sin eliminar
-                                los productos que sean de esta marca es recomendable modificar la marca de los productos
-                                asociados a esta marca. </p>
-                                
-                                <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Marca">
-
-                                <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Marca">
-
-                                <input type="submit" class="btn btn-success" name='Cancelar' value="Cancelar">
-                                <br>
-                                <br>
-                            </form>
-                            <br>
-                            <br>
-                            <br>
-                            <label for="Mensaje">{{Mensaje}}</label>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Form Element sizes -->
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Agregar Marca</h3>
                         </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <form action="{% url 'marcas' %}" method="POST">
+                                    {% csrf_token %}
+    
+                                    <label for="IdMarca">ID Marca</label>
+                                    <input type="number" readonly name="IDMarca" class="form-control" id="IdMarca"
+                                        placeholder="ID Marca" value="{{IDMarca}}">
+    
+                                    <br>
+    
+                                    <label for="NomMarca">Nombre Marca</label>
+                                    <input type="text" name="NombreMarca" class="form-control" id="NomMarca"
+                                        placeholder="Nombre Marca" value="{{NombreMarca}}">
+    
+                                    <br>
+                                    <label for="Advertencia">!Advertencia!</label> 
+                                    <p> Si elimina esta marca tambien sera eliminado todo lo que este afiliado a ella
+                                    (Como por ejemplo productos que sean de esta marca). Si desea eliminar la marca sin eliminar
+                                    los productos que sean de esta marca es recomendable modificar la marca de los productos
+                                    asociados a esta marca. </p>
+                                    
+                                    <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Marca">
+    
+                                    <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Marca">
+    
+                                    <input type="submit" class="btn btn-success" name='Cancelar' value="Cancelar">
+                                    <br>
+                                    <br>
+                                </form>
+                                <br>
+                                <br>
+                                <br>
+                                <label for="Mensaje">{{Mensaje}}</label>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
                 </div>
             </div>
+            <!-- ------------------------------------------------COLUMNA DERECHA------------------------------------- -->
+            
         </div>
         <!------------------------------------------------------------------------------------>
 

@@ -7,109 +7,117 @@
     <div class="container-fluid">
         <div class="row">
             <!-- ------------------------------------------------COLUMNA DERECHA------------------------------------- -->
-            <div class="col-md-6">
-                <!-- Form Element sizes -->
-                <div class="card card-success">
-                    <div class="card-header">
-                            <h3 class="card-title">Modificar Productos</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                        <form action="{% url 'productos' %}" method="POST">
-                            {% csrf_token %}
-
-                            <label for="IDProducto">Codigo de Barra</label>
-                            <input type="number" readonly name="IDProducto" class="form-control" id="floatingIdProducto"
-                                placeholder="Codigo de Barra" value="{{Producto.0}}">
-
-                            <label for="NombreProducto">Nombre</label>
-                            <input type="text" name="NombreProducto" class="form-control" id="floatingNomProducto"
-                                placeholder="Nombre Producto" value="{{Producto.1}}">
-
-
-                            <label for="ProveedorProducto">Proveedor </label>
-                            <select name="ProveedorProducto" id="user-group" class="form-select">
-                                <option value="">Seleccionar</option>
-                                {% for e in Listado_Proveedores %}
-
-                                {% if e.1 == proveedorPro %}
-                                <option value="{{ e.0 }}" selected>{{e.1}}</option>
-                                {% else %}
-                                <option value="{{ e.0 }}">{{e.1}}</option>
-                                {% endif %}
-
-                                {% endfor %}
-                            </select>
-
-                            <label for="MarcaProducto">Marca</label>
-                            <select name="MarcaProducto" id="user-group" class="form-select">
-                                <option value="">Seleccionar</option>
-                                {% for m in Listado_Marcas %}
-
-                                {% if m.1 == marcaPro %}
-                                <option value="{{ m.0 }}" selected>{{m.1}}</option>
-                                {% else %}
-                                <option value="{{ m.0 }}" >{{m.1}}</option>
-                                {% endif%}
-
-                                {% endfor %}
-                            </select>
-
-
-                            <label for="StockProducto">Stock </label>
-                            <input type="number" name="StockProducto" class="form-control" id="floatingStockProducto"
-                                placeholder="Stock" value="{{Producto.4}}">
-
-
-                            <label for="FormatoStockProducto">Formato Stock Producto</label>
-                            <select name="FormatoStockProducto" id="user-group" class="form-select">
-                                <option value="">Seleccionar</option>
-                                {% for e in Listado_Formato_Stock %}
-
-                                {% if e.1 == formStockPro %}
-                                <option value="{{ e.0 }}" selected>{{e.1}}</option>
-                                {% else %}
-                                <option value="{{ e.0 }}" >{{e.1}}</option>
-                                {% endif%}
-
-                                {% endfor %}
-                            </select>
-
-                            <label for="MedidaProducto">Medida Stock Producto</label>
-                            <input type="number" step="any" name="MedidaProducto" class="form-control"
-                                id="floatingMedidaProducto" placeholder="Medida Producto" value="{{Producto.6}}">
-
-                            <label for="UnidadMedidaProducto">Unidad Medida Stock Producto</label>
-                            <select name="UnidadMedidaProducto" id="user-group" class="form-select">
-                                <option value="">Seleccionar</option>
-                                {% for e in Listado_Unidades_Medida %}
-
-                                {% if e.1 == unidadMedidaPro %}
-                                <option value="{{ e.0 }}" selected>{{e.1}}</option>
-                                {% else %}
-                                <option value="{{ e.0 }}">{{e.1}}</option>
-                                {% endif %}
-
-                                {% endfor %}
-                            </select>
-                            </br>
-                            <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Producto">
-                            <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Producto">
-                            <input type="submit" class="btn btn-success" name='Cancelar' value="Cancelar">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Form Element sizes -->
+                    <div class="card card-success">
+                        <div class="card-header">
+                                <h3 class="card-title">Modificar Productos</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                            <form action="{% url 'productos' %}" method="POST">
+                                {% csrf_token %}
+    
+                                <label for="IDProducto">Codigo de Barra</label>
+                                <input type="number" readonly name="IDProducto" class="form-control" id="floatingIdProducto"
+                                    placeholder="Codigo de Barra" value="{{Producto.0}}">
+    
+                                <label for="NombreProducto">Nombre</label>
+                                <input type="text" name="NombreProducto" class="form-control" id="floatingNomProducto"
+                                    placeholder="Nombre Producto" value="{{Producto.1}}">
+    
+    
+                                <label for="ProveedorProducto">Proveedor </label>
+                                <select name="ProveedorProducto" id="user-group" class="form-select">
+                                    <option value="">Seleccionar</option>
+                                    {% for e in Listado_Proveedores %}
+    
+                                    {% if e.1 == proveedorPro %}
+                                    <option value="{{ e.0 }}" selected>{{e.1}}</option>
+                                    {% else %}
+                                    <option value="{{ e.0 }}">{{e.1}}</option>
+                                    {% endif %}
+    
+                                    {% endfor %}
+                                </select>
+    
+                                <label for="MarcaProducto">Marca</label>
+                                <select name="MarcaProducto" id="user-group" class="form-select">
+                                    <option value="">Seleccionar</option>
+                                    {% for m in Listado_Marcas %}
+    
+                                    {% if m.1 == marcaPro %}
+                                    <option value="{{ m.0 }}" selected>{{m.1}}</option>
+                                    {% else %}
+                                    <option value="{{ m.0 }}" >{{m.1}}</option>
+                                    {% endif%}
+    
+                                    {% endfor %}
+                                </select>
+    
+    
+                                <label for="StockProducto">Stock </label>
+                                <input type="number" name="StockProducto" class="form-control" id="floatingStockProducto"
+                                    placeholder="Stock" value="{{Producto.4}}">
+    
+    
+                                <label for="FormatoStockProducto">Formato Stock Producto</label>
+                                <select name="FormatoStockProducto" id="user-group" class="form-select">
+                                    <option value="">Seleccionar</option>
+                                    {% for e in Listado_Formato_Stock %}
+    
+                                    {% if e.1 == formStockPro %}
+                                    <option value="{{ e.0 }}" selected>{{e.1}}</option>
+                                    {% else %}
+                                    <option value="{{ e.0 }}" >{{e.1}}</option>
+                                    {% endif%}
+    
+                                    {% endfor %}
+                                </select>
+    
+                                <label for="MedidaProducto">Medida Stock Producto</label>
+                                <input type="number" step="any" name="MedidaProducto" class="form-control"
+                                    id="floatingMedidaProducto" placeholder="Medida Producto" value="{{Producto.6}}">
+    
+                                <label for="UnidadMedidaProducto">Unidad Medida Stock Producto</label>
+                                <select name="UnidadMedidaProducto" id="user-group" class="form-select">
+                                    <option value="">Seleccionar</option>
+                                    {% for e in Listado_Unidades_Medida %}
+    
+                                    {% if e.1 == unidadMedidaPro %}
+                                    <option value="{{ e.0 }}" selected>{{e.1}}</option>
+                                    {% else %}
+                                    <option value="{{ e.0 }}">{{e.1}}</option>
+                                    {% endif %}
+    
+                                    {% endfor %}
+                                </select>
+                                </br>
+                                <input type="submit" class="btn btn-success" name='Modificar' value="Modificar Producto">
+                                <input type="submit" class="btn btn-danger" name='Eliminar' value="Eliminar Producto">
+                                <input type="submit" class="btn btn-success" name='Cancelar' value="Cancelar">
+                                <br>
+    
+                            </form>
+    
+                            <!-- Fin Formulario-->
+                            {{Mensaje}}
                             <br>
-
-                        </form>
-
-                        <!-- Fin Formulario-->
-                        {{Mensaje}}
-                        <br>
-                        <br>
-
+                            <br>
+    
+                        </div>
+    
                     </div>
-
+                </div>
                 </div>
             </div>
+        </div>
     </div>
+    
+            
+            
+    
 </section>
 
 

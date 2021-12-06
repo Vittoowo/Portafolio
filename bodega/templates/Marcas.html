@@ -22,11 +22,11 @@
                             <div class="form-group">
                                 <div class="row">
                                     <label for="Proveedortxt">Buscar Marca por Nombre</label>
-                                    <div class="col-11">
+                                    <div class="col-10">
                                         <input type="text" class="form-control" id="Marcatxt"
                                             placeholder="Ingrese Nombre de la Marca" name="BuscarMarcaPorNombre">
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-2">
                                         <input type="submit" class="btn btn-success" name='btnBuscarMarcaNombre'
                                             value="Buscar">
                                     </div>
@@ -51,8 +51,18 @@
                         <div class="row">
                             <form action="" method="POST">
                                 {% csrf_token %}
-
-                                <label for="IdMarca">ID Marca</label>
+                                <div class="form-group">
+                                    <label for="IdMarca">ID Marca</label>
+                                    <input type="number" name="IDMarca" class="form-control" id="IdMarca"
+                                    placeholder="ID Marca">
+                                </div>
+                                <div class="form-group">
+                                    <label for="NomMarca">Nombre Marca</label>
+                                    <input type="text" name="NombreMarca" class="form-control" id="NomMarca"
+                                    placeholder="Nombre Marca">
+                                </div>
+                                <!--
+                                    <label for="IdMarca">ID Marca</label>
                                 <input type="number" name="IDMarca" class="form-control" id="IdMarca"
                                     placeholder="ID Marca">
                                 <br>
@@ -62,9 +72,12 @@
                                     placeholder="Nombre Marca">
 
                                 </br>
-                                <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Marca">
-                                <br>
-                                <br>
+                                -->
+                                <div class="card-footer text-center">
+                                    <input type="submit" class="btn btn-success" name='Guardar' value="Guardar Marca">
+                                </div>
+                                
+                                
                             </form>
                             <br>
                             <br>
@@ -99,12 +112,13 @@
                 <tr>
                     <th>ID Marca</th>
                     <th>Nombre Marca</th>
+                    <th>Modificar</th>
                 </tr>
                 {% for m in Marcas %}
                 <tr>
                     <td>{{ m.0 }}</td>
                     <td>{{ m.1 }}</td>
-                    <td><a href="{%url 'modificar-marca' m.1 %}" class="btn-xs btn-success">Modificar/Eliminar</a>
+                    <td><a href="{%url 'modificar-marca' m.1 %}" class="btn-xs btn-warning">Modificar/Eliminar</a>
                     </td>
                 </tr>
                 {% endfor %}
