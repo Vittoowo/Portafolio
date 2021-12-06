@@ -30,7 +30,7 @@
             <div class="form-group">
               <label for="primerNombre">Nombre</label>
               <input type="text" class="form-control" id="primerNombre" placeholder="Nombre" name="first_name" required
-              value="{{usuario.first_name}}">
+                value="{{usuario.first_name}}">
             </div>
             <div class="form-group">
               <label for="apellidoUsuario">Apellido</label>
@@ -41,59 +41,51 @@
             <div class="form-group">
               <label for="passUser">Contraseña</label>
               <input type="password" class="form-control" id="passUser" placeholder="Ingrese contraseña"
-                name="password1" >
+                name="password1">
             </div>
-            
+
             <div class="form-group">
               <label for="passUser2">Confirmar contraseña</label>
               <input type="password" class="form-control" id="passUser2" placeholder="Confirme contraseña"
-                name="password2" >
-            </div>
-            <div class="form-group">
-              
-              <select name="groups" id="groups" class="custom-select" required>
-                <option value="">Seleccionar grupo</option>
-                {% for c in grupos %}
-                {% if c.1 == grupoUsuario %}
-                <option value="{{ c.0 }}" selected>{{c.1}}</option>
-                {% else %}
-                <option value="{{ c.0 }}" >{{c.1}}</option>
-                {% endif %}
-                {% endfor %}
-              </select>
-              
+                name="password2">
             </div>
 
-
+            <select name="groups" id="groups" class="custom-select" required>
+              <option value="">Seleccionar grupo</option>
+              {% for c in grupos %}
+              {% if c.1 == grupoUsuario %}
+              <option value="{{ c.0 }}" selected>{{c.1}}</option>
+              {% else %}
+              <option value="{{ c.0 }}">{{c.1}}</option>
+              {% endif %}
+              {% endfor %}
+            </select>
           </div>
           <!-- /.card-body -->
 
-          <div class="card-footer text-center">
-            <input type="submit" class="btn btn-success" name="Modificar" value="Modificar">
-
-          </div>
-          <div class="card-footer text-center">
-            <input type="submit" class="btn btn-success" name="Eliminar" value="Eliminar">
-          </div>
+          <div class="text-center">
+            <input type="submit" class="btn btn-info" name="Modificar" value="Modificar">
+            <input type="submit" class="btn btn-danger" name="Eliminar" value="Eliminar">
         </form>
-
         <form action="{%url 'registro'%}" method="GET">
           <input type="submit" class="btn btn-success" name="Cancelar" value="Cancelar">
         </form>
-        
       </div>
-
-        <!-- /.card -->
-        {% if message %}
-        <script>
-          alert('{{ message }}');
-        </script>
-        {%endif%}
-      </div>
-
-
-
+      <br>
     </div>
+
+
+    <!-- /.card -->
+    {% if message %}
+    <script>
+      alert('{{ message }}');
+    </script>
+    {%endif%}
+  </div>
+
+
+
+  </div>
 
 
 
