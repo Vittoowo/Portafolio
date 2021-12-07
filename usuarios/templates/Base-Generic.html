@@ -53,13 +53,13 @@
         <input type="hidden" id="userGroup" value={{user.groups.get}}>
         <li class="nav-menu-item"><a id="inicio" href="#" class="nav-menu-link nav-link nav_menu_link_active">Inicio</a>
         </li>
-        <li class="nav-menu-item"><a href="#" class="nav-menu-link nav-link">Contactenos</a></li>
+        
         <li class="nav-menu-item">
           {% if user.is_authenticated %}
-          <a href="{% url 'logout' %}" class="nav-menu-link nav-link">Log Out <i
+          <a href="{% url 'logout' %}" class="nav-menu-link nav-link">Cerrar sesión <i
               class="fas fa-sign-out-alt login-toggle"></i></a>
           {% else %}
-          <a href="{% url 'login' %}" class="nav-menu-link nav-link">Log In <i
+          <a href="{% url 'login' %}" class="nav-menu-link nav-link">Iniciar sesión <i
               class="fas fa-sign-in-alt login-toggle"></i></a>
           {% endif %}
       </ul>

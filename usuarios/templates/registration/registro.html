@@ -71,40 +71,41 @@
   </div>
 
 
-    <div class="card card-success">
-      <div class="card-header">
-        <h2 class="card-title">Listado de Usuarios</h2>
+    <div class="container-fluid">
+      <div class="card card-success">
+        <div class="card-header">
+          <h2 class="card-title">Listado de Usuarios</h2>
+        </div>
+        <table class="table table-striped">
+          <tr>
+            <th>Nombre de Usuario</th>
+            <th>Rol</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Modificar/Eliminar</th>
+          </tr>
+          {% for lu in ListaUsuarios %}
+          <tr>
+            <td>{{ lu }}</td>
+            <td>{{ lu.groups.all.0 }}</td>
+            <td>{{ lu.first_name }}</td>
+            <td>{{ lu.last_name }}</td>
+            <td>{{ lu.email }}</td>
+            <td><a href="{%url 'modificar-usuario' lu %}" class="btn-xs btn-warning">Modificar</a>
+            </td>
+          </tr>
+          {% endfor %}
+  
+        </table>
+        <!-- Fin de Tabla de listado de Proveedores -->
       </div>
-      <table class="table table-striped">
-        <tr>
-          <th>Nombre de Usuario</th>
-          <th>Rol</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Email</th>
-          <th>Modificar/Eliminar</th>
-        </tr>
-        {% for lu in ListaUsuarios %}
-        <tr>
-          <td>{{ lu }}</td>
-          <td>{{ lu.groups.all.0 }}</td>
-          <td>{{ lu.first_name }}</td>
-          <td>{{ lu.last_name }}</td>
-          <td>{{ lu.email }}</td>
-          <td><a href="{%url 'modificar-usuario' lu %}" class="btn-xs btn-success">Modificar/Eliminar</a>
-          </td>
-        </tr>
-        {% endfor %}
-
-      </table>
-      <!-- Fin de Tabla de listado de Proveedores -->
     </div>
-
+    {% if message %}
+    <script>
+     alert('{{ message }}');
+    </script>
+    {%endif%}
+{% endblock %}
 
 </main>
-{% if message %}
-<script>
-  alert('{{ message }}');
-</script>
-{%endif%}
-{% endblock %}
