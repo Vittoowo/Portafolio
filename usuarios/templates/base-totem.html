@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+<head>
+  <title>Restaurante Siglo XXI Styles</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  	
+  <link  rel="icon"   href="{% static 'img/faviconr.png' %}" type="image/png" />
+  <!--Estilos de bootstrap y fontawesome-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Raleway&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!--  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">-->
+  <!--Estilo del carrusel-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1.7.7/glider.min.css">
+  <!--Estilos propios-->
+  <!--<link rel="stylesheet" href="static/main.css"> -->
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <!-- Estilos propios -->
+  <link rel="stylesheet" type="text/css" href="{% static 'Estilo/css/main.css' %}">
+
+
+  <!--Scripts -->
+  <script defer src="{% static 'Estilo/js/index.js' %}"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/glider-js@1.7.7/glider.min.js"></script>
+  <!-- jQuery -->
+  <script defer src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+  <!-- Bootstrap 4 -->
+  <script defer src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- AdminLTE App -->
+  <script defer src="{% static 'dist/js/adminlte.min.js' %}"></script>
+
+
+</head>
+
+<body>
+
+  {% block content %}
+
+  {% endblock %}
+
+
+
+</body>
+
+</html>
